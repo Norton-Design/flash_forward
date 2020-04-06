@@ -22,7 +22,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --watch --mode=development"
   },
   "repository": {
     "type": "git",
@@ -34,5 +36,6 @@
   "bugs": {
     "url": "https://github.com/Norton-Design/flash_forward/issues"
   },
-  "homepage": "https://github.com/Norton-Design/flash_forward#readme"
+  "homepage": "https://github.com/Norton-Design/flash_forward#readme",
+  "devDependencies": {}
 }
