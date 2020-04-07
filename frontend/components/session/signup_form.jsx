@@ -1,11 +1,14 @@
 import React from "react";
 
-class LoginForm extends React.Component{
+class SignupForm extends React.Component{
     constructor(props){
         super(props);
+        //does this need to be snake_case to connect to the backend?
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            firstName: '',
+            lastName: ''
         }
     this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -19,14 +22,14 @@ class LoginForm extends React.Component{
     }
 
     handleSubmit(){
-        this.props.login(this.state);
+        this.props.signup(this.state);
     }
 
     render(){
-        const { email, password } = this.state;
+        const { email, password, firstName, lastName } = this.state;
         return (
             <form onSubmit={ this.handleSubmit }>
-                <h2>Log In</h2>
+                <h2>Sign Up</h2>
                     <input 
                         type="text"
                         value={email}
@@ -39,10 +42,22 @@ class LoginForm extends React.Component{
                         placeholder="Password"
                         onChange={this.handleInput('password')} />
                     <br/>
-                <input type="submit" value="Log In" />
+                    <input
+                        type="text"
+                        value={firstName}
+                        placeholder="First Name"
+                        onChange={this.handleInput('firstName')} />
+                    <br/>
+                    <input
+                        type="text"
+                        value={lastName}
+                        placeholder="Last Name"
+                        onChange={this.handleInput('lastName')} />
+                    <br/>
+                <input type="submit" value="Sign Up" />
             </form>
         )
     }
 }
 
-export default LoginForm;
+export default SignupForm;
