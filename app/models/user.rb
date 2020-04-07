@@ -19,7 +19,7 @@ class User < ApplicationRecord
     validates :last_name, presence: true
     validates :password_digest, presence: true
     validates :session_token, presence: true
-    validates :mod_status, presence: true
+    validates :mod_status, inclusion: [true, false]
     validates :password, length: { minimum: 6 }, allow_nil: true
 
     attr_reader :password
@@ -51,7 +51,7 @@ class User < ApplicationRecord
     end
 
     def reset_session_token!
-        self.update!(session_token: self.class.session_token)
+        self.update!(session_token: self.class.generate_session_token)
         self.session_token
     end
 end
