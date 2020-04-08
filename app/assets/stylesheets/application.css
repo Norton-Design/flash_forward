@@ -13,3 +13,16 @@
  *= require_tree .
  *= require_self
  */
+
+/* RESET */
+@import "reset";
+
+/* MAIN */
+@import "main";
+
+/* HEADER */
+@import "header";
+
+/* MODAL */
+@import "modal";
+

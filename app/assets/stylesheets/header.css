@@ -1,0 +1,21 @@
+
+header {
+    height: 70px;
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header > img {
+    height: 50px
+}
+
+header button {
+    box-sizing: border-box;
+    width: 60px;
+    height: 32px;
+    font-size: 12px;
+    margin: 5px;
+}

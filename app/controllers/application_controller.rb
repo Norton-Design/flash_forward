@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
     # celll
-    helper_method :ensure_logged_in, :login!, :logout!, :logged_in?
+    helper_method :ensure_logged_in, :login!, :logout!, :logged_in?, :current_user
 
     def current_user
         return nil unless session[:session_token]
