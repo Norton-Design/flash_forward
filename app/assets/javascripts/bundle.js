@@ -545,6 +545,7 @@ var LoginForm = /*#__PURE__*/function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit() {
       this.props.login(this.state);
+      setTimeout(this.closeModal, 350);
     }
   }, {
     key: "handleDemoLogin",
@@ -554,7 +555,6 @@ var LoginForm = /*#__PURE__*/function (_React$Component) {
         password: "testing"
       });
       this.handleSubmit();
-      setTimeout(this.closeModal, 500);
     }
   }, {
     key: "render",
@@ -700,6 +700,7 @@ var SignupForm = /*#__PURE__*/function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit() {
       this.props.signup(this.state);
+      setTimeout(this.closeModal, 350);
     }
   }, {
     key: "render",

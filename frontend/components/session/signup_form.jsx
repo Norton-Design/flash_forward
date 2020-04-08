@@ -24,6 +24,7 @@ class SignupForm extends React.Component{
 
     handleSubmit(){
         this.props.signup(this.state);
+        setTimeout(this.closeModal, 350);
     }
 
     render(){

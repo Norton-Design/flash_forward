@@ -22,6 +22,7 @@ class LoginForm extends React.Component{
 
     handleSubmit(){
         this.props.login(this.state);
+        setTimeout(this.closeModal, 350);
     }
 
     handleDemoLogin(){
@@ -30,7 +31,6 @@ class LoginForm extends React.Component{
             password: "testing"
         })
         this.handleSubmit();
-        setTimeout(this.closeModal, 500);
     }
 
     render(){
