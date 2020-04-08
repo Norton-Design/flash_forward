@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// This needs to change to a true nav later
 export default ({ currentUser, logout }) => {
   console.log(currentUser);
   const userDisplay = currentUser ? (
@@ -9,11 +10,7 @@ export default ({ currentUser, logout }) => {
       <button onClick={ logout }>Log Out</button>
     </div>
   ) : (
-    <div>
-      {/* This will be a spot of the Sign Up and Log In buttons on the far right */}
-      {/* <Link className="btn" to="/signup">Sign Up</Link>
-      <Link className="btn" to="/login">Log In</Link> */}
-    </div>
+    <div></div>
   );
 
   return (

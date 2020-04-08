@@ -1,0 +1,26 @@
+import React from 'react';
+
+const Greeting = props => {
+  const { currentUser, logout, openModal, test } = props;
+
+  const sessionLinks = () => (
+    <nav className="login-signup">
+      <button onClick={() => openModal('login')}>Log In</button>
+      <button onClick={() => openModal('signup')}>Sign Up</button>
+    </nav>
+  );
+  const personalGreeting = () => (
+    <hgroup className="header-group">
+      <h2 className="header-name">Welcome, {currentUser.first_name}!</h2>
+      <button className="header-button" onClick={logout}>Log Out</button>
+    </hgroup>
+  );
+
+  return (
+    currentUser ?
+    personalGreeting(currentUser, logout) :
+    sessionLinks()
+  );
+};
+
+export default Greeting;
