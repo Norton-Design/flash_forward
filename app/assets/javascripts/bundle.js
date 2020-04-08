@@ -285,7 +285,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mstp = function mstp(state) {
-  console.log(state);
+  // console.log(state);
   return {
     currentUser: state.entities.users[state.session.currentUserId]
   };
@@ -397,7 +397,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (function (_ref) {
   var currentUser = _ref.currentUser,
       logout = _ref.logout;
-  console.log(currentUser);
+  // console.log(currentUser);
   var userDisplay = currentUser ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Hello, ", currentUser.first_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     onClick: logout
   }, "Log Out")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);

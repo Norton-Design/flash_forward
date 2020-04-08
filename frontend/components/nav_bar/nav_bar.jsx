@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 // This needs to change to a true nav later
 export default ({ currentUser, logout }) => {
-  console.log(currentUser);
+  // console.log(currentUser);
   const userDisplay = currentUser ? (
     <div>
       <p>Hello, {currentUser.first_name}</p>

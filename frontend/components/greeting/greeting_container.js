@@ -4,7 +4,7 @@ import { openModal } from '../../actions/modal_actions';
 import Greeting from './greeting';
 
 const mstp = state => {
-  console.log(state);
+  // console.log(state);
   return {
   currentUser: state.entities.users[state.session.currentUserId],
   }
