@@ -11,6 +11,7 @@ class SignupForm extends React.Component{
             last_name: ''
         }
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.closeModal = props.closeModal;
     }
 
     handleInput(type){
@@ -28,7 +29,8 @@ class SignupForm extends React.Component{
     render(){
         const { email, password, first_name, last_name } = this.state;
         return (
-            <form onSubmit={ this.handleSubmit }>
+            <form onSubmit={ this.handleSubmit } className="signup">
+                <img src="./assets/x_icon.jpg" onClick={this.closeModal} />
                 <h2>Sign Up</h2>
                     <input 
                         type="text"

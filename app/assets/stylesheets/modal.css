@@ -1,0 +1,100 @@
+
+.modal-background {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 10;
+}
+
+.modal-child {
+    padding: 20px 0 0 0;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid white;
+    border-radius: 5px;
+    animation: dropDown .5s;
+    box-sizing: border-box;
+}
+
+.modal-child img {
+    position: relative;
+    left: 120px
+}
+
+.modal-child input, .modal-child button {
+    box-sizing: border-box;
+    width: 250px;
+    height: 50px;
+    padding: 10px;
+    margin: 5px;
+    font-size: 16px;
+} 
+
+header input[type=submit] {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 600;
+    color: white;
+    background-color: #2f699b;
+    border-color: #2f699b;
+    box-sizing: border-box;
+    font-size: 20px;
+}
+
+.modal-child > input[type=submit]:hover {
+    background: #254c70;
+}
+
+.modal-child h2 {
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    box-sizing: border-box;
+    text-align: center;
+    width: 250px;
+    height: 40px;
+    font-size: 26px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 600;
+}
+
+
+
+.modal-child button {
+    font-size: 20px;
+}
+
+.modal-child input:focus {
+    border: 1px solid black;
+}
+
+.signup {
+    width: 300px;
+    height: 380px;
+}
+
+.login {
+    width: 300px;
+    height: 320px;
+}
+
+@keyframes dropDown {
+    0%{
+        /* margin: -200%; */
+        transform: translateY(-800px)
+    }
+}
+
+.header-name {
+    display: inline-flex;
+}

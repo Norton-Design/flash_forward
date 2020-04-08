@@ -5,8 +5,8 @@ const Greeting = props => {
 
   const sessionLinks = () => (
     <nav className="login-signup">
-      <button onClick={() => openModal('login')}>Log In</button>
-      <button onClick={() => openModal('signup')}>Sign Up</button>
+      <button className="session-button" onClick={() => openModal('login')}>Log In</button>
+      <button className="session-button" onClick={() => openModal('signup')}>Sign Up</button>
     </nav>
   );
   const personalGreeting = () => (

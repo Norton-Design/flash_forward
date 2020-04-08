@@ -18,8 +18,12 @@ import GreetingContainer from "./greeting/greeting_container";
 
 const App = () => (
     <div>
-        <GreetingContainer />
-        <AuthModal />
+        <header>
+            <AuthModal />
+            <img src="./assets/greeting_logo.jpg" />
+            <GreetingContainer />
+        </header>
+
         <Switch>
             {/* <Route path="/" component={AuthContainer} /> */}
         </Switch>

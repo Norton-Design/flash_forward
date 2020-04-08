@@ -1,0 +1,19 @@
+
+header {
+    height: 70px;
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header > img {
+    height: 50px
+}
+
+header button {
+    font-size: 14px;
+    margin: 5px;
+    padding: 8px, 10px, 8px, 10px;
+}

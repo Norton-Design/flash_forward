@@ -9,6 +9,7 @@ class LoginForm extends React.Component{
         }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDemoLogin = this.handleDemoLogin.bind(this);
+    this.closeModal = props.closeModal;
     }
 
     handleInput(type){
@@ -29,12 +30,14 @@ class LoginForm extends React.Component{
             password: "testing"
         })
         this.handleSubmit();
+        setTimeout(this.closeModal, 500);
     }
 
     render(){
         const { email, password } = this.state;
         return (
-            <form onSubmit={ this.handleSubmit }>
+            <form onSubmit={ this.handleSubmit } className="login">
+                <img src="./assets/x_icon.jpg" onClick={ this.closeModal } />
                 <h2>Log In</h2>
                     <input 
                         type="text"
