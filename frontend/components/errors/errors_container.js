@@ -1,0 +1,1 @@
+// copy state over and create a ternary component
