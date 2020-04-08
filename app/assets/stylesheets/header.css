@@ -13,7 +13,9 @@ header > img {
 }
 
 header button {
-    font-size: 14px;
+    box-sizing: border-box;
+    width: 60px;
+    height: 32px;
+    font-size: 12px;
     margin: 5px;
-    padding: 8px, 10px, 8px, 10px;
 }
