@@ -6,7 +6,8 @@
 
 # Ignore bundler config.
 /.bundle
-/bundle.js.map
+bundle.js
+bundle.js.map
 node_modules
 bundle.js*
 
