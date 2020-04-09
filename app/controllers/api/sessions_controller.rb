@@ -5,7 +5,7 @@ class Api::SessionsController < ApplicationController
         # debugger
         @user = User.find_by_credentials(params[:user][:email], params[:user][:password])
         if @user.nil?
-            render json: ['Invalid Email or Password.'], status: 401
+            render json: ["Sorry, but doesn't seem to be a valid email address"], status: 401
             # flash.new[:errors] = ["Invalid Signin Combination."]
         else
             login!(@user)
@@ -15,7 +15,7 @@ class Api::SessionsController < ApplicationController
 
     def destroy
         logout!
-        render json: {message: "Logout Successful."}
+        render json: {message: "Logout Successful"}
     end
 
 end

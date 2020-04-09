@@ -9,15 +9,13 @@ import ErrorsContainer from "./errors/errors_container"
 const App = () => (
     <div>
         <ErrorsContainer />
-        <header>
+        <header className="header-main">
             <AuthModal />
             <img src="./assets/greeting_logo.jpg" />
             <GreetingContainer />
         </header>
-
-        <Switch>
-            {/* <Route path="/" component={AuthContainer} /> */}
-        </Switch>
+        <main>
+        </main>
     </div>
 );
 

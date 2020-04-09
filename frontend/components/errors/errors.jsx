@@ -2,14 +2,14 @@ import React from 'react'
 
 const Errors = props => {
     const { errors } = props;
-    if (errors.sessionErrors){
+    if (errors.sessionErrors.length >= 1){
         const collection = []
         errors.sessionErrors.map(err => {
-        collection.push(<il>{err}</il>)
+        collection.push(<il className="error-message"> {err}. </il>)
         })
 
         return (
-            <ul className="error-message">
+            <ul className="error-container">
                 { collection }
             </ul>
         )
