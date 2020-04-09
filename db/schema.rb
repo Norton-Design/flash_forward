@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_09_144231) do
+ActiveRecord::Schema.define(version: 2020_04_09_184022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "areas", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "description", null: false
+    t.float "lat", null: false
+    t.float "lng", null: false
+    t.string "getting_there", null: false
+    t.index ["parent_id"], name: "index_areas_on_parent_id"
+  end
 
   create_table "route_moderators", force: :cascade do |t|
     t.integer "route_id", null: false
@@ -30,7 +42,6 @@ ActiveRecord::Schema.define(version: 2020_04_09_144231) do
     t.string "difficulty", null: false
     t.integer "pitches", null: false
     t.integer "elevation", null: false
-    t.string "gps_loc", null: false
     t.string "description", null: false
     t.string "protection", null: false
     t.integer "area_id", null: false

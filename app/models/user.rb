@@ -1,5 +1,3 @@
-# == Schema Information
-#
 # Table name: users
 #
 #  id              :bigint           not null, primary key
@@ -54,4 +52,16 @@ class User < ApplicationRecord
         self.update!(session_token: self.class.generate_session_token)
         self.session_token
     end
+
+    has_many :route_moderators,
+    foreign_key: :mod_id,
+    class_name: :RouteModerator
+
+    has_many :moderated_routes,
+    through: :route_moderators,
+    source: :mod
+
+    has_many :shared_routes,
+    foreign_key: :shared_by,
+    class_name: :Route
 end
