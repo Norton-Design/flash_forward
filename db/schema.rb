@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_09_143626) do
+ActiveRecord::Schema.define(version: 2020_04_09_144231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "route_moderators", force: :cascade do |t|
+    t.integer "route_id", null: false
+    t.integer "mod_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mod_id"], name: "index_route_moderators_on_mod_id"
+    t.index ["route_id"], name: "index_route_moderators_on_route_id"
+  end
 
   create_table "routes", force: :cascade do |t|
     t.string "name", null: false

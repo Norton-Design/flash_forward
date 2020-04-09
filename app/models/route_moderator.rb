@@ -1,0 +1,2 @@
+class RouteModerator < ApplicationRecord
+end
