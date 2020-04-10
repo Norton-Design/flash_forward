@@ -17,14 +17,18 @@ class Directory extends React.Component {
         console.log(areas)
 
         return (
-            <div>
-                <ol>
+            <div className="directory-container">
+                <div className="directory-banner">
+                    <h2>Rock Climbing Guide</h2>
+                    <p>300 Routes shared by Climbers Like You</p>
+                </div>
+                <ul className="directory-list">
                     {
                         areas.map(area => (
                             <DirectoryItem area={area} key={area.id}/>
                         ))
                     }
-                </ol>
+                </ul>
             </div>
         )
     }

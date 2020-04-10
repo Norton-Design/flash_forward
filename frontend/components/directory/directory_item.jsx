@@ -10,7 +10,7 @@ class DirectoryItem extends React.Component {
             <li>
                 <a>{this.props.area.name}</a>
                 <hr />
-                {/* <small>{area.totalRoutes}</small> */}
+                <p className="">50</p>
             </li>
         );
     }

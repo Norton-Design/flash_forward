@@ -1,7 +1,8 @@
 class Api::AreasController < ApplicationController
 
     def index
-        @areas = Area.all
+        @areas = Area.all()
+        @root_areas = Area.where("parent_id IS NULL")
         render :index
     end
 
