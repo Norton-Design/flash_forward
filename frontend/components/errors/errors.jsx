@@ -5,7 +5,7 @@ const Errors = props => {
     if (errors.sessionErrors.length >= 1){
         const collection = []
         errors.sessionErrors.map(err => {
-        collection.push(<il className="error-message"> {err}. </il>)
+        collection.push(<li className="error-message" key={err}> {err}. </li>)
         })
 
         return (

@@ -3,11 +3,12 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import AuthModal from './modal/modal';
 import GreetingContainer from "./greeting/greeting_container";
-import ErrorsContainer from "./errors/errors_container"
+import ErrorsContainer from "./errors/errors_container";
+import DirectoryContainer from "./directory/directory_container"
 
 
 const App = () => (
-    <div>
+    <>
         <ErrorsContainer />
         <header className="header-main">
             <AuthModal />
@@ -15,8 +16,9 @@ const App = () => (
             <GreetingContainer />
         </header>
         <main>
+            <DirectoryContainer />
         </main>
-    </div>
+    </>
 );
 
 export default App;

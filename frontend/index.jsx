@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import configureStore from './store/store'
 import Root from './components/root'
-import { login, logout, signup } from './actions/session_actions';
+import { fetchArea, fetchAreas} from './actions/area_actions'
+
 
 document.addEventListener('DOMContentLoaded', ()=>{
     let store;
@@ -25,11 +26,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
 
     // TESTING
-    // window.login = login; 
-    // window.logout = logout; 
-    // window.signup = signup; 
+    window.fetchArea = fetchArea;
+    window.fetchAreas =fetchAreas;
     window.getState = store.getState;
-    // window.dispatch = store.dispatch;
+    window.dispatch = store.dispatch;
     // TESTING
     
     const root = document.getElementById('root');

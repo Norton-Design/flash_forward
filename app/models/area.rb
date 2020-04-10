@@ -6,6 +6,7 @@
 #     t.string "description", null: false
 #     t.float "lat", null: false
 #     t.float "lng", null: false
+#     t.string "getting_there"
 #     t.index ["parent_id"], name: "index_areas_on_parent_id"
 # end
 
@@ -21,7 +22,9 @@ class Area < ApplicationRecord
 
     belongs_to :parent_area,
     foreign_key: :parent_id,
-    class_name: :Area
+    class_name: :Area,
+    optional: true
+
 
     has_many :child_areas,
     foreign_key: :parent_id,

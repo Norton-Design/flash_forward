@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_09_184022) do
+ActiveRecord::Schema.define(version: 2020_04_09_211139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2020_04_09_184022) do
     t.string "description", null: false
     t.float "lat", null: false
     t.float "lng", null: false
-    t.string "getting_there", null: false
+    t.string "getting_there"
     t.index ["parent_id"], name: "index_areas_on_parent_id"
   end
 
