@@ -17,6 +17,6 @@ class RouteModerator < ApplicationRecord
     class_name: :User
 
     belongs_to :route,
-    foreign_key: :route_id
+    foreign_key: :route_id,
     class_name: :Route
 end
