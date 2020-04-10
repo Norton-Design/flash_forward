@@ -30,7 +30,7 @@ class Route < ApplicationRecord
     validates :shared_by, presence: true
 
     has_many :route_moderators,
-    foreign_key: :route_id
+    foreign_key: :route_id,
     class_name: :RouteModerator
 
     has_many :mods,
