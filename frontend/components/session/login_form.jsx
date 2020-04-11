@@ -40,7 +40,7 @@ class LoginForm extends React.Component{
                 <img src="./assets/x_icon.jpg" onClick={ this.closeModal } />
                 <h2>Log In</h2>
                     <input 
-                        type="text"
+                        type="email"
                         value={email}
                         placeholder="Log in with email"
                         onChange={this.handleInput('email')} />

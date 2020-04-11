@@ -32,6 +32,11 @@
     left: 120px
 }
 
+.modal-child img:hover {
+    cursor: pointer;
+}
+
+
 .modal-child input, .modal-child button {
     box-sizing: border-box;
     width: 250px;
@@ -53,6 +58,7 @@ header input[type=submit] {
 
 .modal-child input[type=submit]:hover {
     background: #254c70;
+    cursor: pointer;
 }
 
 .modal-child h2 {

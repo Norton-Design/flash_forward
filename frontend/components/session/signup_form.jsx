@@ -34,7 +34,7 @@ class SignupForm extends React.Component{
                 <img src="./assets/x_icon.jpg" onClick={this.closeModal} />
                 <h2>Sign Up</h2>
                     <input 
-                        type="text"
+                        type="email"
                         value={email}
                         placeholder="Sign up with email"
                         onChange={this.handleInput('email')} />

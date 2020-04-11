@@ -49,19 +49,30 @@
 }
 
 .directory-container a {
-    max-width: 70%;
+    color: #0033a2;
+    // max-width: %;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-size: 1rem;
+    font-weight: bolder;
+    line-height: 1.3rem;
 }
+
+.directory-container a:hover {
+    color: #001a4d;
+    text-decoration: underline;
+}
+
 
 .directory-container p {
     padding-left: 15px;
     padding-right: 15px;
+    color: #4e4d49
 }
 
 .directory-container hr {
     border-top: 2px dotted #d7d7d7;
-    width: 50%;
+    width: 40%;
     overflow: hidden;
 }

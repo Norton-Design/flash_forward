@@ -805,7 +805,7 @@ var LoginForm = /*#__PURE__*/function (_React$Component) {
         src: "./assets/x_icon.jpg",
         onClick: this.closeModal
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Log In"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
+        type: "email",
         value: email,
         placeholder: "Log in with email",
         onChange: this.handleInput('email')
@@ -953,7 +953,7 @@ var SignupForm = /*#__PURE__*/function (_React$Component) {
         src: "./assets/x_icon.jpg",
         onClick: this.closeModal
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Sign Up"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
+        type: "email",
         value: email,
         placeholder: "Sign up with email",
         onChange: this.handleInput('email')
