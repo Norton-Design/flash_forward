@@ -31,7 +31,8 @@ class SignupForm extends React.Component{
         const { email, password, first_name, last_name } = this.state;
         return (
             <form onSubmit={ this.handleSubmit } className="signup">
-                <img src=" https://utilflashforwardbucket.s3.us-east-2.amazonaws.com/x_icon.jpg" onClick={this.closeModal} />
+                {/* <img src=" https://utilflashforwardbucket.s3.us-east-2.amazonaws.com/x_icon.jpg" onClick={this.closeModal} /> Production Link */}
+                <img src="./assets/x_icon.jpg" onClick={ this.closeModal } /> {/*Dev Link*/}
                 <h2>Sign Up</h2>
                     <input 
                         type="email"
