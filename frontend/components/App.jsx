@@ -12,7 +12,7 @@ const App = () => (
         <ErrorsContainer />
         <header className="header-main">
             <AuthModal />
-            <img src="https://flashforwardbucket.s3.us-east-2.amazonaws.com/util/greeting_logo.jpg" />
+            <img src="https://utilflashforwardbucket.s3.us-east-2.amazonaws.com/greeting_logo.jpg" />
             <GreetingContainer />
         </header>
         <main>
