@@ -37,7 +37,7 @@ class LoginForm extends React.Component{
         const { email, password } = this.state;
         return (
             <form onSubmit={ this.handleSubmit } className="login">
-                <img src="./assets/x_icon.jpg" onClick={ this.closeModal } />
+                <img src="https://flashforwardbucket.s3.us-east-2.amazonaws.com/util/x_icon.jpg" onClick={ this.closeModal } />
                 <h2>Log In</h2>
                     <input 
                         type="email"
