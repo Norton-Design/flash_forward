@@ -3,18 +3,25 @@ import DirectoryItem from './directory_item'
 
 class Directory extends React.Component {
     constructor(props){
-        super(props)
+        super(props);
+        this.state = {
+            areas: ''
+        }
     }
 
     componentDidMount(){
-        this.props.fetchAreas()
+        this.props.fetchAreas().then(areas => {
+            this.setState({areas: areas.areas})
+        })
     }
 
     render(){
-        // console.log(this.props);
-        let { areas } = this.props;
-        areas = Object.values(areas)
-        // console.log(areas)
+        if (this.state.areas === ''){
+            return null;
+        }
+
+        console.log(this.state);
+        let areas = Object.values(this.state.areas)
 
         return (
             <div className="directory-container">

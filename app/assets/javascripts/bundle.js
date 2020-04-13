@@ -527,23 +527,37 @@ var Directory = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(Directory);
 
   function Directory(props) {
+    var _this;
+
     _classCallCheck(this, Directory);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.state = {
+      areas: ''
+    };
+    return _this;
   }
 
   _createClass(Directory, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchAreas();
+      var _this2 = this;
+
+      this.props.fetchAreas().then(function (areas) {
+        _this2.setState({
+          areas: areas.areas
+        });
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      // console.log(this.props);
-      var areas = this.props.areas;
-      areas = Object.values(areas); // console.log(areas)
+      if (this.state.areas === '') {
+        return null;
+      }
 
+      console.log(this.state);
+      var areas = Object.values(this.state.areas);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "directory-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
