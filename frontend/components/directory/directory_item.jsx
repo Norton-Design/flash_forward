@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom"
 
 class DirectoryItem extends React.Component {
     constructor(props){
@@ -6,9 +7,10 @@ class DirectoryItem extends React.Component {
     }
 
     render(){
+        const { name, id } = this.props.area
         return (
-            <li>
-                <a>{this.props.area.name}</a>
+            <li key={id}>
+                <Link to={`/areas/${id}`}>{name}</Link>
                 <hr />
                 <p className="">50</p>
             </li>

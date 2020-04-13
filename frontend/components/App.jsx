@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 import AuthModal from './modal/modal';
 import GreetingContainer from "./greeting/greeting_container";
 import ErrorsContainer from "./errors/errors_container";
@@ -15,7 +15,8 @@ const App = () => (
         <header className="header-main">
             <AuthModal />
             {/* <img src="https://utilflashforwardbucket.s3.us-east-2.amazonaws.com/greeting_logo.jpg" /> //Production link */}
-            <img src="./assets/greeting_logo.jpg" /> {/*Dev link*/}
+            <Link to="/"><img id="main-logo" src="./assets/greeting_logo.jpg" /></Link>
+            {/* <img src="./assets/greeting_logo.jpg" /> */}
             <GreetingContainer />
         </header>
         <main>
