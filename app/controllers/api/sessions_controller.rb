@@ -7,15 +7,13 @@ class Api::SessionsController < ApplicationController
         if @user
             login!(@user)
             render 'api/users/show'
-            # flash.new[:errors] = ["Invalid Signin Combination."]
         else
-            render json: ["Sorry, but doesn't seem to be a valid email address"], status: 401
+            render json: ["Invalid Email/Password combination"], status: 401
         end
     end
 
     def destroy
         logout!
-        render json: {message: "Logout Successful"}
     end
 
 end

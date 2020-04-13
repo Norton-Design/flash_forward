@@ -11,10 +11,10 @@ class Directory extends React.Component {
     }
 
     render(){
-        console.log(this.props);
+        // console.log(this.props);
         let { areas } = this.props;
         areas = Object.values(areas)
-        console.log(areas)
+        // console.log(areas)
 
         return (
             <div className="directory-container">

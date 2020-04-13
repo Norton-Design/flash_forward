@@ -2,7 +2,13 @@ class Api::RoutesController < ApplicationController
     before_action :ensure_logged_in, only: [:create, :destroy, :edit]
 
     def create
-        @route = Route.create!(route_params)
+        @route = Route.new(route_params)
+        @route.shared_by = current_user.id
+        if @route.save
+            render :show
+        else
+            render json: @route.errors.full_messages, status: 401
+        end
     end
 
     # def index
@@ -15,7 +21,8 @@ class Api::RoutesController < ApplicationController
     # end
 
     def show
-        @route = Route.find(params[:id])
+        # joins the tables to avoid additional querying
+        @route = Route.includes(:sharer, :area).find(params[:id])
         render :show
     end
 
@@ -29,7 +36,6 @@ class Api::RoutesController < ApplicationController
             :description,
             :protection,
             :area_id,
-            :shared_by
         )
     end
 

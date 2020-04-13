@@ -66,13 +66,14 @@
 
 
 .directory-container p {
-    padding-left: 15px;
+    // padding-left: 15px;
     padding-right: 15px;
     color: #4e4d49
 }
 
 .directory-container hr {
     border-top: 2px dotted #d7d7d7;
-    width: 40%;
+    width: 100%;
     overflow: hidden;
+    flex: 1;
 }

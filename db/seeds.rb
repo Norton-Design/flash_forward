@@ -6,11 +6,18 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.destroy_all
+# DEVELOPMENT SEEDING
+Route.destroy_all
 Area.destroy_all
+User.destroy_all
 
+
+# Users
 demo_user = User.create!(email: "DemoUser@FlashForward.com", password: "testing", first_name: "Demo User", last_name: "Whatever")
+u1 = User.create!(email: "LynnHill@FlashForward.com", password: "testing", first_name: "Lynn", last_name: "Hill")
 
+
+# Areas
 new_york = Area.create!(lat: 41.968, lng: -74.443, name: "New York", description: "Rock Climbing in New York State consists of three main regions: the world-famous Gunks, properly called the Shawangunks; the Adirondacks, a vast state park with dozens of crags scattered across an area the size of Rhode Island; and Moss Island, a small crag near Little Falls. Several other areas exist, e.g. bouldering in Central Park, the Timp in Harriman Park, as well as many places of questionable access and/or worth.")
 west_virginia = Area.create!(lat: 38.069, lng: -81.081, name: "West Virginia", description: "West Virginia is full of great climbing destinations, from local crags to Seneca Rocks to the The New River Gorge with 3000+ routes. Excellent sport climbing, bouldering, single and multi-pitch trad climbing can be found in The Mountain State.")
 vermont = Area.create!(lat: 44.247, lng: -72.578, name: "Vermont", description: "For those who fall in love with Vermont, it's more than just local climbing. Vermont has long granite slabs, overhanging sport routes, beautiful schist and granite boulders, lakeside limestone, adventurous trad lines, and of course, world-class ice climbing. All in a setting that people drive hundreds of miles just to gawk at and with many cliffs that you will never see another person at. It's our hidden gem of New England and it's hiding in plain sight. Vermont is no longer just a central location to the neighboring rock of the Adirondacks and the White Mountains, it stands proud with its own 5-star lines as good as any in the Northeast.")
@@ -41,3 +48,15 @@ a4.save!
 a5.save!
 a6.save!
 a7.save!
+
+# Routes
+r1 = Route.new(pitches: 1, difficulty: "V3", route_type: "Boulder", name: "Cat Rock", elevation: 15, protection: "Has a rough landing.", description: "Cat Rock is located immediately north of the Wollman Skating Rink at the very south end of Central Park, just a short walk from Rat Rock.  Follow paths east from Rat Rock, walking under or over Center Drive.  Cat Rock is the obvious south-facing rock wall.")
+r2 = Route.new(pitches: 1, difficulty: "V0", route_type: "Boulder", name: "The Arete", elevation: 25, protection: "Despite being modest in height, it can feel intimidating, especially near the top.  However, good holds are to be found for the exit moves.", description: "Up the left side of the arete to the top.  (If you start on the right side, make an initial hard move to gain the left side of the arete.)")
+
+r1.area_id = new_york.id
+r2.area_id = new_york.id
+r1.shared_by = u1.id
+r2.shared_by = u1.id
+
+r1.save!
+r2.save!

@@ -165,6 +165,56 @@ var closeModal = function closeModal() {
 
 /***/ }),
 
+/***/ "./frontend/actions/route_actions.js":
+/*!*******************************************!*\
+  !*** ./frontend/actions/route_actions.js ***!
+  \*******************************************/
+/*! exports provided: RECEIVE_ROUTE, RECEIVE_ROUTES, receiveRoute, receiveRoutes, fetchRoute, fetchRoutes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ROUTE", function() { return RECEIVE_ROUTE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ROUTES", function() { return RECEIVE_ROUTES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveRoute", function() { return receiveRoute; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveRoutes", function() { return receiveRoutes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchRoute", function() { return fetchRoute; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchRoutes", function() { return fetchRoutes; });
+/* harmony import */ var _util_route_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/route_api_util */ "./frontend/util/route_api_util.js");
+
+var RECEIVE_ROUTE = 'RECEIVE_ROUTE';
+var RECEIVE_ROUTES = 'RECEIVE_ROUTES';
+var receiveRoute = function receiveRoute(route) {
+  // debugger;
+  return {
+    type: RECEIVE_ROUTE,
+    route: route
+  };
+};
+var receiveRoutes = function receiveRoutes(routes) {
+  // debugger;
+  return {
+    type: RECEIVE_ROUTES,
+    routes: routes
+  };
+};
+var fetchRoute = function fetchRoute(id) {
+  return function (dispatch) {
+    return _util_route_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchRoute"](id).then(function (route) {
+      return dispatch(receiveRoute(route));
+    });
+  };
+};
+var fetchRoutes = function fetchRoutes() {
+  return function (dispatch) {
+    return _util_route_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchRoutes"]().then(function (routes) {
+      return dispatch(receiveRoutes(routes));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/session_actions.js":
 /*!*********************************************!*\
   !*** ./frontend/actions/session_actions.js ***!
@@ -250,6 +300,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _greeting_greeting_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./greeting/greeting_container */ "./frontend/components/greeting/greeting_container.js");
 /* harmony import */ var _errors_errors_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./errors/errors_container */ "./frontend/components/errors/errors_container.js");
 /* harmony import */ var _directory_directory_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./directory/directory_container */ "./frontend/components/directory/directory_container.js");
+/* harmony import */ var _routes_route_show_route_show_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./routes/route_show/route_show_container */ "./frontend/components/routes/route_show/route_show_container.js");
+/* harmony import */ var _areas_area_show_area_show_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./areas/area_show/area_show_container */ "./frontend/components/areas/area_show/area_show_container.js");
+
+
 
 
 
@@ -262,10 +316,179 @@ var App = function App() {
     className: "header-main"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     src: "./assets/greeting_logo.jpg"
-  }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_3__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_directory_directory_container__WEBPACK_IMPORTED_MODULE_5__["default"], null)));
+  }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_3__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    path: "/routes/:routeId",
+    component: _routes_route_show_route_show_container__WEBPACK_IMPORTED_MODULE_6__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    exact: true,
+    path: "/",
+    component: _directory_directory_container__WEBPACK_IMPORTED_MODULE_5__["default"]
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
+
+/***/ }),
+
+/***/ "./frontend/components/areas/area_show/area_show.jsx":
+/*!***********************************************************!*\
+  !*** ./frontend/components/areas/area_show/area_show.jsx ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var AreaShow = /*#__PURE__*/function (_React$Component) {
+  _inherits(AreaShow, _React$Component);
+
+  var _super = _createSuper(AreaShow);
+
+  function AreaShow(props) {
+    var _this;
+
+    _classCallCheck(this, AreaShow);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      area: ""
+    };
+    return _this;
+  }
+
+  _createClass(AreaShow, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      debugger;
+      this.props.fetchArea(this.props.match.params.areaId).then(function (area) {
+        _this2.setState({
+          area: area.area
+        });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.state.area === "") {
+        return null;
+      }
+
+      var _this$state$area = this.state.area,
+          name = _this$state$area.name,
+          description = _this$state$area.description,
+          gettingThere = _this$state$area.gettingThere,
+          lat = _this$state$area.lat,
+          lng = _this$state$area.lng;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "testing"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, description)); //         if (pitches === 1){
+      //             pitches = "1 pitch";
+      //         }   else {
+      //             pitches = pitches.toString().concat(" pitches");
+      //         }
+      //         return (
+      //             <div className="showpage-main">
+      //                 <div className="sidebar">
+      //                     <h3>Routes in { area.name }</h3>
+      //                     <a>Placeholder route</a>
+      //                     <a>Placeholder route</a>
+      //                     <a>Placeholder route</a>
+      //                 </div>
+      //                 <div className="showpage-body">
+      //                     <div className="sub-header">
+      //                         <h1>{ name }</h1>
+      //                         <h2>{ difficulty }</h2>
+      //                     </div>
+      //                     <table className="description-details"> 
+      //                         <tbody>
+      //                             <tr>
+      //                                 <td className="description-details-left">Type:</td>
+      //                                 <td>{ routeType }, { elevation }ft, { pitches }</td>
+      //                             </tr>
+      //                             <tr>
+      //                                 <td className="description-details-left">Shared By:</td>
+      //                                 <td>{ sharer.firstName } { sharer.lastName }</td>
+      //                             </tr>
+      //                             <tr>
+      //                                 <td className="description-details-left">Admins:</td>
+      //                                 <td>Placeholder</td>
+      //                             </tr>
+      //                         </tbody>
+      //                     </table>
+      //                     <div className="slideshow-show">
+      //                     </div>
+      //                     <div className="description-body">
+      //                         <h2>Description</h2>
+      //                         <p>{ description }</p>
+      //                         <h2>Protection</h2>
+      //                         <p>{ protection }</p>
+      //                     </div>
+      //                 </div>
+      //             </div>
+      //         )
+    }
+  }]);
+
+  return AreaShow;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (AreaShow);
+
+/***/ }),
+
+/***/ "./frontend/components/areas/area_show/area_show_container.js":
+/*!********************************************************************!*\
+  !*** ./frontend/components/areas/area_show/area_show_container.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _area_show__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./area_show */ "./frontend/components/areas/area_show/area_show.jsx");
+/* harmony import */ var _actions_area_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/area_actions */ "./frontend/actions/area_actions.js");
+
+
+
+
+var mdtp = function mdtp(dispatch) {
+  return {
+    fetchArea: function fetchArea(areaId) {
+      return dispatch(Object(_actions_area_actions__WEBPACK_IMPORTED_MODULE_2__["fetchArea"])(areaId));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mdtp)(_area_show__WEBPACK_IMPORTED_MODULE_1__["default"]));
 
 /***/ }),
 
@@ -325,10 +548,10 @@ var Directory = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.props);
+      // console.log(this.props);
       var areas = this.props.areas;
-      areas = Object.values(areas);
-      console.log(areas);
+      areas = Object.values(areas); // console.log(areas)
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "directory-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -707,6 +930,155 @@ var Root = function Root(_ref) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Root);
+
+/***/ }),
+
+/***/ "./frontend/components/routes/route_show/route_show.jsx":
+/*!**************************************************************!*\
+  !*** ./frontend/components/routes/route_show/route_show.jsx ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var RouteShow = /*#__PURE__*/function (_React$Component) {
+  _inherits(RouteShow, _React$Component);
+
+  var _super = _createSuper(RouteShow);
+
+  function RouteShow(props) {
+    var _this;
+
+    _classCallCheck(this, RouteShow);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      route: ""
+    };
+    return _this;
+  }
+
+  _createClass(RouteShow, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.props.fetchRoute(this.props.match.params.routeId).then(function (route) {
+        _this2.setState({
+          route: route.route
+        });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.state.route === "") {
+        return null;
+      }
+
+      var _this$state$route = this.state.route,
+          name = _this$state$route.name,
+          routeType = _this$state$route.routeType,
+          difficulty = _this$state$route.difficulty,
+          pitches = _this$state$route.pitches,
+          elevation = _this$state$route.elevation,
+          description = _this$state$route.description,
+          protection = _this$state$route.protection,
+          sharer = _this$state$route.sharer,
+          area = _this$state$route.area;
+
+      if (pitches === 1) {
+        pitches = "1 pitch";
+      } else {
+        pitches = pitches.toString().concat(" pitches");
+      }
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "showpage-main"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sidebar"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Routes in ", area.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, "Placeholder route"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, "Placeholder route"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, "Placeholder route")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "showpage-body"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sub-header"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, difficulty)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "description-details"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        className: "description-details-left"
+      }, "Type:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, routeType, ", ", elevation, "ft, ", pitches)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        className: "description-details-left"
+      }, "Shared By:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, sharer.firstName, " ", sharer.lastName)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        className: "description-details-left"
+      }, "Admins:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Placeholder")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "slideshow-show"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "description-body"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Protection"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, protection))));
+    }
+  }]);
+
+  return RouteShow;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (RouteShow);
+
+/***/ }),
+
+/***/ "./frontend/components/routes/route_show/route_show_container.js":
+/*!***********************************************************************!*\
+  !*** ./frontend/components/routes/route_show/route_show_container.js ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _route_show__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./route_show */ "./frontend/components/routes/route_show/route_show.jsx");
+/* harmony import */ var _actions_route_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/route_actions */ "./frontend/actions/route_actions.js");
+
+
+ // const mstp = (state, { match }) => {
+//     return {
+//     routeId: parseInt(match.params.routeId),
+// }};
+
+var mdtp = function mdtp(dispatch) {
+  return {
+    fetchRoute: function fetchRoute(routeId) {
+      return dispatch(Object(_actions_route_actions__WEBPACK_IMPORTED_MODULE_2__["fetchRoute"])(routeId));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mdtp)(_route_show__WEBPACK_IMPORTED_MODULE_1__["default"]));
 
 /***/ }),
 
@@ -1116,12 +1488,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _users_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./users_reducer */ "./frontend/reducers/users_reducer.js");
 /* harmony import */ var _areas_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./areas_reducer */ "./frontend/reducers/areas_reducer.js");
+/* harmony import */ var _routes_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./routes_reducer */ "./frontend/reducers/routes_reducer.js");
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   users: _users_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
-  areas: _areas_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
+  areas: _areas_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+  routes: _routes_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
 }));
 
 /***/ }),
@@ -1201,6 +1576,36 @@ __webpack_require__.r(__webpack_exports__);
   ui: _ui_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
   errors: _errors_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
 }));
+
+/***/ }),
+
+/***/ "./frontend/reducers/routes_reducer.js":
+/*!*********************************************!*\
+  !*** ./frontend/reducers/routes_reducer.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_route_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/route_actions */ "./frontend/actions/route_actions.js");
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_route_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ROUTE"]:
+      return Object.assign({}, state, action.route);
+
+    case _actions_route_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ROUTES"]:
+      return Object.assign({}, state, action.routes);
+
+    default:
+      return state;
+  }
+});
 
 /***/ }),
 
@@ -1372,6 +1777,35 @@ var fetchAreas = function fetchAreas(areas) {
     url: 'api/areas',
     data: {
       areas: areas
+    }
+  });
+};
+
+/***/ }),
+
+/***/ "./frontend/util/route_api_util.js":
+/*!*****************************************!*\
+  !*** ./frontend/util/route_api_util.js ***!
+  \*****************************************/
+/*! exports provided: fetchRoute, fetchRoutes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchRoute", function() { return fetchRoute; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchRoutes", function() { return fetchRoutes; });
+var fetchRoute = function fetchRoute(id) {
+  return $.ajax({
+    method: 'GET',
+    url: "api/routes/".concat(id)
+  });
+};
+var fetchRoutes = function fetchRoutes(routes) {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/routes',
+    data: {
+      routes: routes
     }
   });
 };

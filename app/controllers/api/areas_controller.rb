@@ -1,13 +1,17 @@
 class Api::AreasController < ApplicationController
 
     def index
-        @areas = Area.all()
-        @root_areas = Area.where("parent_id IS NULL")
+        # adjust to get root areas and their first children
+        @areas = Area.all
+        @root_areas = Area.where(parent_id: nil)
         render :index
     end
 
     def show
-        @area = Area.find(params[:id])
+        debugger
+        @area = Area.includes(:child_areas, :routes, :parent_area).find(params[:id])
+        # refactor to grab backward path
+        debugger
         render :show
     end
 
