@@ -8,10 +8,17 @@ class Api::AreasController < ApplicationController
     end
 
     def show
-        debugger
+        # debugger
         @area = Area.includes(:child_areas, :routes, :parent_area).find(params[:id])
+        @parent_area = @area.parent_area
+        @routes = @area.routes
+        # debugger
+        if @parent_area.nil?
+            @parent_area = Area.new(name: "")
+        end
+
         # refactor to grab backward path
-        debugger
+        # debugger
         render :show
     end
 

@@ -317,6 +317,9 @@ var App = function App() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     src: "./assets/greeting_logo.jpg"
   }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_3__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    path: "/areas/:areaId",
+    component: _areas_area_show_area_show_container__WEBPACK_IMPORTED_MODULE_7__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/routes/:routeId",
     component: _routes_route_show_route_show_container__WEBPACK_IMPORTED_MODULE_6__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
@@ -341,6 +344,7 @@ var App = function App() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -362,6 +366,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -387,7 +392,7 @@ var AreaShow = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      debugger;
+      // debugger;
       this.props.fetchArea(this.props.match.params.areaId).then(function (area) {
         _this2.setState({
           area: area.area
@@ -398,62 +403,46 @@ var AreaShow = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       if (this.state.area === "") {
-        return null;
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "null-test"
+        });
       }
 
       var _this$state$area = this.state.area,
           name = _this$state$area.name,
           description = _this$state$area.description,
-          gettingThere = _this$state$area.gettingThere,
           lat = _this$state$area.lat,
-          lng = _this$state$area.lng;
+          lng = _this$state$area.lng,
+          gettingThere = _this$state$area.gettingThere,
+          parentName = _this$state$area.parentName,
+          routes = _this$state$area.routes;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "testing"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, description)); //         if (pitches === 1){
-      //             pitches = "1 pitch";
-      //         }   else {
-      //             pitches = pitches.toString().concat(" pitches");
-      //         }
-      //         return (
-      //             <div className="showpage-main">
-      //                 <div className="sidebar">
-      //                     <h3>Routes in { area.name }</h3>
-      //                     <a>Placeholder route</a>
-      //                     <a>Placeholder route</a>
-      //                     <a>Placeholder route</a>
-      //                 </div>
-      //                 <div className="showpage-body">
-      //                     <div className="sub-header">
-      //                         <h1>{ name }</h1>
-      //                         <h2>{ difficulty }</h2>
-      //                     </div>
-      //                     <table className="description-details"> 
-      //                         <tbody>
-      //                             <tr>
-      //                                 <td className="description-details-left">Type:</td>
-      //                                 <td>{ routeType }, { elevation }ft, { pitches }</td>
-      //                             </tr>
-      //                             <tr>
-      //                                 <td className="description-details-left">Shared By:</td>
-      //                                 <td>{ sharer.firstName } { sharer.lastName }</td>
-      //                             </tr>
-      //                             <tr>
-      //                                 <td className="description-details-left">Admins:</td>
-      //                                 <td>Placeholder</td>
-      //                             </tr>
-      //                         </tbody>
-      //                     </table>
-      //                     <div className="slideshow-show">
-      //                     </div>
-      //                     <div className="description-body">
-      //                         <h2>Description</h2>
-      //                         <p>{ description }</p>
-      //                         <h2>Protection</h2>
-      //                         <p>{ protection }</p>
-      //                     </div>
-      //                 </div>
-      //             </div>
-      //         )
+        className: "showpage-main"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sidebar"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Routes in ", name), routes.map(function (route) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          to: "/routes/".concat(route.id)
+        }, route.name);
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "showpage-body"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sub-header"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "description-details"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        className: "description-details-left"
+      }, "Elevation:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Placeholder", " ft")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        className: "description-details-left"
+      }, "GPS:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, lat, ", ", lng, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://www.google.com/maps/search/?api=1&query=".concat(lat, ",").concat(lng)
+      }, "Map"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        className: "description-details-left"
+      }, "Admins:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Placeholder")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "slideshow-show"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "description-body"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Getting There"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, gettingThere))));
     }
   }]);
 

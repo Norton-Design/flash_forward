@@ -18,7 +18,7 @@ class Area < ApplicationRecord
 
     has_many :routes,
     foreign_key: :area_id,
-    class_name: :routes
+    class_name: :Route
 
     belongs_to :parent_area,
     foreign_key: :parent_id,

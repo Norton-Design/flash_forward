@@ -8,6 +8,7 @@ import DirectoryContainer from "./directory/directory_container"
 import RouteShowContainer from "./routes/route_show/route_show_container"
 import AreaShowContainer from "./areas/area_show/area_show_container"
 
+
 const App = () => (
     <>
         <ErrorsContainer />
@@ -18,7 +19,7 @@ const App = () => (
             <GreetingContainer />
         </header>
         <main>
-            {/* <Route path="/area/:areaId" component={ AreaShowContainer } /> */}
+            <Route path="/areas/:areaId" component={ AreaShowContainer } />
             <Route path="/routes/:routeId" component={ RouteShowContainer } />
             <Route exact path="/" component={ DirectoryContainer } />
         </main>

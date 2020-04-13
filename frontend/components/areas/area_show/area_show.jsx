@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 class AreaShow extends React.Component {
     constructor(props){
@@ -9,7 +10,7 @@ class AreaShow extends React.Component {
     }
 
     componentDidMount(){
-        debugger;
+        // debugger;
         this.props.fetchArea(this.props.match.params.areaId).then(area => {
             this.setState({area: area.area})
         });
@@ -18,64 +19,53 @@ class AreaShow extends React.Component {
     render(){
         if (this.state.area === ""){
             return (
-                null
+                <div className="null-test"></div>
             )
         }
 
-        let { name, description, gettingThere, lat, lng} = this.state.area;
+        let { name, description, lat, lng, gettingThere, parentName, routes} = this.state.area;
 
         return (
-            <div className = "testing">
-                <p>{ name }</p>
-                <p>{ description }</p>
+            <div className="showpage-main">
+                <div className="sidebar">
+                    <h3>Routes in { name }</h3>
+                    {
+                        routes.map(route => (
+                            <Link to={`/routes/${route.id}`}>{route.name}</Link>
+                        ))
+                    }
+                </div>
+                <div className="showpage-body">
+                    <div className="sub-header">
+                        <h1>{ name }</h1>
+                    </div>
+                    <table className="description-details"> 
+                        <tbody>
+                            <tr>
+                                <td className="description-details-left">Elevation:</td>
+                                <td>{ "Placeholder" } ft</td>
+                            </tr>
+                            <tr>
+                                <td className="description-details-left">GPS:</td>
+                                <td>{ lat }, { lng } <a href={`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`}>Map</a></td>
+                            </tr>
+                            <tr>
+                                <td className="description-details-left">Admins:</td>
+                                <td>Placeholder</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div className="slideshow-show">
+                    </div>
+                    <div className="description-body">
+                        <h2>Description</h2>
+                        <p>{ description }</p>
+                        <h2>Getting There</h2>
+                        <p>{ gettingThere }</p>
+                    </div>
+                </div>
             </div>
         )
-//         if (pitches === 1){
-//             pitches = "1 pitch";
-//         }   else {
-//             pitches = pitches.toString().concat(" pitches");
-//         }
-
-//         return (
-//             <div className="showpage-main">
-//                 <div className="sidebar">
-//                     <h3>Routes in { area.name }</h3>
-//                     <a>Placeholder route</a>
-//                     <a>Placeholder route</a>
-//                     <a>Placeholder route</a>
-//                 </div>
-//                 <div className="showpage-body">
-//                     <div className="sub-header">
-//                         <h1>{ name }</h1>
-//                         <h2>{ difficulty }</h2>
-//                     </div>
-//                     <table className="description-details"> 
-//                         <tbody>
-//                             <tr>
-//                                 <td className="description-details-left">Type:</td>
-//                                 <td>{ routeType }, { elevation }ft, { pitches }</td>
-//                             </tr>
-//                             <tr>
-//                                 <td className="description-details-left">Shared By:</td>
-//                                 <td>{ sharer.firstName } { sharer.lastName }</td>
-//                             </tr>
-//                             <tr>
-//                                 <td className="description-details-left">Admins:</td>
-//                                 <td>Placeholder</td>
-//                             </tr>
-//                         </tbody>
-//                     </table>
-//                     <div className="slideshow-show">
-//                     </div>
-//                     <div className="description-body">
-//                         <h2>Description</h2>
-//                         <p>{ description }</p>
-//                         <h2>Protection</h2>
-//                         <p>{ protection }</p>
-//                     </div>
-//                 </div>
-//             </div>
-//         )
     }
 }
 
