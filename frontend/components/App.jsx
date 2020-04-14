@@ -19,6 +19,7 @@ const App = () => (
             {/* <img src="./assets/greeting_logo.jpg" /> */}
             <GreetingContainer />
         </header>
+        <hr id="header-border"/>
         <main>
             <Route path="/areas/:areaId" component={ AreaShowContainer } />
             <Route path="/routes/:routeId" component={ RouteShowContainer } />

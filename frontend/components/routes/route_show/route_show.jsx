@@ -32,7 +32,13 @@ class RouteShow extends React.Component {
             )
         }
 
-        let { name, routeType, difficulty, pitches, elevation, description, protection, sharer, area } = this.state.route;
+        let { name, routeType, difficulty, pitches, elevation, description, protection, sharer, area, pathway } = this.state.route;
+        let pathwayFill = [<Link className="show-pathway" to="/">All Areas</Link>];
+
+        pathway.forEach(area => {
+            pathwayFill.push(" > ");
+            pathwayFill.push(<Link className="show-pathway" to={`/areas/${area.id}`}>{area.name}</Link>);
+        })
 
         if (pitches === 1){
             pitches = "1 pitch";
@@ -40,7 +46,7 @@ class RouteShow extends React.Component {
             pitches = pitches.toString().concat(" pitches");
         }
 
-        console.log(this.state.route)
+        // console.log(this.state.route)
         const otherRoutes = [];
         this.state.route.siblingRoutes.forEach(route => {
             if (route.id !== this.state.route.id){
@@ -57,10 +63,12 @@ class RouteShow extends React.Component {
                     { otherRoutes }
                     </ul>
                 </div>
+                
                 <div className="showpage-body">
                     <div className="sub-header">
                         <h1>{ name }</h1>
                         <h2>{ difficulty }</h2>
+                        <div className="show-pathway">{ pathwayFill }</div>
                     </div>
                     <table className="description-details"> 
                         <tbody>

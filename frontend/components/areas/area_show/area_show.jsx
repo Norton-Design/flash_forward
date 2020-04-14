@@ -32,8 +32,9 @@ class AreaShow extends React.Component {
             )
         }
 
-        let { name, description, lat, lng, gettingThere, parentName, routes, siblingAreas} = this.state.area;
+        let { name, description, lat, lng, gettingThere, parentName, routes, siblingAreas, pathway} = this.state.area;
         let sidebarFill;
+        let pathwayFill = [<Link className="show-pathway" to="/">All Areas</Link>];
 
         routes.length !== 0 ? sidebarFill = (
             <div className="sidebar">
@@ -54,12 +55,20 @@ class AreaShow extends React.Component {
             </div>
         )
 
+        pathway.forEach(area => {
+            pathwayFill.push(" > ");
+            pathwayFill.push(<Link className="show-pathway" to={`/areas/${area.id}`}>{area.name}</Link>);
+        })
+
         return (
             <div className="showpage-main">
-                { sidebarFill }
+                <div>
+                    { sidebarFill }
+                </div>
                 <div className="showpage-body">
                     <div className="sub-header">
                         <h1>{ name }</h1>
+                        { pathwayFill }
                     </div>
                     <table className="description-details"> 
                         <tbody>
