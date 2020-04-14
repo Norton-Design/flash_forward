@@ -25,6 +25,12 @@ const App = () => (
             <Route path="/routes/:routeId" component={ RouteShowContainer } />
             <Route exact path="/" component={ DirectoryContainer } />
         </main>
+        <footer>
+            <div className="footer-top">
+            </div>
+            <div className="footer-bottom">
+            </div>
+        </footer>
     </>
 );
 

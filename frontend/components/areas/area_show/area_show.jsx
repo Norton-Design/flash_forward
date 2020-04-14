@@ -32,7 +32,20 @@ class AreaShow extends React.Component {
             )
         }
 
-        let { name, description, lat, lng, gettingThere, parentName, routes, siblingAreas, pathway} = this.state.area;
+        let { 
+            name, 
+            description, 
+            lat, 
+            lng, 
+            gettingThere, 
+            parentName, 
+            routes, 
+            childAreas, 
+            pathway,
+            createdAt
+        } = this.state.area;
+
+        let gettingThereDiv;
         let sidebarFill;
         let pathwayFill = [<Link className="show-pathway" to="/">All Areas</Link>];
 
@@ -46,9 +59,9 @@ class AreaShow extends React.Component {
                     }
             </div>) : sidebarFill = (
             <div className="sidebar">
-                <h3>Areas in { parentName }</h3>
+                <h3>Areas in { name }</h3>
                     {
-                        siblingAreas.map(area => (
+                        childAreas.map(area => (
                             <Link key={area.id} to={`/areas/${area.id}`}>{area.name}</Link>
                         ))
                     }
@@ -60,17 +73,30 @@ class AreaShow extends React.Component {
             pathwayFill.push(<Link className="show-pathway" to={`/areas/${area.id}`}>{area.name}</Link>);
         })
 
+        if (gettingThere){
+            gettingThereDiv = (
+                <>
+                    <h2>Getting There</h2>
+                    <p>{ gettingThere }</p>
+                </>
+            )
+        } else {
+            gettingThereDiv = (
+                <></>
+            )
+        }
+
         return (
             <div className="showpage-main">
                 <div>
                     { sidebarFill }
                 </div>
+
                 <div className="showpage-body">
+                    <div className="show-pathway">{ pathwayFill }</div>
                     <div className="sub-header">
                         <h1>{ name }</h1>
-                        { pathwayFill }
-                    </div>
-                    <table className="description-details"> 
+                        <table className="description-details"> 
                         <tbody>
                             <tr>
                                 <td className="description-details-left">Elevation:</td>
@@ -86,13 +112,14 @@ class AreaShow extends React.Component {
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                     <div className="slideshow-show">
                     </div>
+
                     <div className="description-body">
                         <h2>Description</h2>
                         <p>{ description }</p>
-                        <h2>Getting There</h2>
-                        <p>{ gettingThere }</p>
+                        { gettingThereDiv }
                     </div>
                 </div>
             </div>

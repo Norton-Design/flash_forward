@@ -3,7 +3,7 @@ class Api::AreasController < ApplicationController
     def index
         # adjust to get root areas and their first children
         @areas = Area.all
-        @root_areas = Area.where(parent_id: nil)
+        @root_areas = Area.includes(:child_areas).where(parent_id: nil)
         render :index
     end
 

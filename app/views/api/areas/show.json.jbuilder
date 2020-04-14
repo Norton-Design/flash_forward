@@ -10,13 +10,14 @@ json.extract! @area, :id, :name, :description, :lat, :lng
     json.parentId @area.parent_id 
     json.gettingThere @area.getting_there
     json.parentName @parent_area.name
+    json.createdAt @area.created_at
 
     json.routes do
         json.array! @area.routes, :id, :name, :difficulty
     end
 
-    json.siblingAreas do
-        json.array! @area.sibling_areas, :id, :name
+    json.childAreas do
+        json.array! @area.child_areas, :id, :name
     end
 
     json.pathway do

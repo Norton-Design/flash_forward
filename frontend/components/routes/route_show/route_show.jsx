@@ -25,6 +25,37 @@ class RouteShow extends React.Component {
         }
     }
 
+    getTime(timestamp){
+        const timeCut = timestamp.slice(0,10).split("-");
+        const newTime = [];
+        const months = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ];
+        newTime.push(months[parseInt(timeCut[1])]);
+        newTime.push(" ");
+        if (parseInt(timeCut[2]) < 10){
+            newTime.push(timeCut[2].slice(1));
+            newTime.push(', ')
+        } else {
+            newTime.push(timeCut[2]);
+            newTime.push(', ')
+        }
+        newTime.push(timeCut[0]);
+
+        return newTime.join('');
+    }
+
     render(){
         if (this.state.route === ""){
             return (
@@ -32,12 +63,25 @@ class RouteShow extends React.Component {
             )
         }
 
-        let { name, routeType, difficulty, pitches, elevation, description, protection, sharer, area, pathway } = this.state.route;
-        let pathwayFill = [<Link className="show-pathway" to="/">All Areas</Link>];
+        let { 
+            name, 
+            routeType, 
+            difficulty, 
+            pitches, 
+            elevation, 
+            description, 
+            protection, 
+            sharer, 
+            area, 
+            pathway,
+            createdAt
+        } = this.state.route;
+
+        let pathwayFill = [<Link key={0} className="show-pathway" to="/">All Areas</Link>];
 
         pathway.forEach(area => {
             pathwayFill.push(" > ");
-            pathwayFill.push(<Link className="show-pathway" to={`/areas/${area.id}`}>{area.name}</Link>);
+            pathwayFill.push(<Link key={area.id} className="show-pathway" to={`/areas/${area.id}`}>{area.name}</Link>);
         })
 
         if (pitches === 1){
@@ -59,18 +103,15 @@ class RouteShow extends React.Component {
             <div className="showpage-main">
                 <div className="sidebar">
                     <h3>Routes in { area.name }</h3>
-                    <ul>
                     { otherRoutes }
-                    </ul>
                 </div>
-                
+
                 <div className="showpage-body">
+                <div className="show-pathway">{ pathwayFill }</div>
                     <div className="sub-header">
                         <h1>{ name }</h1>
                         <h2>{ difficulty }</h2>
-                        <div className="show-pathway">{ pathwayFill }</div>
-                    </div>
-                    <table className="description-details"> 
+                        <table className="description-details"> 
                         <tbody>
                             <tr>
                                 <td className="description-details-left">Type:</td>
@@ -78,7 +119,7 @@ class RouteShow extends React.Component {
                             </tr>
                             <tr>
                                 <td className="description-details-left">Shared By:</td>
-                                <td>{ sharer.firstName } { sharer.lastName }</td>
+                                <td>{ sharer.firstName } { sharer.lastName } on { this.getTime(createdAt) }</td>
                             </tr>
                             <tr>
                                 <td className="description-details-left">Admins:</td>
@@ -86,6 +127,7 @@ class RouteShow extends React.Component {
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                     <div className="slideshow-show">
                     </div>
                     <div className="description-body">

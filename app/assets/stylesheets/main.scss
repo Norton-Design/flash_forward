@@ -2,6 +2,9 @@ main {
     // max-width: 1275px;
     margin: auto;
     font-family: 'Roboto', sans-serif;
+    // this will be removed once there is content to fill pages
+    height: auto;
+    min-height: 800px;
 }
 
 h2 {

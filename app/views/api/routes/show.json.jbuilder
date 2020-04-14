@@ -1,5 +1,6 @@
 json.extract! @route, :id, :name, :difficulty, :pitches, :elevation, :description, :protection
     json.routeType @route.route_type
+    json.createdAt @route.created_at
 
 json.sharer do
     json.id @route.sharer.id
@@ -18,4 +19,8 @@ end
 
 json.pathway do
     json.array! @pathway, :id, :name
+end
+
+json.mods do
+    json.array! @route.route_moderators, :id, :name
 end

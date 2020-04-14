@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom"
 
-class DirectoryItem extends React.Component {
+class DirectoryChildItem extends React.Component {
     constructor(props){
         super(props)
     }
@@ -9,7 +9,7 @@ class DirectoryItem extends React.Component {
     render(){
         const { name, id } = this.props.area
         return (
-            <li className="dl-item parent-area" key={id}>
+            <li className="dl-item child-area" key={id}>
                 <Link to={`/areas/${id}`}>{name}</Link>
                 <hr />
                 <p className="">50</p>
@@ -18,4 +18,4 @@ class DirectoryItem extends React.Component {
     }
 }
 
-export default DirectoryItem;
+export default DirectoryChildItem;
