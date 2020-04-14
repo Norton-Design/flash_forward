@@ -10,10 +10,19 @@ class AreaShow extends React.Component {
     }
 
     componentDidMount(){
-        // debugger;
         this.props.fetchArea(this.props.match.params.areaId).then(area => {
             this.setState({area: area.area})
         });
+    }
+
+    componentDidUpdate(prevProps){
+        const currentAreaId = this.props.match.params.areaId;
+        const prevAreaId = prevProps.match.params.areaId;
+        if (currentAreaId !== prevAreaId){
+            this.props.fetchArea(currentAreaId).then(area => {
+                this.setState({area: area.area})
+            });
+        }
     }
 
     render(){
@@ -23,18 +32,31 @@ class AreaShow extends React.Component {
             )
         }
 
-        let { name, description, lat, lng, gettingThere, parentName, routes} = this.state.area;
+        let { name, description, lat, lng, gettingThere, parentName, routes, siblingAreas} = this.state.area;
+        let sidebarFill;
+
+        routes.length !== 0 ? sidebarFill = (
+            <div className="sidebar">
+                <h3>Routes in { name }</h3>
+                    {
+                        routes.map(route => (
+                            <Link key={route.id} to={`/routes/${route.id}`}>{route.name}</Link>
+                        ))
+                    }
+            </div>) : sidebarFill = (
+            <div className="sidebar">
+                <h3>Areas in { parentName }</h3>
+                    {
+                        siblingAreas.map(area => (
+                            <Link key={area.id} to={`/areas/${area.id}`}>{area.name}</Link>
+                        ))
+                    }
+            </div>
+        )
 
         return (
             <div className="showpage-main">
-                <div className="sidebar">
-                    <h3>Routes in { name }</h3>
-                    {
-                        routes.map(route => (
-                            <Link to={`/routes/${route.id}`}>{route.name}</Link>
-                        ))
-                    }
-                </div>
+                { sidebarFill }
                 <div className="showpage-body">
                     <div className="sub-header">
                         <h1>{ name }</h1>

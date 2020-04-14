@@ -20,7 +20,7 @@ class Directory extends React.Component {
             return null;
         }
 
-        console.log(this.state);
+        // console.log(this.state);
         let areas = Object.values(this.state.areas)
 
         return (

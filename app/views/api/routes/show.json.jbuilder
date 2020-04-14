@@ -11,3 +11,11 @@ json.area do
     json.id @route.area.id
     json.name @route.area.name
 end
+
+json.siblingRoutes do
+    json.array! @route.sibling_routes, :id, :name, :difficulty
+end
+
+json.pathway do
+    json.array! @pathway, :id, :name
+end

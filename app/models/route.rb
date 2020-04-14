@@ -44,4 +44,8 @@ class Route < ApplicationRecord
     belongs_to :sharer,
     foreign_key: :shared_by,
     class_name: :User
+
+    has_many :sibling_routes,
+    through: :area,
+    source: :routes
 end

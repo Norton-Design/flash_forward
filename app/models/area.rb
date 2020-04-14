@@ -25,7 +25,6 @@ class Area < ApplicationRecord
     class_name: :Area,
     optional: true
 
-
     has_many :child_areas,
     foreign_key: :parent_id,
     class_name: :Area
@@ -33,4 +32,8 @@ class Area < ApplicationRecord
     has_many :child_routes,
     through: :child_areas,
     source: :routes
+
+    has_many :sibling_areas,
+    through: :parent_area,
+    source: :child_areas
 end

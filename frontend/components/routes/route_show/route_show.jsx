@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 class RouteShow extends React.Component {
     constructor(props){
@@ -12,6 +13,16 @@ class RouteShow extends React.Component {
         this.props.fetchRoute(this.props.match.params.routeId).then(route => {
             this.setState({route: route.route})
         });
+    }
+
+    componentDidUpdate(prevProps){
+        const currentRouteId = this.props.match.params.routeId;
+        const prevRouteId = prevProps.match.params.routeId;
+        if (currentRouteId !== prevRouteId){
+            this.props.fetchRoute(currentRouteId).then(route => {
+                this.setState({route: route.route})
+            });
+        }
     }
 
     render(){
@@ -29,13 +40,22 @@ class RouteShow extends React.Component {
             pitches = pitches.toString().concat(" pitches");
         }
 
+        console.log(this.state.route)
+        const otherRoutes = [];
+        this.state.route.siblingRoutes.forEach(route => {
+            if (route.id !== this.state.route.id){
+                let link = <Link to={`/routes/${route.id}`}>{route.name} {route.difficulty}</Link>
+                otherRoutes.push(link);
+            }
+        })
+
         return (
             <div className="showpage-main">
                 <div className="sidebar">
                     <h3>Routes in { area.name }</h3>
-                    <a>Placeholder route</a>
-                    <a>Placeholder route</a>
-                    <a>Placeholder route</a>
+                    <ul>
+                    { otherRoutes }
+                    </ul>
                 </div>
                 <div className="showpage-body">
                     <div className="sub-header">

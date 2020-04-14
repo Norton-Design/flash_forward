@@ -5,11 +5,20 @@
 #     json.partial! "api/areas/area", area: @area
 # end
 
+# @parent_area needs to stay because of the nil potential
 json.extract! @area, :id, :name, :description, :lat, :lng
     json.parentId @area.parent_id 
     json.gettingThere @area.getting_there
     json.parentName @parent_area.name
 
     json.routes do
-        json.array! @routes, :id, :name, :difficulty
+        json.array! @area.routes, :id, :name, :difficulty
+    end
+
+    json.siblingAreas do
+        json.array! @area.sibling_areas, :id, :name
+    end
+
+    json.pathway do
+        json.array! @pathway, :id, :name
     end

@@ -9,9 +9,9 @@ class Api::AreasController < ApplicationController
 
     def show
         # debugger
-        @area = Area.includes(:child_areas, :routes, :parent_area).find(params[:id])
+        @area = Area.includes(:child_areas, :routes, :parent_area, :sibling_areas).find(params[:id])
         @parent_area = @area.parent_area
-        @routes = @area.routes
+        @pathway = pathway(@area.parent_id)
         # debugger
         if @parent_area.nil?
             @parent_area = Area.new(name: "")
@@ -23,6 +23,13 @@ class Api::AreasController < ApplicationController
     end
 
     private
+
+    def pathway(parent_id)
+        return [] if parent_id == nil 
+        area = Area.find(parent_id)
+
+        return pathway(area.parent_id).concat([area])
+    end
 
     def area_params
         params.require(:area).permit(
