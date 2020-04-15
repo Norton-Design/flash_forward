@@ -22,5 +22,5 @@ json.pathway do
 end
 
 json.mods do
-    json.array! @route.route_moderators, :id, :name
+    json.array! @route.mods, :id, :first_name, :last_name
 end

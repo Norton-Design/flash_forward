@@ -33,7 +33,13 @@ getting_there_blocks = [
 
 states = ['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming']
 
-
+route_names = ["Farewell to Arms", "Full Moon, Good Drugs", "Apes of Wrath", "Climb and Punishment", "Astro Dog", "Boogie til you Shit", "Finger of Fate", "Epinephrine", "Jumar of Flesh", "Pervertical Sanctuary", "The Zen and Art of Masturbation", "Ten Sleep", "The Dentist's Chair", "Summer of our Discount Tent", "Buster Cattlefield", "Bitch Muscle", "Billie Bear Cranks the Rad", "Blotter is my Spotter", "Dead Children's Glee Club", "Spotted Owl Sandwich", "Goats in the Machine", "Rookie Hook", "Crash Position", "The Professor Falls", "Armed dangerous and off my medication", "Wild Woman", "Full Monty", "Lick Tickel and a Spank", "Celibacy", "Science Friction", "The hardest climb in the world", 'Float Like a Butterfly, Land Like a Tomato', "You have been nothing but trouble", "Passport To Insanity", "Tomb of the Unknown", "Cophrolagia", "Drop, Fly, or Die", "Spanky's Quest", "Big Wall Greg's Chicken Shack", "To Bolt or Not to Be", "Fact or Friction", "All Chalk, No Action", "Night of the Climbing Dead", "Geologic time includes now", "Hardcore Thrash", "Crossing the Delaware With No Pants On", "The Official Route of the 1984 Olympics", "The Hardest 5.8 in the Rockies", "Offwidth Your Head", "Jesus Built My Tricam", "Cary Granite", "Cunning Stunt", "Belly Full of Bad Berries", "That 10d", "Dangerous Lesion", "Bottle in Front of Me", "Caught Inside on a Big Set", "Figures on a Landscape", "Boogers on a Lampshade", "Room to Shroom", "She Lives", "Bowels of the Owls", "Filibuster", "Smoke and Mirrors", "Pan Handling", "Unimpeachable Groping", "Magical Chrome Plated Semi-Automatic Syringe", "Butter my Butt and Call it a Biscuit", "The Boy Scout Leader Likes Me", "Senior citizens in outer space", "Lets get drunk and think about it", "I'm Pro Choss and I Bolt", "Thugged out Since Cub Scouts", "Ick! Theology! (I'd rather study cod.)", "Booby Trap", "Unsuspecting Remora", "Full Metal Jackfish", "Getting Lucky in Kentucky", "Tufa King Pumped", "Steep Climb Named Desire", "Beyond a Shadow of a Route", "The Boltzmann Constant", "Big G", "The Uncertainty Principle", "the Becky Route", "Doug Reed Route", "Hot Venom Injection Arete", "The Compactor on the Trash Can", "Tough Schist", "The Young and the Rackless", "The Vulgar Goatman", "Speed of Life", "The Jane Fonda Workout for Pregnant Women", "Hexentric", "They Died Laughing", "A Dare By The Sea", "No Mistake, Big Pancake", "Cranking Skills or Hospital Bills", "Finger Locks or Cedar Box", "Lactic Acid Bath", "Premarital bliss", "Freak Gasoline Fight Accident", "When in Doubt, Run it Out", "Make that move or six-foot groove", "Chocolate Doobie", "Casual Route", "Persistent Vegetative State", "Edge of Time", "Airation", "More Hustle Than Muscle", "Heart of Darkness, and Bearded cabbage", "Fote Hog", "A Bolt, A Bashie & A Bold Mantle", "Darshan - AKA Rip-off", "Jesus H Christ On a Bicycle", "The Sword of Damocles", "Static Cling", "Astrologger", "Malt Therapy", "Reelin' in the Fears", "Footsy Quence", "Slip o' Fools", "Way Radical", "Black Flies Consume Jim Dunn", "Stretched on Your Grave"]
+boulder_grades = ["VB", "V0", "V1", "V2", "V3", "V4", "V5", "V6", "V7", "V8", "V9", "V10"]
+yds_grades = ["5.5", "5.6", "5.7", "5.8", "5.9", "5.10a", "5.10b", "5.10c", "5.10d", "5.11a", "5.11b", "5.11c", "5.11d", "5.12a", "5.12b", "5.12c", "5.12d", "5.13a", "5.13b", "5.13c", "5.13d", "5.14a", "5.14b", "5.14c", "5.14d", "5.15a", "5.15b", "5.15c", "5.15d"]
+mixed_grades = ["M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10", "M11", "M12", "M13", "M14", "M15"]
+aid_grades = ['A1', 'A2', 'A3', 'A4', 'A5', 'C1', 'C2', 'C3', 'C4', 'C5']
+protection_grades = ["G", "PG", "PG13", "R", "X"]
+climbing_types = ["Boulder", "Aid", "Ice/Mixed", "Trad", "Sport"]
 
 areaCollection = []
 
@@ -52,7 +58,7 @@ i = 0
 255.times do
     email = SecureRandom.base64(4)
     user = User.create!(email: email, password: "starwars", first_name: first_names.sample, last_name: last_names.sample)
-    i++
+    i += 1
 
     mods << user if i % 10 == 0
 end
@@ -68,13 +74,47 @@ area_names.each do |area_name|
     areaCollection << new_area
 end
 
-areaCollection.each do |area|
-    mod = RouteModerator.new(route_id: area.id, mod_id: mods.sample.id)
-    mod.save!
+route_names.each do |name|
+    route_type = climbing_types.sample
+    if route_type == "Boulder"
+        pitches = 1
+    else 
+        pitches = rand(20)
+    end
+
+    if route_type == "Boulder"
+        grade = boulder_grades.sample
+    elsif route_type == "Aid"
+        grade = aid_grades.sample
+    elsif route_type == "Ice/Mixed"
+        grade = mixed_grades.sample
+    elsif route_type == "Trad"
+        grade = yds_grades.sample
+    elsif route_type == "Sport"
+        grade = yds_grades.sample
+    end
+
+    area = areaCollection.sample
+    until area.child_areas.length == 0
+        area = areaCollection.sample
+    end
+
+    Route.create!(
+        name: name, 
+        route_type: route_type, 
+        pitches: pitches, 
+        difficulty: grade, 
+        elevation: rand(10..500), 
+        description: description_blocks.sample, 
+        protection: getting_there_blocks.sample, 
+        shared_by: mods.sample.id, 
+        area_id: area.id)
 end
 
-
-
+Route.all.each do |route|
+    mod = RouteModerator.new(route_id: route.id, mod_id: mods.sample.id)
+    mod.save!
+end
 
 
 
