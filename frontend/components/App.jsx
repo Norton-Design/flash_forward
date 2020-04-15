@@ -14,9 +14,8 @@ const App = () => (
         <ErrorsContainer />
         <header className="header-main">
             <AuthModal />
-            {/* <img src="https://utilflashforwardbucket.s3.us-east-2.amazonaws.com/greeting_logo.jpg" /> //Production link */}
-            <Link to="/"><img id="main-logo" src="./assets/greeting_logo.jpg" /></Link>
-            {/* <img src="./assets/greeting_logo.jpg" /> */}
+            <Link to="/"><img src="https://utilflashforwardbucket.s3.us-east-2.amazonaws.com/greeting_logo.jpg" /></Link>
+            {/* <Link to="/"><img id="main-logo" src="./assets/greeting_logo.jpg" /></Link> */}
             <GreetingContainer />
         </header>
         <hr id="header-border"/>

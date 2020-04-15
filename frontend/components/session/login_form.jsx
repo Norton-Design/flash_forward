@@ -37,8 +37,8 @@ class LoginForm extends React.Component{
         const { email, password } = this.state;
         return (
             <form onSubmit={ this.handleSubmit } className="login">
-                {/* <img src=" https://utilflashforwardbucket.s3.us-east-2.amazonaws.com/x_icon.jpg" onClick={ this.closeModal } /> //Production link */}
-                <img src="./assets/x_icon.jpg" onClick={ this.closeModal } /> {/*Dev Link*/}
+                <img src=" https://utilflashforwardbucket.s3.us-east-2.amazonaws.com/x_icon.jpg" onClick={ this.closeModal } />
+                {/* <img src="./assets/x_icon.jpg" onClick={ this.closeModal } /> Dev Link */}
                 <h2>Log In</h2>
                     <input 
                         type="email"
