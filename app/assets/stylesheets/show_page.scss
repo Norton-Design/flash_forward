@@ -88,5 +88,33 @@
     color: #4e4d49;
     text-decoration: none;
     font-size: 12px;
-    width: 100%
+    width: 100%;
+    margin-bottom: 7px;
+}
+
+// #add-to-page-button {
+//     float:right;
+// }
+
+.dropdown {
+    float: right;
+    position: relative;
+    // display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    border: 1px solid rgba(0,0,0,.15);
+    padding: 12px 16px;
+    z-index: 1;
+    min-width: 10rem;
+    top: 100%;
+    right: 0%;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }

@@ -37,7 +37,7 @@ class Directory extends React.Component {
                                 <DirectoryChildItem area={child} key={child.id}/>
                             ))
                             return (
-                                <div class="directory-list-item-container">
+                                <div className="directory-list-item-container">
                                     <DirectoryItem area={area} key={area.id}/>
                                     {child_areas}
                                 </div>

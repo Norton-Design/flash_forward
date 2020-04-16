@@ -22,3 +22,6 @@ export const fetchArea = id => dispatch => APIUtil.fetchArea(id)
 
 export const fetchAreas = () => dispatch => APIUtil.fetchAreas()
     .then( areas => (dispatch(receiveAreas(areas))) );
+
+export const createArea = areaData => dispatch => (APIUtil.createArea(areaData)
+    .then( area => dispatch(receiveArea(area))) );

@@ -4,9 +4,11 @@ import { Route, Switch, Link } from "react-router-dom";
 import AuthModal from './modal/modal';
 import GreetingContainer from "./greeting/greeting_container";
 import ErrorsContainer from "./errors/errors_container";
-import DirectoryContainer from "./directory/directory_container"
-import RouteShowContainer from "./routes/route_show/route_show_container"
-import AreaShowContainer from "./areas/area_show/area_show_container"
+import DirectoryContainer from "./directory/directory_container";
+import RouteShowContainer from "./routes/route_show/route_show_container";
+import AreaShowContainer from "./areas/area_show/area_show_container";
+import AreaCreateFormContainer from "./areas/area_create/area_create_form_container";
+import RouteCreateFormContainer from "./routes/route_create/route_create_form_container";
 
 
 const App = () => (
@@ -22,6 +24,8 @@ const App = () => (
         <main>
             <Route path="/areas/:areaId" component={ AreaShowContainer } />
             <Route path="/routes/:routeId" component={ RouteShowContainer } />
+            <Route path="/new/route/:areaId" component={ RouteCreateFormContainer } />
+            <Route path="/new/area/:areaId" component={ AreaCreateFormContainer } />
             <Route exact path="/" component={ DirectoryContainer } />
         </main>
         <footer>

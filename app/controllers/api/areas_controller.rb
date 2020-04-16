@@ -22,6 +22,16 @@ class Api::AreasController < ApplicationController
         render :show
     end
 
+    def create
+        # debugger
+        @area = Area.new(area_params)
+        if @area.save
+            # render :show
+        else
+            render json: @area.errors.full_messages, status: 401
+        end
+    end
+
     private
 
     def pathway(parent_id)

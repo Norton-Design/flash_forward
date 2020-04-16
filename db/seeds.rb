@@ -49,8 +49,7 @@ lats = [34.155834, 42.933334, 42.095554, 38.846668, 41.392502, 27.192223, 31.442
 lngs = [-86.250275, -90.590836, -119.735558, -88.015831, -122.313057, -76.566666, -91.948059, -80.064163, -79.997498, -83.383331]
 
 # Users
-demo_user = User.create!(email: "DemoUser@FlashForward.com", password: "testing", first_name: "Demo User", last_name: "Whatever")
-# u1 = User.create!(email: "LynnHill@FlashForward.com", password: "testing", first_name: "Lynn", last_name: "Hill")
+demo_user = User.create!(email: "DemoUser@FlashForward.com", password: "testing", first_name: "Demo User", last_name: "")
 
 mods = []
 i = 0

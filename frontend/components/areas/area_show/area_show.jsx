@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
+import { FaAngleDown } from "react-icons/fa";
 
 class AreaShow extends React.Component {
     constructor(props){
@@ -32,6 +33,7 @@ class AreaShow extends React.Component {
             )
         }
 
+        let dropdownCard;
         let { 
             name, 
             description, 
@@ -44,17 +46,35 @@ class AreaShow extends React.Component {
             pathway,
             createdAt
         } = this.state.area;
-
         let gettingThereDiv;
         let sidebarFill;
         let pathwayFill = [<Link className="show-pathway" to="/">All Areas</Link>];
+
+        if (routes.length > 0){
+            dropdownCard = (
+            <div className="dropdown-content">
+                <Link to={`/new/route/${this.props.match.params.areaId}`}>Route</Link>
+            </div>)
+        } else if (childAreas.length > 0){
+            dropdownCard = (
+            <div className="dropdown-content">
+                <Link to={`/new/area/${this.props.match.params.areaId}`}>Sub-Area</Link>
+            </div>)
+        } else {
+            dropdownCard = (
+            <div className="dropdown-content">
+                <Link to={`/new/area/${this.props.match.params.areaId}`}>Sub-Area</Link>
+                <br />
+                <Link to={`/new/route/${this.props.match.params.areaId}`}>Route</Link>
+            </div>)
+        }
 
         routes.length !== 0 ? sidebarFill = (
             <div className="sidebar">
                 <h3>Routes in { name }</h3>
                     {
                         routes.map(route => (
-                            <Link key={route.id} to={`/routes/${route.id}`}>{route.name}</Link>
+                            <Link key={route.id} to={`/routes/${route.id}`}>{route.name} {route.difficulty}</Link>
                         ))
                     }
             </div>) : sidebarFill = (
@@ -93,7 +113,13 @@ class AreaShow extends React.Component {
                 </div>
 
                 <div className="showpage-body">
-                    <div className="show-pathway">{ pathwayFill }</div>
+                    <div className="show-pathway">{ pathwayFill }
+                        <div className="dropdown">
+                            <a>Add to Page<FaAngleDown /></a>
+                            { dropdownCard }
+                        </div>
+                    </div>
+
                     <div className="sub-header">
                         <h1>{ name }</h1>
                         <table className="description-details"> 
@@ -104,7 +130,7 @@ class AreaShow extends React.Component {
                             </tr>
                             <tr>
                                 <td className="description-details-left">GPS:</td>
-                                <td>{ lat }, { lng } <a href={`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`}>Map</a></td>
+                                <td>{ lat }, { lng } <a href={`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`}>Google Map</a></td>
                             </tr>
                             <tr>
                                 <td className="description-details-left">Admins:</td>

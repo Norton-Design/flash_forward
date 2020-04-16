@@ -1,11 +1,12 @@
 class Api::RoutesController < ApplicationController
-    before_action :ensure_logged_in, only: [:create, :destroy, :edit]
+    before_action :ensure_logged_in, only: [:create]
 
     def create
+        # debugger
         @route = Route.new(route_params)
         @route.shared_by = current_user.id
         if @route.save
-            render :show
+            # render :show
         else
             render json: @route.errors.full_messages, status: 401
         end
@@ -46,7 +47,7 @@ class Api::RoutesController < ApplicationController
             :elevation,
             :description,
             :protection,
-            :area_id,
+            :area_id
         )
     end
 

@@ -12,3 +12,13 @@ export const fetchAreas = areas => (
         data: { areas }
     })
 );
+
+export const createArea = areaData => (
+    $.ajax({
+        method: "POST",
+        url: `/api/areas/`,
+        data: areaData,
+        processData: false,
+        contentType: false,
+    })
+);
