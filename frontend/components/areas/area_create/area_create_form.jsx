@@ -45,44 +45,54 @@ class AreaCreateForm extends React.Component {
         // console.log(this.state);
 
         return(
-            <div>
+            <div className="create-form">
                 <h1>New Area</h1>
-
+                <hr />
                 <form>
                     <label>Area Name:</label>
+                    <br />
                         <input
                             type="text"
                             value={this.state.name}
                             onChange={this.handleInput('name')}
+                            className="create-form-input"
                         />
                     <br />
 
                     <label>Latitude:</label>
+                    <br />
                         <input
                             type="text"
                             value={this.state.lat}
                             onChange={this.handleInput('lat')}
+                            className="create-form-input"
                         />
                     <br />
 
                     <label>Longitude:</label>
+                    <br />
                         <input
                             type="text"
                             value={this.state.lng}
                             onChange={this.handleInput('lng')}
+                            className="create-form-input"
                         />
                     <br />
 
                     <label>Description:</label>
+                    <br />
                         <textarea
                             value={this.state.description}
                             onChange={this.handleInput('description')}
+                            placeholder=" Sunny? Access fees? Crowded? Secluded? Rock type/quality?"
                         />
                     <br />
                     <label>How do you get there?</label>
+                    <br />
                         <textarea
                             value={this.state.getting_there}
                             onChange={this.handleInput('getting_there')}
+                            placeholder=" Be specific and clear. How long is the approach?"
                         />
                     <br />
 

@@ -19,11 +19,6 @@ class RouteCreateForm extends React.Component {
     }
 
     handleInput(type){
-        if (type === "elevation"){
-            return (e) => {
-                this.setState({ [type]: parseInt(e.target.value) });
-            };
-        }
         return (e) => {
             this.setState({ [type]: e.target.value });
         };
@@ -91,6 +86,7 @@ class RouteCreateForm extends React.Component {
     }
 
     handleSubmit(e) {
+        this.state.elevation = parseFloat(this.state.elevation)
         let area = this.state.area_id
         e.preventDefault();
         let formData = new FormData();
@@ -107,53 +103,70 @@ class RouteCreateForm extends React.Component {
         // console.log(this.state);
 
         return(
-            <div>
+            <div className="create-form">
                 <h1>New Route</h1>
-
+                <hr />
                 <form>
                     <label>Route Name:</label>
+                    <br />
                         <input
                             type="text"
                             value={this.state.name}
                             onChange={this.handleInput('name')}
+                            className="create-form-input"
                         />
                     <br />
 
                     <label>Elevation:</label>
+                    <br />
                         <input
                             type="text"
                             value={this.state.elevation}
                             onChange={this.handleInput('elevation')}
+                            className="create-form-input"
+                            placeholder=" Approximate in ft."
                         />
                     <br />
 
                     <label>Pitches:</label>
+                    <br />
                         <input 
                             value={this.state.pitches} 
                             onChange={this.handleInput('pitches')} 
                             type="number" 
                             id="pitches" 
                             name="pitches" 
-                            step="1" min="1" max="80"/>
+                            step="1" min="1" max="80"
+                            className="create-form-input"/>
                     <br />
 
                     <label>Route Type:</label>
-                        <br />
-                        <input type="radio" value="Boulder" name="route_type" id="Boulder" onChange={this.handleInput('route_type')}/>
-                        <label>Boulder</label>
-                        <br />
-                        <input type="radio" value="Aid" name="route_type" id="Aid" onChange={this.handleInput('route_type')}/>
-                        <label>Aid</label>
-                        <br />
-                        <input type="radio" value="Ice/Mixed" name="route_type" id="Ice/Mixed" onChange={this.handleInput('route_type')}/>
-                        <label>Ice/Mixed</label>
-                        <br />
-                        <input type="radio" value="Trad" name="route_type" id="Trad" onChange={this.handleInput('route_type')}/>
-                        <label>Trad</label>
-                        <br />
-                        <input type="radio" value="Sport" name="route_type" id="Sport" onChange={this.handleInput('route_type')}/>
-                        <label>Sport</label>
-                        <br />
+                        {/* <br /> */}
+                        <div>
+                            <input type="radio" value="Boulder" name="route_type" id="Boulder" onChange={this.handleInput('route_type')}/>
+                            <label>Boulder</label>
+                        </div>
+                        {/* <br /> */}
+                        <div>
+                            <input type="radio" value="Aid" name="route_type" id="Aid" onChange={this.handleInput('route_type')}/>
+                            <label>Aid</label>
+                        </div>
+                        {/* <br /> */}
+                        <div>
+                            <input type="radio" value="Ice/Mixed" name="route_type" id="Ice/Mixed" onChange={this.handleInput('route_type')}/>
+                            <label>Ice/Mixed</label>
+                        </div>
+                        {/* <br /> */}
+                        <div>
+                            <input type="radio" value="Trad" name="route_type" id="Trad" onChange={this.handleInput('route_type')}/>
+                            <label>Trad</label>
+                        </div>
+                        {/* <br /> */}
+                        <div>
+                            <input type="radio" value="Sport" name="route_type" id="Sport" onChange={this.handleInput('route_type')}/>
+                            <label>Sport</label>
+                        </div>
+                        {/* <br /> */}
                     <br />
 
                     <label>Grade:</label>
@@ -161,15 +174,19 @@ class RouteCreateForm extends React.Component {
                     <br />
 
                     <label>Description:</label>
+                    <br />
                         <textarea
                             value={this.state.description}
                             onChange={this.handleInput('description')}
+                            placeholder=" Where's the crux? What's good / bad? Details, opinions, and deep thoughts."
                         />
                     <br />
                     <label>Protection:</label>
+                    <br />
                         <textarea
                             value={this.state.protection}
                             onChange={this.handleInput('protection')}
+                            placeholder=" What type of pro? Bolts or fixed gear? Anchors at top?"
                         />
                     <br />
 
