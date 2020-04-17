@@ -141,32 +141,30 @@ class RouteCreateForm extends React.Component {
                     <br />
 
                     <label>Route Type:</label>
-                        {/* <br /> */}
                         <div>
                             <input type="radio" value="Boulder" name="route_type" id="Boulder" onChange={this.handleInput('route_type')}/>
                             <label>Boulder</label>
                         </div>
-                        {/* <br /> */}
+
                         <div>
                             <input type="radio" value="Aid" name="route_type" id="Aid" onChange={this.handleInput('route_type')}/>
                             <label>Aid</label>
                         </div>
-                        {/* <br /> */}
+
                         <div>
                             <input type="radio" value="Ice/Mixed" name="route_type" id="Ice/Mixed" onChange={this.handleInput('route_type')}/>
                             <label>Ice/Mixed</label>
                         </div>
-                        {/* <br /> */}
+
                         <div>
                             <input type="radio" value="Trad" name="route_type" id="Trad" onChange={this.handleInput('route_type')}/>
                             <label>Trad</label>
                         </div>
-                        {/* <br /> */}
+
                         <div>
                             <input type="radio" value="Sport" name="route_type" id="Sport" onChange={this.handleInput('route_type')}/>
                             <label>Sport</label>
                         </div>
-                        {/* <br /> */}
                     <br />
 
                     <label>Grade:</label>
