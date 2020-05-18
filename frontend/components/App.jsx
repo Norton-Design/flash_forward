@@ -32,6 +32,14 @@ const App = () => (
             <div className="footer-top">
             </div>
             <div className="footer-bottom">
+                <div className="footer-bottom-sub">
+                    <div className="external-nav">
+                        <a href="https://norton-design.github.io/#" target="_blank" ><i class="fas fa-address-card"></i></a>
+                        <a href="https://github.com/Norton-Design/flash_forward" target="_blank" ><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/michael-norton-5b5559199/" target="_blank" ><i class="fab fa-linkedin"></i></a>
+                        <a href="https://angel.co/u/michael-norton-17" target="_blank" ><i class="fab fa-angellist"></i></a>
+                    </div>
+                </div>
             </div>
         </footer>
     </>
