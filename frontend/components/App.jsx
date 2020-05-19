@@ -20,7 +20,7 @@ const App = () => (
             {/* <Link to="/"><img id="main-logo" src="./assets/greeting_logo.jpg" /></Link> */}
             <GreetingContainer />
         </header>
-        <hr id="header-border"/>
+
         <main>
             <Route path="/areas/:areaId" component={ AreaShowContainer } />
             <Route path="/routes/:routeId" component={ RouteShowContainer } />

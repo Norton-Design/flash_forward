@@ -29,6 +29,16 @@ class Api::RoutesController < ApplicationController
         render :show
     end
 
+    def route_finder
+        searchParams = {
+            route_type: params["route_type"],
+            difficulty: params["difficulty_min"].to_i..params["difficulty_max"].to_i,
+            pitches: params["pitches"].to_i..100,
+          }
+      
+          @routes = Route.includes(:area).where(searchParams)
+    end
+
     private
 
     def pathway(area_id)

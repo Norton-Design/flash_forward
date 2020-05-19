@@ -25,27 +25,30 @@ class Directory extends React.Component {
         let areas = Object.values(this.state.areas)
 
         return (
-            <div className="directory-container">
-                <div className="directory-banner">
-                    <h2>Rock Climbing Guide</h2>
-                    <p>300 Routes shared by Climbers Like You</p>
+            <>
+                <hr id="header-border"/>
+                <div className="directory-container">
+                    <div className="directory-banner">
+                        <h2>Rock Climbing Guide</h2>
+                        <p>300 Routes shared by Climbers Like You</p>
+                    </div>
+                    <ul className="directory-list">
+                        {
+                            areas.map(area => {
+                                const child_areas = area.childAreas.map(child => (
+                                    <DirectoryChildItem area={child} key={child.id}/>
+                                ))
+                                return (
+                                    <div className="directory-list-item-container">
+                                        <DirectoryItem area={area} key={area.id}/>
+                                        {child_areas}
+                                    </div>
+                                )
+                            })
+                        }
+                    </ul>
                 </div>
-                <ul className="directory-list">
-                    {
-                        areas.map(area => {
-                            const child_areas = area.childAreas.map(child => (
-                                <DirectoryChildItem area={child} key={child.id}/>
-                            ))
-                            return (
-                                <div className="directory-list-item-container">
-                                    <DirectoryItem area={area} key={area.id}/>
-                                    {child_areas}
-                                </div>
-                            )
-                        })
-                    }
-                </ul>
-            </div>
+            </>
         )
     }
 }
