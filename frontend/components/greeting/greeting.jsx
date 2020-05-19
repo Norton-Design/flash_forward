@@ -18,7 +18,7 @@ const Greeting = props => {
 
   return (
     currentUser ?
-    personalGreeting(currentUser, logout) :
+    personalGreeting() :
     sessionLinks()
   );
 };
