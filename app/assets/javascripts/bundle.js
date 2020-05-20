@@ -1783,6 +1783,7 @@ var RouteFinder = /*#__PURE__*/function (_React$Component) {
       pitches: 1
     };
     _this.handleInput = _this.handleInput.bind(_assertThisInitialized(_this));
+    _this.handleSubmitForm = _this.handleSubmitForm.bind(_assertThisInitialized(_this));
     return _this;
   }
 

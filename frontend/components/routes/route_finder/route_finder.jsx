@@ -10,6 +10,7 @@ class RouteFinder extends React.Component {
             pitches: 1
         }
         this.handleInput = this.handleInput.bind(this);
+        this.handleSubmitForm = this.handleSubmitForm.bind(this);
     }
 
     handleInput(type){
