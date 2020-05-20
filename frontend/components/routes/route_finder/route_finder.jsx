@@ -5,8 +5,8 @@ class RouteFinder extends React.Component {
         super(props)
         this.state = {
             route_type: 'Boulder',
-            difficultyMin: "V0",
-            difficultyMax: "V11",
+            difficulty_min: "V0",
+            difficulty_max: "V10",
             pitches: 1
         }
         this.handleInput = this.handleInput.bind(this);

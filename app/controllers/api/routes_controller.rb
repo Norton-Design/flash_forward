@@ -30,13 +30,31 @@ class Api::RoutesController < ApplicationController
     end
 
     def route_finder
+        boulder_grades = ["VB", "V0", "V1", "V2", "V3", "V4", "V5", "V6", "V7", "V8", "V9", "V10"]
+        yds_grades = ["5.5", "5.6", "5.7", "5.8", "5.9", "5.10a", "5.10b", "5.10c", "5.10d", "5.11a", "5.11b", "5.11c", "5.11d", "5.12a", "5.12b", "5.12c", "5.12d", "5.13a", "5.13b", "5.13c", "5.13d", "5.14a", "5.14b", "5.14c", "5.14d", "5.15a", "5.15b", "5.15c", "5.15d"]
+        mixed_grades = ["M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10", "M11", "M12", "M13", "M14", "M15"]
+        aid_grades = ['A1', 'A2', 'A3', 'A4', 'A5', 'C1', 'C2', 'C3', 'C4', 'C5']
+
         searchParams = {
             route_type: params["route_type"],
-            difficulty: params["difficulty_min"].to_i..params["difficulty_max"].to_i,
-            pitches: params["pitches"].to_i..100,
-          }
-      
-          @routes = Route.includes(:area).where(searchParams)
+            pitches: params["pitches"].to_i..75,
+        }
+
+        debugger
+
+        case params["route_type"]
+        when "Boulder"
+            searchParams["difficulty"] = boulder_grades[boulder_grades.index(params["difficulty_min"])..boulder_grades.index(params["difficulty_max"])]
+        when "Aid"
+            searchParams["difficulty"] = aid_grades[aid_grades.index(params["difficulty_min"])..aid_grades.index(params["difficulty_max"])]
+        when "Ice/Mixed"
+            searchParams["difficulty"] = mixed_grades[mixed_grades.index(params["difficulty_min"])..mixed_grades.index(params["difficulty_max"])]
+        else
+            searchParams["difficulty"] = yds_grades[yds_grades.index(params["difficulty_min"])..yds_grades.index(params["difficulty_max"])]
+        end
+
+        debugger
+        @routes = Route.includes(:area).where(searchParams)
     end
 
     private

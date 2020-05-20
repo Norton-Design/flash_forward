@@ -339,6 +339,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _areas_area_show_area_show_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./areas/area_show/area_show_container */ "./frontend/components/areas/area_show/area_show_container.js");
 /* harmony import */ var _areas_area_create_area_create_form_container__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./areas/area_create/area_create_form_container */ "./frontend/components/areas/area_create/area_create_form_container.js");
 /* harmony import */ var _routes_route_create_route_create_form_container__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./routes/route_create/route_create_form_container */ "./frontend/components/routes/route_create/route_create_form_container.js");
+/* harmony import */ var _routes_route_finder_route_finder_container__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./routes/route_finder/route_finder_container */ "./frontend/components/routes/route_finder/route_finder_container.js");
+
 
 
 
@@ -359,6 +361,10 @@ var App = function App() {
     id: "main-logo",
     src: "https://utilflashforwardbucket.s3.us-east-2.amazonaws.com/greeting_logo.jpg"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_3__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    exact: true,
+    path: "/route-finder",
+    component: _routes_route_finder_route_finder_container__WEBPACK_IMPORTED_MODULE_10__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/areas/:areaId",
     component: _areas_area_show_area_show_container__WEBPACK_IMPORTED_MODULE_7__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
@@ -1778,8 +1784,8 @@ var RouteFinder = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       route_type: 'Boulder',
-      difficultyMin: "V0",
-      difficultyMax: "V11",
+      difficulty_min: "V0",
+      difficulty_max: "V10",
       pitches: 1
     };
     _this.handleInput = _this.handleInput.bind(_assertThisInitialized(_this));
