@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import RouteFinder from './route_finder';
+import { searchRoutes } from "../../../actions/route_actions";
 // import the submit function
 
 const mstp = state => ({
 });
 
-// CHANGE THIS ONCE THE FUNCTION IS WRITTEN
 const mdtp = dispatch => ({
-    submitForm: () => console.log('SENDING FORM')
+    searchRoutes: searchParams => dispatch(searchRoutes(searchParams))
 });
 
 export default connect(mstp, mdtp)(RouteFinder);

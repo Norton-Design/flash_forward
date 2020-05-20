@@ -21,8 +21,11 @@ class RouteFinder extends React.Component {
 
     handleSubmitForm(e) {
         e.preventDefault();
-        // this.props.submitForm();
-        console.log('TESTING')
+        // console.log('TESTING')
+        this.props.searchRoutes(this.state)
+            .then(() => {
+                this.props.history.push('/route-finder')
+            });
     }
 
     render() {

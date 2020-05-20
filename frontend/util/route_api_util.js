@@ -22,3 +22,11 @@ export const createRoute = routeData => (
         contentType: false,
     })
 );
+
+export const searchRoutes = searchParams => (
+    $.ajax({
+      method: "GET",
+      url: `/api/routes/route_finder`,
+      data: searchParams,
+    })
+);
