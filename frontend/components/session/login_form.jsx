@@ -29,8 +29,8 @@ class LoginForm extends React.Component{
         this.setState({
             email: "DemoUser@FlashForward.com",
             password: "testing"
-        })
-        this.handleSubmit();
+        });
+        setTimeout(() => this.handleSubmit(), 1000);
     }
 
     render(){

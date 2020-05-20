@@ -2232,11 +2232,15 @@ var LoginForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleDemoLogin",
     value: function handleDemoLogin() {
+      var _this3 = this;
+
       this.setState({
         email: "DemoUser@FlashForward.com",
         password: "testing"
       });
-      this.handleSubmit();
+      setTimeout(function () {
+        return _this3.handleSubmit();
+      }, 1000);
     }
   }, {
     key: "render",

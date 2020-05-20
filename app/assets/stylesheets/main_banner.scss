@@ -73,12 +73,12 @@
   form {
     display: flex;
     flex-direction: column;
-    // align-items: center;
   }
 
   button[type="submit"] {
     margin-top: 16px;
     width: 90px;
     height: 32px;
+    font-size: 14px;
   }
 }
