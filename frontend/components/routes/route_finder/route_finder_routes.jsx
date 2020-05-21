@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const RouteFinderRoutes = routes => {
-    const sortParams = queryString.parse(props.location.search);
+    // const sortParams = queryString.parse(props.location.search);
     const routeList = routes.map((route, idx) => {
         return (
             <ul key={idx}>

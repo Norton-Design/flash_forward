@@ -1,12 +1,14 @@
 import React from 'react';
 
+
+
 class RouteFinder extends React.Component {
-    constructor(props){
+        constructor(props){
         super(props)
         this.state = {
             route_type: 'Boulder',
-            difficulty_min: "V0",
-            difficulty_max: "V10",
+            difficulty_min: "VB",
+            difficulty_max: "VB",
             pitches: 1
         }
         this.handleInput = this.handleInput.bind(this);
@@ -14,9 +16,25 @@ class RouteFinder extends React.Component {
     }
 
     handleInput(type){
-        // REFACTOR TO CHANGE difficultyMin AND difficultyMax BASED ON route_type CHANGE
         return (e) => {
-            this.setState({ [type]: e.target.value });
+            switch(e.target.value){
+                case "Boulder":
+                    this.setState({ [type]: e.target.value, difficulty_min: "VB", difficulty_max: "VB" });
+                    break;
+                case "Aid":
+                    this.setState({ [type]: e.target.value, difficulty_min: "A1", difficulty_max: "A1" });
+                    break;
+                case "Ice/Mixed":
+                    this.setState({ [type]: e.target.value, difficulty_min: "M1", difficulty_max: "M1" });
+                    break;
+                case 'Trad':
+                case 'Sport':
+                    this.setState({ [type]: e.target.value, difficulty_min: "5.5", difficulty_max: "5.5" });
+                    break;
+                default:
+                    this.setState({ [type]: e.target.value });
+                    break;
+            };
         };
     }
 
@@ -24,9 +42,9 @@ class RouteFinder extends React.Component {
         e.preventDefault();
         // console.log('TESTING')
         this.props.searchRoutes(this.state)
-            .then(() => {
-                this.props.history.push('/route-finder')
-            });
+            // .then(() => {
+            //     this.props.history.push('/route-finder')
+            // });
     }
 
     render() {
@@ -67,11 +85,11 @@ class RouteFinder extends React.Component {
                     </label>
 
                     <label>Difficulty Range:&nbsp;
-                        <select onChange={this.handleInput('difficultyMin')}>
+                        <select onChange={this.handleInput('difficulty_min')}>
                             {formGrades}
                         </select>
                         &nbsp;to&nbsp;
-                        <select onChange={this.handleInput('difficultyMax')}>
+                        <select onChange={this.handleInput('difficulty_max')}>
                             {formGrades}
                         </select>
                     </label>
@@ -97,37 +115,50 @@ class RouteFinder extends React.Component {
 
 export default RouteFinder;
 
+// return (e) => {
+//     this.setState({ [type]: e.target.value });
+// };
 
-{/* <div className="route-finder-container">
-<form onSubmit={this.handleSubmitForm}>
-    <h2>Route Finder</h2>
-    <p>Tell us what you like, we'll tell you what to climb!</p>
-    <label>Type: </label>
-        <select onChange={this.handleInput('route_type')}>
-            {
-            climbingTypes.map(type => (<option value={type}>{type}</option>))
-            }
-        </select>
 
-    <label>Difficulty Range:
-        <select onChange={this.handleInput('difficultyMin')}>
-            {formGrades}
-        </select>
-        to 
-        <select onChange={this.handleInput('difficultyMax')}>
-            {formGrades}
-        </select>
-    </label>
-
-    <label>Pitches: </label>
-        <select onChange={this.handleInput('pitches')}>
-            <option value="1">Any Pitches</option>
-            <option value="1*">Exactly 1 pitch</option>
-            <option value="2">At least 2</option>
-            <option value="3">At least 3</option>
-            <option value="4">At least 4</option>
-            <option value="5">At least 5</option>
-            <option value="6">6+ pitches</option>
-    </select>
-</form>
-</div> */}
+// const that = this;
+// return (e) => {
+//     if (type === 'route_type'){
+//         if (e.target.value === 'Boulder') {
+//             return (e) => {
+//                 that.setState({
+//                     [type]: e.target.value,
+//                     difficulty_min: "VB",
+//                     difficulty_max: "VB",
+//                 })
+//             }
+//         } else if (e.target.value === 'Aid') {
+//             return (e) => {
+//                 that.setState({
+//                     [type]: e.target.value,
+//                     difficulty_min: "A1",
+//                     difficulty_max: "A1",
+//                 })
+//             }
+//         } else if (e.target.value === 'Ice/Mixed') {
+//             return (e) => {
+//                 that.setState({
+//                     [type]: e.target.value,
+//                     difficulty_min: "M1",
+//                     difficulty_max: "M1",
+//                 })
+//             }
+//         } else {
+//             return (e) => {
+//                 that.setState({
+//                     [type]: e.target.value,
+//                     difficulty_min: "5.5",
+//                     difficulty_max: "5.5",
+//                 })
+//             }
+//         }
+//     } else {
+//         return (e) => {
+//             that.setState({ [type]: e.target.value });
+//         };
+//     }
+// }

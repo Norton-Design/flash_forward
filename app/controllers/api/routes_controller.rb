@@ -37,10 +37,8 @@ class Api::RoutesController < ApplicationController
 
         searchParams = {
             route_type: params["route_type"],
-            pitches: params["pitches"].to_i..75,
+            pitches: params["pitches"].to_i..50,
         }
-
-        debugger
 
         case params["route_type"]
         when "Boulder"
@@ -53,7 +51,6 @@ class Api::RoutesController < ApplicationController
             searchParams["difficulty"] = yds_grades[yds_grades.index(params["difficulty_min"])..yds_grades.index(params["difficulty_max"])]
         end
 
-        debugger
         @routes = Route.includes(:area).where(searchParams)
     end
 

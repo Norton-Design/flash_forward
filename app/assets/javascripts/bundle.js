@@ -1784,8 +1784,8 @@ var RouteFinder = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       route_type: 'Boulder',
-      difficulty_min: "V0",
-      difficulty_max: "V10",
+      difficulty_min: "VB",
+      difficulty_max: "VB",
       pitches: 1
     };
     _this.handleInput = _this.handleInput.bind(_assertThisInitialized(_this));
@@ -1798,21 +1798,48 @@ var RouteFinder = /*#__PURE__*/function (_React$Component) {
     value: function handleInput(type) {
       var _this2 = this;
 
-      // REFACTOR TO CHANGE difficultyMin AND difficultyMax BASED ON route_type CHANGE
       return function (e) {
-        _this2.setState(_defineProperty({}, type, e.target.value));
+        var _this2$setState, _this2$setState2, _this2$setState3, _this2$setState4;
+
+        switch (e.target.value) {
+          case "Boulder":
+            _this2.setState((_this2$setState = {}, _defineProperty(_this2$setState, type, e.target.value), _defineProperty(_this2$setState, "difficulty_min", "VB"), _defineProperty(_this2$setState, "difficulty_max", "VB"), _this2$setState));
+
+            break;
+
+          case "Aid":
+            _this2.setState((_this2$setState2 = {}, _defineProperty(_this2$setState2, type, e.target.value), _defineProperty(_this2$setState2, "difficulty_min", "A1"), _defineProperty(_this2$setState2, "difficulty_max", "A1"), _this2$setState2));
+
+            break;
+
+          case "Ice/Mixed":
+            _this2.setState((_this2$setState3 = {}, _defineProperty(_this2$setState3, type, e.target.value), _defineProperty(_this2$setState3, "difficulty_min", "M1"), _defineProperty(_this2$setState3, "difficulty_max", "M1"), _this2$setState3));
+
+            break;
+
+          case 'Trad':
+          case 'Sport':
+            _this2.setState((_this2$setState4 = {}, _defineProperty(_this2$setState4, type, e.target.value), _defineProperty(_this2$setState4, "difficulty_min", "5.5"), _defineProperty(_this2$setState4, "difficulty_max", "5.5"), _this2$setState4));
+
+            break;
+
+          default:
+            _this2.setState(_defineProperty({}, type, e.target.value));
+
+            break;
+        }
+
+        ;
       };
     }
   }, {
     key: "handleSubmitForm",
     value: function handleSubmitForm(e) {
-      var _this3 = this;
-
       e.preventDefault(); // console.log('TESTING')
 
-      this.props.searchRoutes(this.state).then(function () {
-        _this3.props.history.push('/route-finder');
-      });
+      this.props.searchRoutes(this.state); // .then(() => {
+      //     this.props.history.push('/route-finder')
+      // });
     }
   }, {
     key: "render",
@@ -1873,9 +1900,9 @@ var RouteFinder = /*#__PURE__*/function (_React$Component) {
           value: type
         }, type);
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Difficulty Range:\xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-        onChange: this.handleInput('difficultyMin')
+        onChange: this.handleInput('difficulty_min')
       }, formGrades), "\xA0to\xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-        onChange: this.handleInput('difficultyMax')
+        onChange: this.handleInput('difficulty_max')
       }, formGrades)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Pitches:\xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         onChange: this.handleInput('pitches')
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
@@ -1902,40 +1929,51 @@ var RouteFinder = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 ;
-/* harmony default export */ __webpack_exports__["default"] = (RouteFinder);
-{
-  /* <div className="route-finder-container">
-  <form onSubmit={this.handleSubmitForm}>
-     <h2>Route Finder</h2>
-     <p>Tell us what you like, we'll tell you what to climb!</p>
-     <label>Type: </label>
-         <select onChange={this.handleInput('route_type')}>
-             {
-             climbingTypes.map(type => (<option value={type}>{type}</option>))
-             }
-         </select>
-      <label>Difficulty Range:
-         <select onChange={this.handleInput('difficultyMin')}>
-             {formGrades}
-         </select>
-         to 
-         <select onChange={this.handleInput('difficultyMax')}>
-             {formGrades}
-         </select>
-     </label>
-      <label>Pitches: </label>
-         <select onChange={this.handleInput('pitches')}>
-             <option value="1">Any Pitches</option>
-             <option value="1*">Exactly 1 pitch</option>
-             <option value="2">At least 2</option>
-             <option value="3">At least 3</option>
-             <option value="4">At least 4</option>
-             <option value="5">At least 5</option>
-             <option value="6">6+ pitches</option>
-     </select>
-  </form>
-  </div> */
-}
+/* harmony default export */ __webpack_exports__["default"] = (RouteFinder); // return (e) => {
+//     this.setState({ [type]: e.target.value });
+// };
+// const that = this;
+// return (e) => {
+//     if (type === 'route_type'){
+//         if (e.target.value === 'Boulder') {
+//             return (e) => {
+//                 that.setState({
+//                     [type]: e.target.value,
+//                     difficulty_min: "VB",
+//                     difficulty_max: "VB",
+//                 })
+//             }
+//         } else if (e.target.value === 'Aid') {
+//             return (e) => {
+//                 that.setState({
+//                     [type]: e.target.value,
+//                     difficulty_min: "A1",
+//                     difficulty_max: "A1",
+//                 })
+//             }
+//         } else if (e.target.value === 'Ice/Mixed') {
+//             return (e) => {
+//                 that.setState({
+//                     [type]: e.target.value,
+//                     difficulty_min: "M1",
+//                     difficulty_max: "M1",
+//                 })
+//             }
+//         } else {
+//             return (e) => {
+//                 that.setState({
+//                     [type]: e.target.value,
+//                     difficulty_min: "5.5",
+//                     difficulty_max: "5.5",
+//                 })
+//             }
+//         }
+//     } else {
+//         return (e) => {
+//             that.setState({ [type]: e.target.value });
+//         };
+//     }
+// }
 
 /***/ }),
 
