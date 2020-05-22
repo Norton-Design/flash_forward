@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 class RouteFinder extends React.Component {
         constructor(props){
@@ -7,7 +8,8 @@ class RouteFinder extends React.Component {
             route_type: 'Boulder',
             difficulty_min: "VB",
             difficulty_max: "VB",
-            pitches: 1
+            pitches: 1,
+            searched: false
         }
         this.handleInput = this.handleInput.bind(this);
         this.handleSubmitForm = this.handleSubmitForm.bind(this);
@@ -39,12 +41,11 @@ class RouteFinder extends React.Component {
     handleSubmitForm(e) {
         e.preventDefault();
         // console.log('TESTING')
-        // this.props.searchRoutes(this.state)
-        //     .then(() => {
-        //         this.props.history.push('/route-finder')
-        //     });
+        this.props.searchRoutes(this.state)
+            .then(() => {
+                this.setState({searched: true})
+            });
 
-        console.log(this.props)
         // const { history } = this.props;
         // history.push(`route-finder?route_type=${this.state.route_type}&pitches=${this.state.pitches}&difficulty_min=${this.state.difficulty_min}&difficulty_max=${this.state.difficulty_max}`)
     }
@@ -55,6 +56,7 @@ class RouteFinder extends React.Component {
         const ydsGrades = ["5.5", "5.6", "5.7", "5.8", "5.9", "5.10a", "5.10b", "5.10c", "5.10d", "5.11a", "5.11b", "5.11c", "5.11d", "5.12a", "5.12b", "5.12c", "5.12d", "5.13a", "5.13b", "5.13c", "5.13d", "5.14a", "5.14b", "5.14c", "5.14d", "5.15a", "5.15b", "5.15c", "5.15d"];
         const mixedGrades = ["M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10", "M11", "M12", "M13", "M14", "M15"];
         const aidGrades = ['A1', 'A2', 'A3', 'A4', 'A5', 'C1', 'C2', 'C3', 'C4', 'C5'];
+        const routeFinderRedirect = this.state.searched ? <Redirect to="route-finder"/> : null;
 
         let formGrades;
 
@@ -75,6 +77,7 @@ class RouteFinder extends React.Component {
 
         return (
             <div className="route-finder-container">
+                { routeFinderRedirect } 
                 <form onSubmit={this.handleSubmitForm}>
                     <h2>Route Finder</h2>
                     <p>Tell us what you like, we'll tell you what to climb!</p>

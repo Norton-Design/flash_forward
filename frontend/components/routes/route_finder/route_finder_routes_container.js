@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import RouteFinderRoutes from './route_finder_routes';
 
 const mstp = state => ({
-    routes: state.entitites.routeFinderRoutes
+    routes: state.entities.routeFinderRoutes
 });
 
 const mdtp = dispatch => ({

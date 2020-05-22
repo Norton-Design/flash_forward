@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Route, Switch, Link, Router } from "react-router-dom";
+import { Route, Link, Router } from "react-router-dom";
 import AuthModal from './modal/modal';
 import GreetingContainer from "./greeting/greeting_container";
 import ErrorsContainer from "./errors/errors_container";
@@ -22,12 +22,12 @@ const App = () => (
         </header>
 
         <main>
-            <Route path="/route-finder" component={ RouteFinderRoutesContainer }/>
-            <Route path="/areas/:areaId" component={ AreaShowContainer } />
-            <Route path="/routes/:routeId" component={ RouteShowContainer } />
-            <Route path="/new/route/:areaId" component={ RouteCreateFormContainer } />
-            <Route path="/new/area/:areaId" component={ AreaCreateFormContainer } />
-            <Route exact path="/" component={ DirectoryContainer } />
+                <Route path="/route-finder" component={ RouteFinderRoutesContainer }/>
+                <Route path="/areas/:areaId" component={ AreaShowContainer } />
+                <Route path="/routes/:routeId" component={ RouteShowContainer } />
+                <Route path="/new/route/:areaId" component={ RouteCreateFormContainer } />
+                <Route path="/new/area/:areaId" component={ AreaCreateFormContainer } />
+                <Route exact path="/" component={ DirectoryContainer } />
         </main>
         <footer>
             <div className="footer-top">

@@ -1,25 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const RouteFinderRoutes = ({ routes }) => {
-    const routeList = routes.map((route, idx) => {
-        return (
-            <ul key={idx}>
+
+class RouteFinderRoutes extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
+    render () {
+        const routeList = Object.entries(this.props.routes).map((pair) => {
+            const route = pair[1];
+            return (
+            <ul key={route.id}>
                 <li><Link to={`/routes/${route.id}`}>{route.name}</Link></li>
                 <li><Link to={`/areas/${route.routeAreaId}`}>{route.routeArea}</Link></li>
                 <li>{route.difficulty}</li>
                 <li>{route.routeType}</li>
                 <li>{route.pitches}</li>
             </ul>
+            )}
         )
-    })
-
-    return (
-        <div>
-            <h1>Climbing Route Finder</h1>
-            { routeList }
-        </div>
-    )
+        return (
+            <div>
+                <h1>Climbing Route Finder</h1>
+                { routeList }
+            </div>
+        )
+    }
 }
 
+
 export default RouteFinderRoutes;
+
