@@ -339,7 +339,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _areas_area_show_area_show_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./areas/area_show/area_show_container */ "./frontend/components/areas/area_show/area_show_container.js");
 /* harmony import */ var _areas_area_create_area_create_form_container__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./areas/area_create/area_create_form_container */ "./frontend/components/areas/area_create/area_create_form_container.js");
 /* harmony import */ var _routes_route_create_route_create_form_container__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./routes/route_create/route_create_form_container */ "./frontend/components/routes/route_create/route_create_form_container.js");
-/* harmony import */ var _routes_route_finder_route_finder_container__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./routes/route_finder/route_finder_container */ "./frontend/components/routes/route_finder/route_finder_container.js");
+/* harmony import */ var _routes_route_finder_route_finder_routes_container__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./routes/route_finder/route_finder_routes_container */ "./frontend/components/routes/route_finder/route_finder_routes_container.js");
 
 
 
@@ -361,9 +361,8 @@ var App = function App() {
     id: "main-logo",
     src: "https://utilflashforwardbucket.s3.us-east-2.amazonaws.com/greeting_logo.jpg"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_3__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    exact: true,
     path: "/route-finder",
-    component: _routes_route_finder_route_finder_container__WEBPACK_IMPORTED_MODULE_10__["default"]
+    component: _routes_route_finder_route_finder_routes_container__WEBPACK_IMPORTED_MODULE_10__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/areas/:areaId",
     component: _areas_area_show_area_show_container__WEBPACK_IMPORTED_MODULE_7__["default"]
@@ -1836,10 +1835,13 @@ var RouteFinder = /*#__PURE__*/function (_React$Component) {
     key: "handleSubmitForm",
     value: function handleSubmitForm(e) {
       e.preventDefault(); // console.log('TESTING')
+      // this.props.searchRoutes(this.state)
+      //     .then(() => {
+      //         this.props.history.push('/route-finder')
+      //     });
 
-      this.props.searchRoutes(this.state); // .then(() => {
-      //     this.props.history.push('/route-finder')
-      // });
+      console.log(this.props); // const { history } = this.props;
+      // history.push(`route-finder?route_type=${this.state.route_type}&pitches=${this.state.pitches}&difficulty_min=${this.state.difficulty_min}&difficulty_max=${this.state.difficulty_max}`)
     }
   }, {
     key: "render",
@@ -2006,6 +2008,68 @@ var mdtp = function mdtp(dispatch) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mstp, mdtp)(_route_finder__WEBPACK_IMPORTED_MODULE_1__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/routes/route_finder/route_finder_routes.jsx":
+/*!*************************************************************************!*\
+  !*** ./frontend/components/routes/route_finder/route_finder_routes.jsx ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+
+var RouteFinderRoutes = function RouteFinderRoutes(_ref) {
+  var routes = _ref.routes;
+  var routeList = routes.map(function (route, idx) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      key: idx
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: "/routes/".concat(route.id)
+    }, route.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: "/areas/".concat(route.routeAreaId)
+    }, route.routeArea)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, route.difficulty), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, route.routeType), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, route.pitches));
+  });
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Climbing Route Finder"), routeList);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (RouteFinderRoutes);
+
+/***/ }),
+
+/***/ "./frontend/components/routes/route_finder/route_finder_routes_container.js":
+/*!**********************************************************************************!*\
+  !*** ./frontend/components/routes/route_finder/route_finder_routes_container.js ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _route_finder_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./route_finder_routes */ "./frontend/components/routes/route_finder/route_finder_routes.jsx");
+
+
+
+var mstp = function mstp(state) {
+  return {
+    routes: state.entitites.routeFinderRoutes
+  };
+};
+
+var mdtp = function mdtp(dispatch) {
+  return {// searchRoutes: searchParams => dispatch(searchRoutes(searchParams))
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mstp, mdtp)(_route_finder_routes__WEBPACK_IMPORTED_MODULE_1__["default"]));
 
 /***/ }),
 

@@ -40,6 +40,10 @@ class Api::RoutesController < ApplicationController
             pitches: params["pitches"].to_i..50,
         }
 
+        if params["pitches"] == '1*'
+            searchParams[:pitches] = 1
+        end
+
         case params["route_type"]
         when "Boulder"
             searchParams["difficulty"] = boulder_grades[boulder_grades.index(params["difficulty_min"])..boulder_grades.index(params["difficulty_max"])]

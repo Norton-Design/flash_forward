@@ -1,7 +1,5 @@
 import React from 'react';
 
-
-
 class RouteFinder extends React.Component {
         constructor(props){
         super(props)
@@ -41,10 +39,14 @@ class RouteFinder extends React.Component {
     handleSubmitForm(e) {
         e.preventDefault();
         // console.log('TESTING')
-        this.props.searchRoutes(this.state)
-            // .then(() => {
-            //     this.props.history.push('/route-finder')
-            // });
+        // this.props.searchRoutes(this.state)
+        //     .then(() => {
+        //         this.props.history.push('/route-finder')
+        //     });
+
+        console.log(this.props)
+        // const { history } = this.props;
+        // history.push(`route-finder?route_type=${this.state.route_type}&pitches=${this.state.pitches}&difficulty_min=${this.state.difficulty_min}&difficulty_max=${this.state.difficulty_max}`)
     }
 
     render() {
