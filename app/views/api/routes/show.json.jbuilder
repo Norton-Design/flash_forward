@@ -1,6 +1,7 @@
 json.extract! @route, :id, :name, :difficulty, :pitches, :elevation, :description, :protection
     json.routeType @route.route_type
     json.createdAt @route.created_at
+    json.photo_urls @route.photos.map { |file| url_for(file) }
 
 json.sharer do
     json.id @route.sharer.id

@@ -23,7 +23,7 @@ class Api::RoutesController < ApplicationController
 
     def show
         # joins the tables to avoid additional querying (I don't think this is joining...)
-        @route = Route.includes(:sharer, :area, :sibling_routes, :route_moderators).find(params[:id])
+        @route = Route.includes(:sharer, :area, :sibling_routes, :route_moderators).with_attached_photos.find(params[:id])
         @pathway = pathway(@route.area_id)
 
         render :show

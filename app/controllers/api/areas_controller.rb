@@ -9,7 +9,7 @@ class Api::AreasController < ApplicationController
 
     def show
         # debugger
-        @area = Area.includes(:child_areas, :routes, :parent_area, :sibling_areas).find(params[:id])
+        @area = Area.includes(:child_areas, :routes, :parent_area, :sibling_areas).with_attached_photos.find(params[:id])
         @parent_area = @area.parent_area
         @pathway = pathway(@area.parent_id)
         # debugger

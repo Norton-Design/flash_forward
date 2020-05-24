@@ -11,6 +11,7 @@ json.extract! @area, :id, :name, :description, :lat, :lng
     json.gettingThere @area.getting_there
     json.parentName @parent_area.name
     json.createdAt @area.created_at
+    json.photo_urls @area.photos.map { |file| url_for(file) }
 
     json.routes do
         json.array! @area.routes, :id, :name, :difficulty

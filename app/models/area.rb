@@ -36,4 +36,6 @@ class Area < ApplicationRecord
     has_many :sibling_areas,
     through: :parent_area,
     source: :child_areas
+
+    has_many_attached :photos
 end

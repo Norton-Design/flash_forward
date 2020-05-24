@@ -48,4 +48,6 @@ class Route < ApplicationRecord
     has_many :sibling_routes,
     through: :area,
     source: :routes
+
+    has_many_attached :photos
 end
