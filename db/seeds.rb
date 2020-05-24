@@ -120,6 +120,26 @@ Route.all.each do |route|
     mod = RouteModerator.new(route_id: route.id, mod_id: mods.sample.id)
     mod.save!
 end
+  
+areas = Area.all
+  
+def count_routes(area)
+    return 0 if (area.routes.length == 0 && area.child_areas.length == 0)
+    return area.routes.length if area.routes.length > 0
+
+    counts = area.child_areas.map do |child_area|
+      count_routes(child_area)
+    end
+    
+    return counts.sum
+end
+
+areas.each do |area|
+    new_route_count = count_routes(area)
+    edit_area = Area.find(area.id)
+
+    edit_area.update({route_count: new_route_count})
+end
 
 
 

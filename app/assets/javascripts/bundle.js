@@ -971,7 +971,8 @@ var DirectoryChildItem = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this$props$area = this.props.area,
           name = _this$props$area.name,
-          id = _this$props$area.id;
+          id = _this$props$area.id,
+          route_count = _this$props$area.route_count;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "dl-item child-area",
         key: id
@@ -979,7 +980,7 @@ var DirectoryChildItem = /*#__PURE__*/function (_React$Component) {
         to: "/areas/".concat(id)
       }, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: ""
-      }, "50"));
+      }, route_count));
     }
   }]);
 
@@ -1077,7 +1078,8 @@ var DirectoryItem = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this$props$area = this.props.area,
           name = _this$props$area.name,
-          id = _this$props$area.id;
+          id = _this$props$area.id,
+          route_count = _this$props$area.route_count;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "dl-item parent-area",
         key: id
@@ -1085,7 +1087,7 @@ var DirectoryItem = /*#__PURE__*/function (_React$Component) {
         to: "/areas/".concat(id)
       }, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: ""
-      }, "50"));
+      }, route_count));
     }
   }]);
 

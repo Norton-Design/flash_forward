@@ -13,8 +13,8 @@
 # For Root Area work
 @root_areas.each do |area|
     json.set! area.id do
-        json.extract! area, :id, :name
-        json.childAreas area.child_areas, :id, :name
+        json.extract! area, :id, :name, :route_count
+        json.childAreas area.child_areas, :id, :name, :route_count
     end
 end
 
