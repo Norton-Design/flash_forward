@@ -1338,7 +1338,7 @@ var MainBanner = /*#__PURE__*/function (_React$Component) {
         className: "featured-photos-container"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-banner-right"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Beyond the Guidebook"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, this.state.total, " Routes shared by Climbers Like You"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_routes_route_finder_route_finder_container__WEBPACK_IMPORTED_MODULE_1__["default"], null))));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Beyond the Guidebook"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, this.state.total, " Routes Shared by Climbers Like You"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_routes_route_finder_route_finder_container__WEBPACK_IMPORTED_MODULE_1__["default"], null))));
     }
   }]);
 
@@ -2079,7 +2079,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
- // import RouteFinder from './route_finder';
+
 
 var RouteFinderRoutes = /*#__PURE__*/function (_React$Component) {
   _inherits(RouteFinderRoutes, _React$Component);
@@ -2098,7 +2098,7 @@ var RouteFinderRoutes = /*#__PURE__*/function (_React$Component) {
       var routeList = Object.entries(this.props.routes).map(function (pair) {
         var route = pair[1];
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-          className: "",
+          className: "route-finder-row",
           key: route.id
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
           to: "/routes/".concat(route.id)
@@ -2106,7 +2106,9 @@ var RouteFinderRoutes = /*#__PURE__*/function (_React$Component) {
           to: "/areas/".concat(route.routeAreaId)
         }, route.routeArea)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, route.difficulty), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, route.routeType), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, route.pitches));
       });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Climbing Route Finder"), routeList, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_route_finder_container__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Climbing Route Finder"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-finder-results"
+      }, routeList), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_route_finder_container__WEBPACK_IMPORTED_MODULE_2__["default"], null));
     }
   }]);
 

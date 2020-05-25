@@ -38,7 +38,7 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    height: 900px;
+    height: 950px;
     margin-top: 10px;
 }
 
@@ -61,7 +61,9 @@
 }
 
 .parent-area {
-    font-weight: bolder;
+    a {
+        font-weight: 600;
+    }
 }
 
 .directory-container a:hover {
@@ -72,7 +74,9 @@
 
 .directory-container p {
     padding-right: 15px;
-    color: #4e4d49
+    color: #4e4d49;
+    align-items: flex-end;
+    display: flex;
 }
 
 .directory-container hr {

@@ -10,8 +10,6 @@ class MainBanner extends React.Component {
     }
   }
 
-
-
   render(){
     let newTotal = 0;
     const myNodeList = document.getElementsByClassName('parent-area-route-count');
@@ -34,7 +32,7 @@ class MainBanner extends React.Component {
         </div>
         <div className="main-banner-right">
           <h1>Beyond the Guidebook</h1>
-          <h3>{this.state.total} Routes shared by Climbers Like You</h3>
+          <h3>{this.state.total} Routes Shared by Climbers Like You</h3>
           <hr />
           <RouteFinderContainer/>
         </div>
