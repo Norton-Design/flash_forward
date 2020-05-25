@@ -12,7 +12,7 @@ class DirectoryItem extends React.Component {
             <li className="dl-item parent-area" key={id}>
                 <Link to={`/areas/${id}`}>{name}</Link>
                 <hr />
-                <p className="">{route_count}</p>
+                <p className="parent-area-route-count">{route_count}</p>
             </li>
         );
     }

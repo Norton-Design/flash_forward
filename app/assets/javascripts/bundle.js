@@ -1086,7 +1086,7 @@ var DirectoryItem = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/areas/".concat(id)
       }, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-        className: ""
+        className: "parent-area-route-count"
       }, route_count));
     }
   }]);
@@ -1309,6 +1309,13 @@ var MainBanner = /*#__PURE__*/function (_React$Component) {
   _createClass(MainBanner, [{
     key: "render",
     value: function render() {
+      // let total = 0;
+      // const myNodeList = document.getElementsByClassName('parent-area-route-count');
+      // for (var i = 0; i < myNodeList.length; ++i) {
+      //   console.log(myNodeList[i].innerHTML)
+      //   total += myNodeList[i].innerHTML;
+      //  }
+      // console.log(total);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-banner"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

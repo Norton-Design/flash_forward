@@ -7,7 +7,19 @@ class MainBanner extends React.Component {
     super(props);
   }
 
+
+
   render(){
+    // let total = 0;
+    // const myNodeList = document.getElementsByClassName('parent-area-route-count');
+
+    // for (var i = 0; i < myNodeList.length; ++i) {
+    //   console.log(myNodeList[i].innerHTML)
+    //   total += myNodeList[i].innerHTML;
+    //  }
+
+    // console.log(total);
+
 
     return (
     <div className="main-banner">
