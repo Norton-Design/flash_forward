@@ -5,21 +5,27 @@ import RouteFinderContainer from '../routes/route_finder/route_finder_container'
 class MainBanner extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+      total: 0
+    }
   }
 
 
 
   render(){
-    // let total = 0;
-    // const myNodeList = document.getElementsByClassName('parent-area-route-count');
+    let newTotal = 0;
+    const myNodeList = document.getElementsByClassName('parent-area-route-count');
 
-    // for (var i = 0; i < myNodeList.length; ++i) {
-    //   console.log(myNodeList[i].innerHTML)
-    //   total += myNodeList[i].innerHTML;
-    //  }
+    setTimeout( ()=>{
+        for (var i = 0; i < myNodeList.length - 1; ++i) {
+            newTotal += parseInt(myNodeList.item(i).innerHTML);
+            }
 
-    // console.log(total);
-
+        if (this.state.total !== newTotal) {
+          this.setState({
+            total: newTotal});
+        }
+    }, 0)
 
     return (
     <div className="main-banner">
@@ -28,7 +34,7 @@ class MainBanner extends React.Component {
         </div>
         <div className="main-banner-right">
           <h1>Beyond the Guidebook</h1>
-          <h3>300 Routes shared by Climbers Like You</h3>
+          <h3>{this.state.total} Routes shared by Climbers Like You</h3>
           <hr />
           <RouteFinderContainer/>
         </div>

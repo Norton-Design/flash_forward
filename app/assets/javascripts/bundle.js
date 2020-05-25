@@ -1301,21 +1301,35 @@ var MainBanner = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(MainBanner);
 
   function MainBanner(props) {
+    var _this;
+
     _classCallCheck(this, MainBanner);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.state = {
+      total: 0
+    };
+    return _this;
   }
 
   _createClass(MainBanner, [{
     key: "render",
     value: function render() {
-      // let total = 0;
-      // const myNodeList = document.getElementsByClassName('parent-area-route-count');
-      // for (var i = 0; i < myNodeList.length; ++i) {
-      //   console.log(myNodeList[i].innerHTML)
-      //   total += myNodeList[i].innerHTML;
-      //  }
-      // console.log(total);
+      var _this2 = this;
+
+      var newTotal = 0;
+      var myNodeList = document.getElementsByClassName('parent-area-route-count');
+      setTimeout(function () {
+        for (var i = 0; i < myNodeList.length - 1; ++i) {
+          newTotal += parseInt(myNodeList.item(i).innerHTML);
+        }
+
+        if (_this2.state.total !== newTotal) {
+          _this2.setState({
+            total: newTotal
+          });
+        }
+      }, 0);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-banner"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1324,7 +1338,7 @@ var MainBanner = /*#__PURE__*/function (_React$Component) {
         className: "featured-photos-container"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-banner-right"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Beyond the Guidebook"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "300 Routes shared by Climbers Like You"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_routes_route_finder_route_finder_container__WEBPACK_IMPORTED_MODULE_1__["default"], null))));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Beyond the Guidebook"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, this.state.total, " Routes shared by Climbers Like You"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_routes_route_finder_route_finder_container__WEBPACK_IMPORTED_MODULE_1__["default"], null))));
     }
   }]);
 
