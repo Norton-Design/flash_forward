@@ -1962,51 +1962,7 @@ var RouteFinder = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 ;
-/* harmony default export */ __webpack_exports__["default"] = (RouteFinder); // return (e) => {
-//     this.setState({ [type]: e.target.value });
-// };
-// const that = this;
-// return (e) => {
-//     if (type === 'route_type'){
-//         if (e.target.value === 'Boulder') {
-//             return (e) => {
-//                 that.setState({
-//                     [type]: e.target.value,
-//                     difficulty_min: "VB",
-//                     difficulty_max: "VB",
-//                 })
-//             }
-//         } else if (e.target.value === 'Aid') {
-//             return (e) => {
-//                 that.setState({
-//                     [type]: e.target.value,
-//                     difficulty_min: "A1",
-//                     difficulty_max: "A1",
-//                 })
-//             }
-//         } else if (e.target.value === 'Ice/Mixed') {
-//             return (e) => {
-//                 that.setState({
-//                     [type]: e.target.value,
-//                     difficulty_min: "M1",
-//                     difficulty_max: "M1",
-//                 })
-//             }
-//         } else {
-//             return (e) => {
-//                 that.setState({
-//                     [type]: e.target.value,
-//                     difficulty_min: "5.5",
-//                     difficulty_max: "5.5",
-//                 })
-//             }
-//         }
-//     } else {
-//         return (e) => {
-//             that.setState({ [type]: e.target.value });
-//         };
-//     }
-// }
+/* harmony default export */ __webpack_exports__["default"] = (RouteFinder);
 
 /***/ }),
 
@@ -2097,18 +2053,32 @@ var RouteFinderRoutes = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var routeList = Object.entries(this.props.routes).map(function (pair) {
         var route = pair[1];
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
           className: "route-finder-row",
           key: route.id
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          className: "detail-large route-name"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
           to: "/routes/".concat(route.id)
-        }, route.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        }, route.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          className: "detail-large route-area"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
           to: "/areas/".concat(route.routeAreaId)
-        }, route.routeArea)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, route.difficulty), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, route.routeType), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, route.pitches));
+        }, route.routeArea)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          className: "detail-small"
+        }, route.difficulty), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          className: "detail-small"
+        }, route.route_type), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          className: "detail-small"
+        }, route.pitches));
       });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Climbing Route Finder"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-finder-main"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-finder-results-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Climbing Route Finder"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
         className: "route-finder-results"
-      }, routeList), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_route_finder_container__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+      }, routeList), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_route_finder_container__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
     }
   }]);
 
