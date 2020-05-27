@@ -95,15 +95,6 @@ class RouteCreateForm extends React.Component {
             formData.append(`route[${attribute}]`, this.state[attribute]);
         });
 
-        // for (let i = 0; i < this.state.photos.length; i++) {
-        //     // console.log(this.state.photos[i])
-        //     formData.append('route[photos][]', this.state.photos[i]);
-        // }
-
-        // for (var key of formData.keys()) {
-        //     console.log(key); 
-        //  }
-
         this.props.createRoute(formData)
             .then(() => this.props.history.push(`/areas/${area}`));
                         // .then((returnVal) => console.log(returnVal));

@@ -24,9 +24,19 @@ class Api::AreasController < ApplicationController
 
     def create
         # debugger
-        @area = Area.new(area_params)
+        mod_params = {
+            name: area_params[:name],
+            parent_id: area_params[:parent_id],
+            description: area_params[:description],
+            getting_there: area_params[:getting_there],
+            lat: area_params[:lat],
+            lng: area_params[:lng],
+            photos: [area_params[:photo]]
+        }
+
+        @area = Area.new(mod_params)
         if @area.save
-            # render :show
+            # redirect?
         else
             render json: @area.errors.full_messages, status: 401
         end
@@ -48,7 +58,8 @@ class Api::AreasController < ApplicationController
             :description,
             :getting_there,
             :lat,
-            :lng
+            :lng,
+            :photo
         )
     end
 

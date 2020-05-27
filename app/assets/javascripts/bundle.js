@@ -471,6 +471,7 @@ var AreaCreateForm = /*#__PURE__*/function (_React$Component) {
       parent_id: parseInt(props.match.params.areaId)
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.handleFileSubmit = _this.handleFileSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -506,6 +507,30 @@ var AreaCreateForm = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "handleFileSubmit",
+    value: function handleFileSubmit(e) {
+      var _this4 = this;
+
+      var reader = new FileReader();
+      var file = e.currentTarget.files[0];
+
+      reader.onloadend = function () {
+        return _this4.setState({
+          photoUrl: reader.result,
+          photo: file
+        });
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+        this.setState({
+          photoUrl: "",
+          photo: null
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       // console.log(this.state);
@@ -535,6 +560,11 @@ var AreaCreateForm = /*#__PURE__*/function (_React$Component) {
         onChange: this.handleInput('getting_there'),
         placeholder: " Be specific and clear. How long is the approach?"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "file",
+        onChange: this.handleFileSubmit,
+        multiple: true,
+        accept: ".jpg,.png"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         onClick: this.handleSubmit,
         value: "Save Area"
@@ -686,13 +716,17 @@ var AreaShow = /*#__PURE__*/function (_React$Component) {
           routes = _this$state$area.routes,
           childAreas = _this$state$area.childAreas,
           pathway = _this$state$area.pathway,
-          createdAt = _this$state$area.createdAt;
+          createdAt = _this$state$area.createdAt,
+          photo_urls = _this$state$area.photo_urls;
       var gettingThereDiv;
       var sidebarFill;
       var pathwayFill = [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         className: "show-pathway",
         to: "/"
       }, "All Areas")];
+      var profilePhoto = photo_urls.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: photo_urls[0]
+      }) : null;
 
       if (routes.length > 0) {
         dropdownCard = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -767,7 +801,7 @@ var AreaShow = /*#__PURE__*/function (_React$Component) {
         className: "description-details-left"
       }, "Admins:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Placeholder"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "slideshow-show"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, profilePhoto), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "description-body"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, description), gettingThereDiv)));
     }
@@ -1638,14 +1672,7 @@ var RouteCreateForm = /*#__PURE__*/function (_React$Component) {
       var formData = new FormData();
       Object.keys(this.state).forEach(function (attribute) {
         formData.append("route[".concat(attribute, "]"), _this3.state[attribute]);
-      }); // for (let i = 0; i < this.state.photos.length; i++) {
-      //     // console.log(this.state.photos[i])
-      //     formData.append('route[photos][]', this.state.photos[i]);
-      // }
-      // for (var key of formData.keys()) {
-      //     console.log(key); 
-      //  }
-
+      });
       this.props.createRoute(formData).then(function () {
         return _this3.props.history.push("/areas/".concat(area));
       }); // .then((returnVal) => console.log(returnVal));

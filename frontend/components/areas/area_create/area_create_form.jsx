@@ -13,6 +13,7 @@ class AreaCreateForm extends React.Component {
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleFileSubmit = this.handleFileSubmit.bind(this);
     }
 
     handleInput(type){
@@ -39,6 +40,20 @@ class AreaCreateForm extends React.Component {
 
         this.props.createArea(formData)
             .then(() => this.props.history.push(`/areas/${area}`));
+    }
+
+    handleFileSubmit(e) {
+        const reader = new FileReader();
+        const file = e.currentTarget.files[0];
+
+        reader.onloadend = () =>
+        this.setState({ photoUrl: reader.result, photo: file });
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            this.setState({ photoUrl: "", photo: null });
+        }
     }
 
     render(){
@@ -95,6 +110,13 @@ class AreaCreateForm extends React.Component {
                             placeholder=" Be specific and clear. How long is the approach?"
                         />
                     <br />
+
+                    <input
+                        type="file"
+                        onChange={this.handleFileSubmit}
+                        multiple
+                        accept=".jpg,.png"
+                    />
 
                     <input type="submit" onClick={this.handleSubmit} value="Save Area" />
                 </form>

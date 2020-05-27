@@ -44,11 +44,14 @@ class AreaShow extends React.Component {
             routes, 
             childAreas, 
             pathway,
-            createdAt
+            createdAt,
+            photo_urls
         } = this.state.area;
         let gettingThereDiv;
         let sidebarFill;
         let pathwayFill = [<Link className="show-pathway" to="/">All Areas</Link>];
+
+        let profilePhoto = photo_urls.length > 0 ? <img src={photo_urls[0]}></img> : null
 
         if (routes.length > 0){
             dropdownCard = (
@@ -140,6 +143,7 @@ class AreaShow extends React.Component {
                     </table>
                     </div>
                     <div className="slideshow-show">
+                        { profilePhoto }
                     </div>
 
                     <div className="description-body">

@@ -132,7 +132,7 @@ class RouteShow extends React.Component {
                     </table>
                     </div>
                     <div className="slideshow-show">
-                        {profilePhoto}
+                        { profilePhoto }
                     </div>
                     <div className="description-body">
                         <h2>Description</h2>
