@@ -74,10 +74,12 @@ class RouteShow extends React.Component {
             sharer, 
             area, 
             pathway,
-            createdAt
+            createdAt,
+            photo_urls
         } = this.state.route;
 
         let pathwayFill = [<Link key={0} className="show-pathway" to="/">All Areas</Link>];
+        let profilePhoto = photo_urls.length > 0 ? <img src={photo_urls[0]}></img> : null
 
         pathway.forEach(area => {
             pathwayFill.push(" > ");
@@ -91,6 +93,7 @@ class RouteShow extends React.Component {
         }
 
         // console.log(this.state.route)
+
         const otherRoutes = [];
         this.state.route.siblingRoutes.forEach(route => {
             if (route.id !== this.state.route.id){
@@ -129,6 +132,7 @@ class RouteShow extends React.Component {
                     </table>
                     </div>
                     <div className="slideshow-show">
+                        {profilePhoto}
                     </div>
                     <div className="description-body">
                         <h2>Description</h2>

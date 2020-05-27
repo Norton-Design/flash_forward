@@ -11,11 +11,12 @@ class RouteCreateForm extends React.Component {
             elevation: "",
             description: "",
             protection: "",
-            area_id: parseInt(props.match.params.areaId)
+            area_id: parseInt(props.match.params.areaId),
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.toggleGradeSelection = this.toggleGradeSelection.bind(this);
+        this.handleFileSubmit = this.handleFileSubmit.bind(this);
     }
 
     handleInput(type){
@@ -86,22 +87,43 @@ class RouteCreateForm extends React.Component {
     }
 
     handleSubmit(e) {
+        e.preventDefault();
         this.state.elevation = parseFloat(this.state.elevation)
         let area = this.state.area_id
-        e.preventDefault();
         let formData = new FormData();
         Object.keys(this.state).forEach(attribute => {
             formData.append(`route[${attribute}]`, this.state[attribute]);
         });
+
+        // for (let i = 0; i < this.state.photos.length; i++) {
+        //     // console.log(this.state.photos[i])
+        //     formData.append('route[photos][]', this.state.photos[i]);
+        // }
+
+        // for (var key of formData.keys()) {
+        //     console.log(key); 
+        //  }
 
         this.props.createRoute(formData)
             .then(() => this.props.history.push(`/areas/${area}`));
                         // .then((returnVal) => console.log(returnVal));
     }
 
-    render(){
-        // console.log(this.state);
+    handleFileSubmit(e) {
+        const reader = new FileReader();
+        const file = e.currentTarget.files[0];
 
+        reader.onloadend = () =>
+        this.setState({ photoUrl: reader.result, photo: file });
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            this.setState({ photoUrl: "", photo: null });
+        }
+    }
+
+    render(){
         return(
             <div className="create-form">
                 <h1>New Route</h1>
@@ -187,6 +209,13 @@ class RouteCreateForm extends React.Component {
                             placeholder=" What type of pro? Bolts or fixed gear? Anchors at top?"
                         />
                     <br />
+
+                    <input
+                        type="file"
+                        onChange={this.handleFileSubmit}
+                        multiple
+                        accept=".jpg,.png"
+                    />
 
                     <input type="submit" onClick={this.handleSubmit} value="Save Route" />
                 </form>

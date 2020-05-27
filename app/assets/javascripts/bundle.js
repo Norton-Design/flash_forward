@@ -1544,6 +1544,7 @@ var RouteCreateForm = /*#__PURE__*/function (_React$Component) {
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.toggleGradeSelection = _this.toggleGradeSelection.bind(_assertThisInitialized(_this));
+    _this.handleFileSubmit = _this.handleFileSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -1631,21 +1632,51 @@ var RouteCreateForm = /*#__PURE__*/function (_React$Component) {
     value: function handleSubmit(e) {
       var _this3 = this;
 
+      e.preventDefault();
       this.state.elevation = parseFloat(this.state.elevation);
       var area = this.state.area_id;
-      e.preventDefault();
       var formData = new FormData();
       Object.keys(this.state).forEach(function (attribute) {
         formData.append("route[".concat(attribute, "]"), _this3.state[attribute]);
-      });
+      }); // for (let i = 0; i < this.state.photos.length; i++) {
+      //     // console.log(this.state.photos[i])
+      //     formData.append('route[photos][]', this.state.photos[i]);
+      // }
+      // for (var key of formData.keys()) {
+      //     console.log(key); 
+      //  }
+
       this.props.createRoute(formData).then(function () {
         return _this3.props.history.push("/areas/".concat(area));
       }); // .then((returnVal) => console.log(returnVal));
     }
   }, {
+    key: "handleFileSubmit",
+    value: function handleFileSubmit(e) {
+      var _this4 = this;
+
+      var reader = new FileReader();
+      var file = e.currentTarget.files[0];
+
+      reader.onloadend = function () {
+        return _this4.setState({
+          photoUrl: reader.result,
+          photo: file
+        });
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+        this.setState({
+          photoUrl: "",
+          photo: null
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      // console.log(this.state);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "create-form"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "New Route"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Route Name:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -1708,6 +1739,11 @@ var RouteCreateForm = /*#__PURE__*/function (_React$Component) {
         onChange: this.handleInput('protection'),
         placeholder: " What type of pro? Bolts or fixed gear? Anchors at top?"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "file",
+        onChange: this.handleFileSubmit,
+        multiple: true,
+        accept: ".jpg,.png"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         onClick: this.handleSubmit,
         value: "Save Route"
@@ -2239,12 +2275,16 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
           sharer = _this$state$route.sharer,
           area = _this$state$route.area,
           pathway = _this$state$route.pathway,
-          createdAt = _this$state$route.createdAt;
+          createdAt = _this$state$route.createdAt,
+          photo_urls = _this$state$route.photo_urls;
       var pathwayFill = [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         key: 0,
         className: "show-pathway",
         to: "/"
       }, "All Areas")];
+      var profilePhoto = photo_urls.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: photo_urls[0]
+      }) : null;
       pathway.forEach(function (area) {
         pathwayFill.push(" > ");
         pathwayFill.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
@@ -2290,7 +2330,7 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
         className: "description-details-left"
       }, "Admins:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Placeholder"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "slideshow-show"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, profilePhoto), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "description-body"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Protection"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, protection))));
     }

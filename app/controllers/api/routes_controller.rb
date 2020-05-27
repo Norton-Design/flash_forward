@@ -2,11 +2,26 @@ class Api::RoutesController < ApplicationController
     before_action :ensure_logged_in, only: [:create]
 
     def create
-        # debugger
-        @route = Route.new(route_params)
+        mod_params = {
+            name: route_params[:name],
+            route_type: route_params[:route_type],
+            difficulty: route_params[:difficulty],
+            pitches: route_params[:pitches],
+            elevation: route_params[:elevation],
+            description: route_params[:description],
+            protection: route_params[:protection],
+            area_id: route_params[:area_id],
+            photos: [route_params[:photo]]
+        }
+
+        @route = Route.new(mod_params)
         @route.shared_by = current_user.id
+        path = pathway(@route.area_id)
+
         if @route.save
-            # render :show
+            path.each do |area|
+                area.update({route_count: area.route_count + 1})
+            end
         else
             render json: @route.errors.full_messages, status: 401
         end
@@ -63,7 +78,7 @@ class Api::RoutesController < ApplicationController
     def pathway(area_id)
         return [] if area_id == nil 
         area = Area.find(area_id)
-
+ 
         return pathway(area.parent_id).concat([area])
     end
 
@@ -76,7 +91,8 @@ class Api::RoutesController < ApplicationController
             :elevation,
             :description,
             :protection,
-            :area_id
+            :area_id,
+            :photo,
         )
     end
 
