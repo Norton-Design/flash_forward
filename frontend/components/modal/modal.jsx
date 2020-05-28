@@ -3,6 +3,7 @@ import { closeModal } from '../../actions/modal_actions';
 import { connect } from 'react-redux';
 import LoginFormContainer from '../session/login_form_container';
 import SignupFormContainer from '../session/signup_form_container';
+import UploadPhotosRouteContainer from '../routes/route_show/upload_photos_route_container';
 
 const Modal = ({modal, closeModal}) => {
   if (!modal) {
@@ -15,6 +16,9 @@ const Modal = ({modal, closeModal}) => {
       break;
     case 'signup':
       component = <SignupFormContainer />;
+      break;
+    case 'addPhotos':
+      component = <UploadPhotosRouteContainer />
       break;
     default:
       return null;

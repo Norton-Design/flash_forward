@@ -204,7 +204,6 @@ class RouteCreateForm extends React.Component {
                     <input
                         type="file"
                         onChange={this.handleFileSubmit}
-                        multiple
                         accept=".jpg,.png"
                     />
 

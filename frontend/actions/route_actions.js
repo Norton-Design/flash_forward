@@ -35,3 +35,8 @@ export const createRoute = routeData => dispatch => (APIUtil.createRoute(routeDa
 
 export const searchRoutes = searchParams => dispatch => (APIUtil.searchRoutes(searchParams)
     .then( routes => dispatch(receiveRouteFinderRoutes(routes))) );
+
+export const updateRoute = route => dispatch => (APIUtil.updateRoute(route)
+    .then(route => dispatch(receiveRoute(route)))
+    // .fail(errors => dispatch(receiveErrors(errors.responseJSON)))
+      );

@@ -13,11 +13,11 @@ export const fetchRoutes = routes => (
     })
 );
 
-export const createRoute = routeData => (
+export const createRoute = formData => (
     $.ajax({
         method: "POST",
         url: `/api/routes/`,
-        data: routeData,
+        data: formData,
         processData: false,
         contentType: false,
     })
@@ -30,3 +30,20 @@ export const searchRoutes = searchParams => (
       data: searchParams,
     })
 );
+
+export const updateRoute = formData => (
+    $.ajax({
+      method: "PATCH",
+      url: `/api/routes/${formData.get('route[id]')}`,
+      data: formData,
+      contentType: false,
+      processData: false
+    })
+  );
+
+  export const deleteRoute = id => (
+    $.ajax({
+      method: "DELETE",
+      url: `/api/routes/${id}`,
+    })
+  );

@@ -21,6 +21,7 @@ class Api::RoutesController < ApplicationController
         if @route.save
             path.each do |area|
                 area.update({route_count: area.route_count + 1})
+                render :show
             end
         else
             render json: @route.errors.full_messages, status: 401
@@ -33,8 +34,29 @@ class Api::RoutesController < ApplicationController
     # def destroy
     # end
 
-    # def update
-    # end
+    def update
+        mod_params = {
+            name: route_params[:name],
+            route_type: route_params[:routeType],
+            difficulty: route_params[:difficulty],
+            pitches: route_params[:pitches].to_i,
+            elevation: route_params[:elevation].to_i,
+            description: route_params[:description],
+            protection: route_params[:protection],
+        }
+
+        @route = Route.find(params[:id])
+
+        if @route.update(mod_params)
+            if route_params[:photo]
+                # debugger
+                @route.photos.attach(route_params[:photo])
+            end
+            render :show
+        else
+            render json: @route.errors.full_messages, status: 401
+        end
+    end
 
     def show
         # joins the tables to avoid additional querying (I don't think this is joining...)
@@ -84,8 +106,9 @@ class Api::RoutesController < ApplicationController
 
     def route_params
         params.require(:route).permit(
+            :id,
             :name,
-            :route_type,
+            :routeType,
             :difficulty,
             :pitches,
             :elevation,

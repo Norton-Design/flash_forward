@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Greeting = props => {
-  const { currentUser, logout, openModal, test } = props;
+  const { currentUser, logout, openModal } = props;
 
   const sessionLinks = () => (
     <nav className="login-signup">

@@ -1,14 +1,15 @@
 import { connect } from 'react-redux';
 import RouteShow from './route_show';
 import { fetchRoute } from '../../../actions/route_actions';
+import { openModal } from '../../../actions/modal_actions'
 
-// const mstp = (state, { match }) => {
-//     return {
-//     routeId: parseInt(match.params.routeId),
-// }};
+const mstp = (state) => ({
+    currentUserId: state.session.currentUserId,
+});
 
 const mdtp = dispatch => ({
+    openModal: modalType => dispatch(openModal(modalType)),
     fetchRoute: routeId => dispatch(fetchRoute(routeId))
 });
 
-export default connect(null, mdtp)(RouteShow);
+export default connect(mstp, mdtp)(RouteShow);

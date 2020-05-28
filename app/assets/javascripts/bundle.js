@@ -177,7 +177,7 @@ var closeModal = function closeModal() {
 /*!*******************************************!*\
   !*** ./frontend/actions/route_actions.js ***!
   \*******************************************/
-/*! exports provided: RECEIVE_ROUTE, RECEIVE_ROUTES, RECEIVE_ROUTE_FINDER_ROUTES, receiveRoute, receiveRoutes, fetchRoute, fetchRoutes, createRoute, searchRoutes */
+/*! exports provided: RECEIVE_ROUTE, RECEIVE_ROUTES, RECEIVE_ROUTE_FINDER_ROUTES, receiveRoute, receiveRoutes, fetchRoute, fetchRoutes, createRoute, searchRoutes, updateRoute */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -191,6 +191,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchRoutes", function() { return fetchRoutes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createRoute", function() { return createRoute; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchRoutes", function() { return searchRoutes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRoute", function() { return updateRoute; });
 /* harmony import */ var _util_route_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/route_api_util */ "./frontend/util/route_api_util.js");
 
 var RECEIVE_ROUTE = 'RECEIVE_ROUTE';
@@ -245,6 +246,14 @@ var searchRoutes = function searchRoutes(searchParams) {
     return _util_route_api_util__WEBPACK_IMPORTED_MODULE_0__["searchRoutes"](searchParams).then(function (routes) {
       return dispatch(receiveRouteFinderRoutes(routes));
     });
+  };
+};
+var updateRoute = function updateRoute(route) {
+  return function (dispatch) {
+    return _util_route_api_util__WEBPACK_IMPORTED_MODULE_0__["updateRoute"](route).then(function (route) {
+      return dispatch(receiveRoute(route));
+    }) // .fail(errors => dispatch(receiveErrors(errors.responseJSON)))
+    ;
   };
 };
 
@@ -562,7 +571,6 @@ var AreaCreateForm = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "file",
         onChange: this.handleFileSubmit,
-        multiple: true,
         accept: ".jpg,.png"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
@@ -1215,8 +1223,7 @@ __webpack_require__.r(__webpack_exports__);
 var Greeting = function Greeting(props) {
   var currentUser = props.currentUser,
       logout = props.logout,
-      openModal = props.openModal,
-      test = props.test;
+      openModal = props.openModal;
 
   var sessionLinks = function sessionLinks() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
@@ -1430,6 +1437,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _session_login_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../session/login_form_container */ "./frontend/components/session/login_form_container.js");
 /* harmony import */ var _session_signup_form_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../session/signup_form_container */ "./frontend/components/session/signup_form_container.js");
+/* harmony import */ var _routes_route_show_upload_photos_route_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../routes/route_show/upload_photos_route_container */ "./frontend/components/routes/route_show/upload_photos_route_container.js");
+
 
 
 
@@ -1453,6 +1462,10 @@ var Modal = function Modal(_ref) {
 
     case 'signup':
       component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_session_signup_form_container__WEBPACK_IMPORTED_MODULE_4__["default"], null);
+      break;
+
+    case 'addPhotos':
+      component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_routes_route_show_upload_photos_route_container__WEBPACK_IMPORTED_MODULE_5__["default"], null);
       break;
 
     default:
@@ -1768,7 +1781,6 @@ var RouteCreateForm = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "file",
         onChange: this.handleFileSubmit,
-        multiple: true,
         accept: ".jpg,.png"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
@@ -2193,6 +2205,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_icons_fa__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-icons/fa */ "./node_modules/react-icons/fa/index.esm.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2218,6 +2231,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var RouteShow = /*#__PURE__*/function (_React$Component) {
   _inherits(RouteShow, _React$Component);
 
@@ -2232,6 +2246,8 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       route: ""
     };
+    _this.openModal = props.openModal;
+    _this.currentUserId = props.currentUserId;
     return _this;
   }
 
@@ -2303,7 +2319,8 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
           area = _this$state$route.area,
           pathway = _this$state$route.pathway,
           createdAt = _this$state$route.createdAt,
-          photo_urls = _this$state$route.photo_urls;
+          photo_urls = _this$state$route.photo_urls,
+          mods = _this$state$route.mods;
       var pathwayFill = [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         key: 0,
         className: "show-pathway",
@@ -2312,6 +2329,35 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
       var profilePhoto = photo_urls.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: photo_urls[0]
       }) : null;
+      var modFill = mods.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, mods[0].first_name, " ", mods[0].last_name) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "No Moderation");
+      var addPhotosFill = this.props.currentUserId ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "dropdown-button",
+        onClick: function onClick() {
+          return _this4.openModal('addPhotos');
+        }
+      }, "Add Photos") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "dropdown-button",
+        onClick: function onClick() {
+          return _this4.openModal('login');
+        }
+      }, "Add Photos");
+      var dropdownCard;
+
+      if (this.props.currentUserId === sharer.id) {
+        dropdownCard = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "dropdown-content"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], null, "Edit Route"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "dropdown-button",
+          onClick: function onClick() {
+            return _this4.openModal('addPhotos');
+          }
+        }, "Add Photos"));
+      } else {
+        dropdownCard = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "dropdown-content"
+        }, addPhotosFill);
+      }
+
       pathway.forEach(function (area) {
         pathwayFill.push(" > ");
         pathwayFill.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
@@ -2345,7 +2391,9 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
         className: "showpage-body"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "show-pathway"
-      }, pathwayFill), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, pathwayFill, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dropdown"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, "Add to Page", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_icons_fa__WEBPACK_IMPORTED_MODULE_2__["FaAngleDown"], null)), dropdownCard)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sub-header"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, difficulty), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
         className: "description-details"
@@ -2355,7 +2403,7 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
         className: "description-details-left"
       }, "Shared By:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, sharer.firstName, " ", sharer.lastName, " on ", this.getTime(createdAt))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
         className: "description-details-left"
-      }, "Admins:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Placeholder"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Admins:"), modFill)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "slideshow-show"
       }, profilePhoto), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "description-body"
@@ -2382,22 +2430,190 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _route_show__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./route_show */ "./frontend/components/routes/route_show/route_show.jsx");
 /* harmony import */ var _actions_route_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/route_actions */ "./frontend/actions/route_actions.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
 
 
- // const mstp = (state, { match }) => {
-//     return {
-//     routeId: parseInt(match.params.routeId),
-// }};
+
+
+
+var mstp = function mstp(state) {
+  return {
+    currentUserId: state.session.currentUserId
+  };
+};
 
 var mdtp = function mdtp(dispatch) {
   return {
+    openModal: function openModal(modalType) {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])(modalType));
+    },
     fetchRoute: function fetchRoute(routeId) {
       return dispatch(Object(_actions_route_actions__WEBPACK_IMPORTED_MODULE_2__["fetchRoute"])(routeId));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mdtp)(_route_show__WEBPACK_IMPORTED_MODULE_1__["default"]));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mstp, mdtp)(_route_show__WEBPACK_IMPORTED_MODULE_1__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/routes/route_show/upload_photos_route_container.js":
+/*!********************************************************************************!*\
+  !*** ./frontend/components/routes/route_show/upload_photos_route_container.js ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _upload_photos_route_form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./upload_photos_route_form */ "./frontend/components/routes/route_show/upload_photos_route_form.jsx");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _actions_route_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/route_actions */ "./frontend/actions/route_actions.js");
+
+
+
+
+
+var mstp = function mstp(state) {
+  return {
+    currentRoute: state.entities.routes
+  };
+};
+
+var mdtp = function mdtp(dispatch) {
+  return {
+    updateRoute: function updateRoute(route) {
+      return dispatch(Object(_actions_route_actions__WEBPACK_IMPORTED_MODULE_3__["updateRoute"])(route));
+    },
+    closeModal: function closeModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["closeModal"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mstp, mdtp)(_upload_photos_route_form__WEBPACK_IMPORTED_MODULE_0__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/routes/route_show/upload_photos_route_form.jsx":
+/*!****************************************************************************!*\
+  !*** ./frontend/components/routes/route_show/upload_photos_route_form.jsx ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var UploadPhotosRouteForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(UploadPhotosRouteForm, _React$Component);
+
+  var _super = _createSuper(UploadPhotosRouteForm);
+
+  function UploadPhotosRouteForm(props) {
+    var _this;
+
+    _classCallCheck(this, UploadPhotosRouteForm);
+
+    _this = _super.call(this, props);
+    _this.state = _objectSpread({}, props.currentRoute);
+    _this.handleFileSubmit = _this.handleFileSubmit.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(UploadPhotosRouteForm, [{
+    key: "handleFileSubmit",
+    value: function handleFileSubmit(e) {
+      var _this2 = this;
+
+      var reader = new FileReader();
+      var file = e.currentTarget.files[0];
+
+      reader.onloadend = function () {
+        return _this2.setState({
+          photoUrl: reader.result,
+          photo: file
+        });
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+        this.setState({
+          photoUrl: "",
+          photo: null
+        });
+      }
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      var _this3 = this;
+
+      e.preventDefault();
+      var formData = new FormData();
+      Object.keys(this.state).forEach(function (attribute) {
+        formData.append("route[".concat(attribute, "]"), _this3.state[attribute]);
+      });
+      this.props.updateRoute(formData).then(function () {
+        return _this3.props.closeModal();
+      }).then(function () {
+        return window.location.reload();
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      // console.log(this.state)
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Add Photo"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "file",
+        onChange: this.handleFileSubmit,
+        accept: ".jpg,.png"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "submit",
+        onClick: this.handleSubmit,
+        value: "Save photo"
+      })));
+    }
+  }]);
+
+  return UploadPhotosRouteForm;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (UploadPhotosRouteForm);
 
 /***/ }),
 
@@ -3171,7 +3387,7 @@ var createArea = function createArea(areaData) {
 /*!*****************************************!*\
   !*** ./frontend/util/route_api_util.js ***!
   \*****************************************/
-/*! exports provided: fetchRoute, fetchRoutes, createRoute, searchRoutes */
+/*! exports provided: fetchRoute, fetchRoutes, createRoute, searchRoutes, updateRoute, deleteRoute */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3180,6 +3396,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchRoutes", function() { return fetchRoutes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createRoute", function() { return createRoute; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchRoutes", function() { return searchRoutes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRoute", function() { return updateRoute; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteRoute", function() { return deleteRoute; });
 var fetchRoute = function fetchRoute(id) {
   return $.ajax({
     method: 'GET',
@@ -3195,11 +3413,11 @@ var fetchRoutes = function fetchRoutes(routes) {
     }
   });
 };
-var createRoute = function createRoute(routeData) {
+var createRoute = function createRoute(formData) {
   return $.ajax({
     method: "POST",
     url: "/api/routes/",
-    data: routeData,
+    data: formData,
     processData: false,
     contentType: false
   });
@@ -3209,6 +3427,21 @@ var searchRoutes = function searchRoutes(searchParams) {
     method: "GET",
     url: "/api/routes/route_finder",
     data: searchParams
+  });
+};
+var updateRoute = function updateRoute(formData) {
+  return $.ajax({
+    method: "PATCH",
+    url: "/api/routes/".concat(formData.get('route[id]')),
+    data: formData,
+    contentType: false,
+    processData: false
+  });
+};
+var deleteRoute = function deleteRoute(id) {
+  return $.ajax({
+    method: "DELETE",
+    url: "/api/routes/".concat(id)
   });
 };
 

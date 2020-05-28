@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { FaAngleDown } from "react-icons/fa";
 
 class RouteShow extends React.Component {
     constructor(props){
@@ -7,6 +8,8 @@ class RouteShow extends React.Component {
         this.state = {
             route: ""
         }
+        this.openModal = props.openModal;
+        this.currentUserId = props.currentUserId;
     }
 
     componentDidMount(){
@@ -75,11 +78,30 @@ class RouteShow extends React.Component {
             area, 
             pathway,
             createdAt,
-            photo_urls
+            photo_urls,
+            mods
         } = this.state.route;
 
-        let pathwayFill = [<Link key={0} className="show-pathway" to="/">All Areas</Link>];
-        let profilePhoto = photo_urls.length > 0 ? <img src={photo_urls[0]}></img> : null
+        const pathwayFill = [<Link key={0} className="show-pathway" to="/">All Areas</Link>];
+        const profilePhoto = photo_urls.length > 0 ? <img src={photo_urls[0]}></img> : null;
+        const modFill = mods.length > 0 ? <td>{mods[0].first_name} {mods[0].last_name}</td> : <td>No Moderation</td>
+        const addPhotosFill = this.props.currentUserId ? <button className="dropdown-button" onClick={() => this.openModal('addPhotos')}>Add Photos</button> : 
+            <button className="dropdown-button" onClick={() => this.openModal('login')}>Add Photos</button>;
+        let dropdownCard;
+
+        if (this.props.currentUserId === sharer.id){
+            dropdownCard = (
+            <div className="dropdown-content">
+                <Link>Edit Route</Link>
+                <br />
+                <button className="dropdown-button" onClick={() => this.openModal('addPhotos')}>Add Photos</button>
+            </div>)
+        } else {
+            dropdownCard = (
+            <div className="dropdown-content">
+                { addPhotosFill }
+            </div>)
+        }
 
         pathway.forEach(area => {
             pathwayFill.push(" > ");
@@ -110,7 +132,13 @@ class RouteShow extends React.Component {
                 </div>
 
                 <div className="showpage-body">
-                <div className="show-pathway">{ pathwayFill }</div>
+                    <div className="show-pathway">{ pathwayFill }
+                        <div className="dropdown">
+                            <a>Add to Page<FaAngleDown /></a>
+                            { dropdownCard }
+                        </div>
+                    </div>
+
                     <div className="sub-header">
                         <h1>{ name }</h1>
                         <h2>{ difficulty }</h2>
@@ -126,7 +154,7 @@ class RouteShow extends React.Component {
                             </tr>
                             <tr>
                                 <td className="description-details-left">Admins:</td>
-                                <td>Placeholder</td>
+                                { modFill }
                             </tr>
                         </tbody>
                     </table>
