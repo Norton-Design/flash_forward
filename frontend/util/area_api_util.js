@@ -13,6 +13,16 @@ export const fetchAreas = areas => (
     })
 );
 
+export const updateArea = formData => (
+    $.ajax({
+      method: "PATCH",
+      url: `/api/areas/${formData.get('area[id]')}`,
+      data: formData,
+      contentType: false,
+      processData: false
+    })
+);
+
 export const createArea = areaData => (
     $.ajax({
         method: "POST",

@@ -36,6 +36,24 @@
     }
 }
 
+.modal-child-photo-container {
+    // padding: 20px 0 0 0;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    // background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    // border: 1px solid white;
+    // border-radius: 5px;
+    animation: dropDown .5s;
+    box-sizing: border-box;
+}
+
 .modal-child input, .modal-child button {
     box-sizing: border-box;
     width: 250px;

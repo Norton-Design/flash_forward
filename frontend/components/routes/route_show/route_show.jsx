@@ -96,10 +96,10 @@ class RouteShow extends React.Component {
                     )
                 })}
             </div>
-        </> : null
+        </> : null;
         const modFill = mods.length > 0 ? <td>{mods[0].first_name} {mods[0].last_name}</td> : <td>No Moderation</td>
-        const addPhotosFill = this.props.currentUserId ? <button className="dropdown-button" onClick={() => this.openModal('addPhotos')}>Add Photos</button> : 
-            <button className="dropdown-button" onClick={() => this.openModal('login')}>Add Photos</button>;
+        const addPhotosFill = this.props.currentUserId ? <button className="dropdown-button" onClick={() => this.openModal('addRoutePhotos')}>Add Photo</button> : 
+            <button className="dropdown-button" onClick={() => this.openModal('login')}>Add Photo</button>;
         let dropdownCard;
 
         if (this.props.currentUserId === sharer.id){
@@ -107,7 +107,7 @@ class RouteShow extends React.Component {
             <div className="dropdown-content">
                 <Link>Edit Route</Link>
                 <br />
-                <button className="dropdown-button" onClick={() => this.openModal('addPhotos')}>Add Photos</button>
+                <button className="dropdown-button" onClick={() => this.openModal('addRoutePhotos')}>Add Photo</button>
             </div>)
         } else {
             dropdownCard = (

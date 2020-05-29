@@ -25,3 +25,8 @@ export const fetchAreas = () => dispatch => APIUtil.fetchAreas()
 
 export const createArea = areaData => dispatch => (APIUtil.createArea(areaData)
     .then( area => dispatch(receiveArea(area))) );
+
+export const updateArea = area => dispatch => (APIUtil.updateArea(area)
+    .then(area => dispatch(receiveArea(area)))
+    // .fail(errors => dispatch(receiveErrors(errors.responseJSON)))
+);

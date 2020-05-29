@@ -8,6 +8,8 @@ class AreaShow extends React.Component {
         this.state = {
             area: ""
         }
+        this.openModal = props.openModal;
+        this.currentUserId = props.currentUserId;
     }
 
     componentDidMount(){
@@ -33,7 +35,6 @@ class AreaShow extends React.Component {
             )
         }
 
-        let dropdownCard;
         let { 
             name, 
             description, 
@@ -49,19 +50,39 @@ class AreaShow extends React.Component {
         } = this.state.area;
         let gettingThereDiv;
         let sidebarFill;
-        let pathwayFill = [<Link className="show-pathway" to="/">All Areas</Link>];
 
-        let profilePhoto = photo_urls.length > 0 ? <img src={photo_urls[0]}></img> : null
+        const pathwayFill = [<Link className="show-pathway" to="/">All Areas</Link>];
+        const profilePhoto = photo_urls.length > 0 ? <img src={photo_urls[0]}></img> : null
+        const photosSection = photo_urls.length > 0 ? 
+        <>
+            <h2>Photos</h2>
+            <div className="show-photos-container">
+                {photo_urls.map(photoUrl => {
+                    return (
+                        <div className="show-photo" onClick={() => this.openModal('showPhoto', photoUrl)}>
+                            <img src={photoUrl} />
+                        </div>
+                    )
+                })}
+            </div>
+        </> : null;
+        const addPhotosFill = this.props.currentUserId ? <button className="dropdown-button" onClick={() => this.openModal('addAreaPhotos')}>Add Photo</button> : 
+            <button className="dropdown-button" onClick={() => this.openModal('login')}>Add Photo</button>;
+        let dropdownCard;
 
         if (routes.length > 0){
             dropdownCard = (
             <div className="dropdown-content">
                 <Link to={`/new/route/${this.props.match.params.areaId}`}>Route</Link>
+                <br />
+                { addPhotosFill }
             </div>)
         } else if (childAreas.length > 0){
             dropdownCard = (
             <div className="dropdown-content">
                 <Link to={`/new/area/${this.props.match.params.areaId}`}>Sub-Area</Link>
+                <br />
+                { addPhotosFill }
             </div>)
         } else {
             dropdownCard = (
@@ -69,6 +90,8 @@ class AreaShow extends React.Component {
                 <Link to={`/new/area/${this.props.match.params.areaId}`}>Sub-Area</Link>
                 <br />
                 <Link to={`/new/route/${this.props.match.params.areaId}`}>Route</Link>
+                <br />
+                { addPhotosFill }
             </div>)
         }
 
@@ -150,6 +173,7 @@ class AreaShow extends React.Component {
                         <h2>Description</h2>
                         <p>{ description }</p>
                         { gettingThereDiv }
+                        { photosSection }
                     </div>
                 </div>
             </div>

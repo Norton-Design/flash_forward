@@ -90,7 +90,7 @@
 /*!******************************************!*\
   !*** ./frontend/actions/area_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_AREA, RECEIVE_AREAS, receiveArea, receiveAreas, fetchArea, fetchAreas, createArea */
+/*! exports provided: RECEIVE_AREA, RECEIVE_AREAS, receiveArea, receiveAreas, fetchArea, fetchAreas, createArea, updateArea */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -102,6 +102,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchArea", function() { return fetchArea; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAreas", function() { return fetchAreas; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createArea", function() { return createArea; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateArea", function() { return updateArea; });
 /* harmony import */ var _util_area_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/area_api_util */ "./frontend/util/area_api_util.js");
 
 var RECEIVE_AREA = 'RECEIVE_AREA';
@@ -139,6 +140,14 @@ var createArea = function createArea(areaData) {
     return _util_area_api_util__WEBPACK_IMPORTED_MODULE_0__["createArea"](areaData).then(function (area) {
       return dispatch(receiveArea(area));
     });
+  };
+};
+var updateArea = function updateArea(area) {
+  return function (dispatch) {
+    return _util_area_api_util__WEBPACK_IMPORTED_MODULE_0__["updateArea"](area).then(function (area) {
+      return dispatch(receiveArea(area));
+    }) // .fail(errors => dispatch(receiveErrors(errors.responseJSON)))
+    ;
   };
 };
 
@@ -675,6 +684,8 @@ var AreaShow = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       area: ""
     };
+    _this.openModal = props.openModal;
+    _this.currentUserId = props.currentUserId;
     return _this;
   }
 
@@ -708,13 +719,14 @@ var AreaShow = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this4 = this;
+
       if (this.state.area === "") {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "null-test"
         });
       }
 
-      var dropdownCard;
       var _this$state$area = this.state.area,
           name = _this$state$area.name,
           description = _this$state$area.description,
@@ -736,19 +748,43 @@ var AreaShow = /*#__PURE__*/function (_React$Component) {
       var profilePhoto = photo_urls.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: photo_urls[0]
       }) : null;
+      var photosSection = photo_urls.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Photos"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "show-photos-container"
+      }, photo_urls.map(function (photoUrl) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "show-photo",
+          onClick: function onClick() {
+            return _this4.openModal('showPhoto', photoUrl);
+          }
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: photoUrl
+        }));
+      }))) : null;
+      var addPhotosFill = this.props.currentUserId ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "dropdown-button",
+        onClick: function onClick() {
+          return _this4.openModal('addAreaPhotos');
+        }
+      }, "Add Photo") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "dropdown-button",
+        onClick: function onClick() {
+          return _this4.openModal('login');
+        }
+      }, "Add Photo");
+      var dropdownCard;
 
       if (routes.length > 0) {
         dropdownCard = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "dropdown-content"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
           to: "/new/route/".concat(this.props.match.params.areaId)
-        }, "Route"));
+        }, "Route"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), addPhotosFill);
       } else if (childAreas.length > 0) {
         dropdownCard = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "dropdown-content"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
           to: "/new/area/".concat(this.props.match.params.areaId)
-        }, "Sub-Area"));
+        }, "Sub-Area"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), addPhotosFill);
       } else {
         dropdownCard = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "dropdown-content"
@@ -756,7 +792,7 @@ var AreaShow = /*#__PURE__*/function (_React$Component) {
           to: "/new/area/".concat(this.props.match.params.areaId)
         }, "Sub-Area"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
           to: "/new/route/".concat(this.props.match.params.areaId)
-        }, "Route"));
+        }, "Route"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), addPhotosFill);
       }
 
       routes.length !== 0 ? sidebarFill = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -812,7 +848,7 @@ var AreaShow = /*#__PURE__*/function (_React$Component) {
         className: "slideshow-show"
       }, profilePhoto), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "description-body"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, description), gettingThereDiv)));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, description), gettingThereDiv, photosSection)));
     }
   }]);
 
@@ -835,19 +871,190 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _area_show__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./area_show */ "./frontend/components/areas/area_show/area_show.jsx");
 /* harmony import */ var _actions_area_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/area_actions */ "./frontend/actions/area_actions.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
 
 
 
+
+
+var mstp = function mstp(state) {
+  return {
+    currentUserId: state.session.currentUserId
+  };
+};
 
 var mdtp = function mdtp(dispatch) {
   return {
+    openModal: function openModal(modalType, photoUrl) {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])(modalType, photoUrl));
+    },
     fetchArea: function fetchArea(areaId) {
       return dispatch(Object(_actions_area_actions__WEBPACK_IMPORTED_MODULE_2__["fetchArea"])(areaId));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mdtp)(_area_show__WEBPACK_IMPORTED_MODULE_1__["default"]));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mstp, mdtp)(_area_show__WEBPACK_IMPORTED_MODULE_1__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/areas/area_show/upload_photos_area_container.js":
+/*!*****************************************************************************!*\
+  !*** ./frontend/components/areas/area_show/upload_photos_area_container.js ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _upload_photos_area_form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./upload_photos_area_form */ "./frontend/components/areas/area_show/upload_photos_area_form.jsx");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _actions_area_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/area_actions */ "./frontend/actions/area_actions.js");
+
+
+
+
+
+var mstp = function mstp(state) {
+  return {
+    currentArea: state.entities.areas
+  };
+};
+
+var mdtp = function mdtp(dispatch) {
+  return {
+    updateArea: function updateArea(area) {
+      return dispatch(Object(_actions_area_actions__WEBPACK_IMPORTED_MODULE_3__["updateArea"])(area));
+    },
+    closeModal: function closeModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["closeModal"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mstp, mdtp)(_upload_photos_area_form__WEBPACK_IMPORTED_MODULE_0__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/areas/area_show/upload_photos_area_form.jsx":
+/*!*************************************************************************!*\
+  !*** ./frontend/components/areas/area_show/upload_photos_area_form.jsx ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var UploadPhotosAreaForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(UploadPhotosAreaForm, _React$Component);
+
+  var _super = _createSuper(UploadPhotosAreaForm);
+
+  function UploadPhotosAreaForm(props) {
+    var _this;
+
+    _classCallCheck(this, UploadPhotosAreaForm);
+
+    _this = _super.call(this, props);
+    _this.state = _objectSpread({}, props.currentArea);
+    _this.handleFileSubmit = _this.handleFileSubmit.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(UploadPhotosAreaForm, [{
+    key: "handleFileSubmit",
+    value: function handleFileSubmit(e) {
+      var _this2 = this;
+
+      var reader = new FileReader();
+      var file = e.currentTarget.files[0];
+
+      reader.onloadend = function () {
+        return _this2.setState({
+          photoUrl: reader.result,
+          photo: file
+        });
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+        this.setState({
+          photoUrl: "",
+          photo: null
+        });
+      }
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      var _this3 = this;
+
+      e.preventDefault();
+      var formData = new FormData();
+      Object.keys(this.state).forEach(function (attribute) {
+        formData.append("area[".concat(attribute, "]"), _this3.state[attribute]);
+      });
+      this.props.updateArea(formData).then(function () {
+        return _this3.props.closeModal();
+      }).then(function () {
+        return window.location.reload();
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      // console.log(this.state)
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Add Photo"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "file",
+        onChange: this.handleFileSubmit,
+        accept: ".jpg,.png"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "submit",
+        onClick: this.handleSubmit,
+        value: "Save photo"
+      })));
+    }
+  }]);
+
+  return UploadPhotosAreaForm;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (UploadPhotosAreaForm);
 
 /***/ }),
 
@@ -1439,7 +1646,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _session_login_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../session/login_form_container */ "./frontend/components/session/login_form_container.js");
 /* harmony import */ var _session_signup_form_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../session/signup_form_container */ "./frontend/components/session/signup_form_container.js");
 /* harmony import */ var _routes_route_show_upload_photos_route_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../routes/route_show/upload_photos_route_container */ "./frontend/components/routes/route_show/upload_photos_route_container.js");
-/* harmony import */ var _show_photo_container_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./show_photo_container.js */ "./frontend/components/modal/show_photo_container.js");
+/* harmony import */ var _areas_area_show_upload_photos_area_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../areas/area_show/upload_photos_area_container */ "./frontend/components/areas/area_show/upload_photos_area_container.js");
+/* harmony import */ var _show_photo_container_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./show_photo_container.js */ "./frontend/components/modal/show_photo_container.js");
+
 
 
 
@@ -1469,12 +1678,16 @@ var Modal = function Modal(state) {
       component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_session_signup_form_container__WEBPACK_IMPORTED_MODULE_4__["default"], null);
       break;
 
-    case 'addPhotos':
+    case 'addRoutePhotos':
       component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_routes_route_show_upload_photos_route_container__WEBPACK_IMPORTED_MODULE_5__["default"], null);
       break;
 
+    case 'addAreaPhotos':
+      component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_areas_area_show_upload_photos_area_container__WEBPACK_IMPORTED_MODULE_6__["default"], null);
+      break;
+
     case "showPhoto":
-      component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_show_photo_container_js__WEBPACK_IMPORTED_MODULE_6__["default"], null);
+      component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_show_photo_container_js__WEBPACK_IMPORTED_MODULE_7__["default"], null);
       break;
 
     default:
@@ -1551,15 +1764,28 @@ var ShowPhoto = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(ShowPhoto);
 
   function ShowPhoto(props) {
+    var _this;
+
     _classCallCheck(this, ShowPhoto);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.toggleClass = _this.toggleClass.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(ShowPhoto, [{
+    key: "toggleClass",
+    value: function toggleClass() {
+      setTimeout(function () {
+        var modalChild = document.getElementsByClassName("modal-child")[0];
+        modalChild.classList.remove('modal-child');
+        modalChild.classList.add('modal-child-photo-container');
+      }, 0);
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.toggleClass(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: this.props.photoUrl
       }));
     }
@@ -2450,14 +2676,14 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
       var addPhotosFill = this.props.currentUserId ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "dropdown-button",
         onClick: function onClick() {
-          return _this4.openModal('addPhotos');
+          return _this4.openModal('addRoutePhotos');
         }
-      }, "Add Photos") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, "Add Photo") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "dropdown-button",
         onClick: function onClick() {
           return _this4.openModal('login');
         }
-      }, "Add Photos");
+      }, "Add Photo");
       var dropdownCard;
 
       if (this.props.currentUserId === sharer.id) {
@@ -2466,9 +2692,9 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], null, "Edit Route"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "dropdown-button",
           onClick: function onClick() {
-            return _this4.openModal('addPhotos');
+            return _this4.openModal('addRoutePhotos');
           }
-        }, "Add Photos"));
+        }, "Add Photo"));
       } else {
         dropdownCard = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "dropdown-content"
@@ -3470,13 +3696,14 @@ var configureStore = function configureStore() {
 /*!****************************************!*\
   !*** ./frontend/util/area_api_util.js ***!
   \****************************************/
-/*! exports provided: fetchArea, fetchAreas, createArea */
+/*! exports provided: fetchArea, fetchAreas, updateArea, createArea */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchArea", function() { return fetchArea; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAreas", function() { return fetchAreas; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateArea", function() { return updateArea; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createArea", function() { return createArea; });
 var fetchArea = function fetchArea(id) {
   return $.ajax({
@@ -3491,6 +3718,15 @@ var fetchAreas = function fetchAreas(areas) {
     data: {
       areas: areas
     }
+  });
+};
+var updateArea = function updateArea(formData) {
+  return $.ajax({
+    method: "PATCH",
+    url: "/api/areas/".concat(formData.get('area[id]')),
+    data: formData,
+    contentType: false,
+    processData: false
   });
 };
 var createArea = function createArea(areaData) {
