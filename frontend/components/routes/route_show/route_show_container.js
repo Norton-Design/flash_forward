@@ -8,7 +8,7 @@ const mstp = (state) => ({
 });
 
 const mdtp = dispatch => ({
-    openModal: modalType => dispatch(openModal(modalType)),
+    openModal: (modalType, photoUrl) => dispatch(openModal(modalType, photoUrl)),
     fetchRoute: routeId => dispatch(fetchRoute(routeId))
 });
 

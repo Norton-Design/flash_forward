@@ -84,6 +84,19 @@ class RouteShow extends React.Component {
 
         const pathwayFill = [<Link key={0} className="show-pathway" to="/">All Areas</Link>];
         const profilePhoto = photo_urls.length > 0 ? <img src={photo_urls[0]}></img> : null;
+        const photosSection = photo_urls.length > 0 ? 
+        <>
+            <h2>Photos</h2>
+            <div className="show-photos-container">
+                {photo_urls.map(photoUrl => {
+                    return (
+                        <div className="show-photo" onClick={() => this.openModal('showPhoto', photoUrl)}>
+                            <img src={photoUrl} />
+                        </div>
+                    )
+                })}
+            </div>
+        </> : null
         const modFill = mods.length > 0 ? <td>{mods[0].first_name} {mods[0].last_name}</td> : <td>No Moderation</td>
         const addPhotosFill = this.props.currentUserId ? <button className="dropdown-button" onClick={() => this.openModal('addPhotos')}>Add Photos</button> : 
             <button className="dropdown-button" onClick={() => this.openModal('login')}>Add Photos</button>;
@@ -167,6 +180,7 @@ class RouteShow extends React.Component {
                         <p>{ description }</p>
                         <h2>Protection</h2>
                         <p>{ protection }</p>
+                        { photosSection }
                     </div>
                 </div>
             </div>

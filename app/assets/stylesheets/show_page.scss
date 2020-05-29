@@ -54,6 +54,10 @@
     font-size: 22px;
 }
 
+.description-body {
+    width: 950px;
+}
+
 .description-body h2 {
     margin: 21px 0 7px 0;
 }
@@ -162,3 +166,29 @@
     background-color: #f2f2f2;
 }
 
+.show-photos-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .show-photo {
+        height: 150px;
+        width: 200px;
+        margin: 1rem;
+        justify-content: center;
+        display: flex;
+        overflow: hidden;
+
+        img {
+            height: 100%;
+            // width: 100%;
+            border: 1px solid black;
+            box-sizing: border-box;
+            overflow: hidden;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+}

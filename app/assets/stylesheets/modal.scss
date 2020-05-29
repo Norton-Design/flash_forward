@@ -25,17 +25,16 @@
     border-radius: 5px;
     animation: dropDown .5s;
     box-sizing: border-box;
-}
 
-.modal-child img {
-    position: relative;
-    left: 120px
-}
+    #modal-x {
+        position: relative;
+        left: 120px;
 
-.modal-child img:hover {
-    cursor: pointer;
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }
-
 
 .modal-child input, .modal-child button {
     box-sizing: border-box;
