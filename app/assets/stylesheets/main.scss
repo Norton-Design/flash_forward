@@ -27,3 +27,12 @@ button:hover {
 a:hover {
     cursor: pointer;
 }
+
+.main-slideshow {
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        overflow: hidden;
+    }
+}

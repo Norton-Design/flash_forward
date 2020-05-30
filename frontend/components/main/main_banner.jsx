@@ -1,5 +1,6 @@
 import React from 'react';
-import RouteFinderContainer from '../routes/route_finder/route_finder_container'
+import RouteFinderContainer from '../routes/route_finder/route_finder_container';
+import Slideshow from './slideshow';
 // IMPORT FEATURED PHOTOS CONTAINER
 
 class MainBanner extends React.Component {
@@ -28,8 +29,11 @@ class MainBanner extends React.Component {
     return (
     <div className="main-banner">
       <div className="main-banner-sub">
+
         <div className="featured-photos-container">
+          <Slideshow />
         </div>
+
         <div className="main-banner-right">
           <h1>Beyond the Guidebook</h1>
           <h3>{this.state.total} Routes Shared by Climbers Like You</h3>
