@@ -25,3 +25,7 @@ end
 json.mods do
     json.array! @route.mods, :id, :first_name, :last_name
 end
+
+json.comments do
+    json.array! @route.comments, :id, :user_id, :body, :comment_type
+end

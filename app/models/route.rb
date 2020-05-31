@@ -50,7 +50,7 @@ class Route < ApplicationRecord
     source: :routes
 
     has_many :comments,
-    through: :route_id,
+    foreign_key: :route_id,
     class_name: :RouteComment
 
     has_many_attached :photos
