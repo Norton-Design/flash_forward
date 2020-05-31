@@ -64,4 +64,8 @@ class User < ApplicationRecord
     has_many :shared_routes,
     foreign_key: :shared_by,
     class_name: :Route
+
+    has_many :comments,
+    foreign_key: :user_id,
+    class_name: :RouteComment
 end

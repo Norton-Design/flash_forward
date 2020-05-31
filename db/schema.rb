@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_24_232028) do
+ActiveRecord::Schema.define(version: 2020_05_31_165445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,17 @@ ActiveRecord::Schema.define(version: 2020_05_24_232028) do
     t.string "getting_there"
     t.integer "route_count", default: 0
     t.index ["parent_id"], name: "index_areas_on_parent_id"
+  end
+
+  create_table "route_comments", force: :cascade do |t|
+    t.string "body", null: false
+    t.string "comment_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.bigint "route_id", null: false
+    t.index ["route_id"], name: "index_route_comments_on_route_id"
+    t.index ["user_id"], name: "index_route_comments_on_user_id"
   end
 
   create_table "route_moderators", force: :cascade do |t|
@@ -91,4 +102,6 @@ ActiveRecord::Schema.define(version: 2020_05_24_232028) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "route_comments", "routes"
+  add_foreign_key "route_comments", "users"
 end
