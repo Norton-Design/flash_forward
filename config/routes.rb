@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     end
     resources :areas, only: [:index, :show, :create, :update]
     resource :session, only: [:create, :destroy]
+    resources :route_comments, only: [:create, :destroy]
   end
   root to: 'root#root'
 end

@@ -6,10 +6,14 @@ class RouteShow extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            route: ""
+            route: "",
+            currentUserId: props.currentUserId
         }
         this.openModal = props.openModal;
         this.currentUserId = props.currentUserId;
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleInput = this.handleInput.bind(this);
+        this.handleNotLoggedIn = this.handleNotLoggedIn.bind(this);
     }
 
     componentDidMount(){
@@ -21,10 +25,15 @@ class RouteShow extends React.Component {
     componentDidUpdate(prevProps){
         const currentRouteId = this.props.match.params.routeId;
         const prevRouteId = prevProps.match.params.routeId;
+        const currentUserId = this.props.currentUserId;
+        const prevUserId = prevProps.currentUserId;
         if (currentRouteId !== prevRouteId){
             this.props.fetchRoute(currentRouteId).then(route => {
                 this.setState({route: route.route})
             });
+        }
+        if (prevUserId !== currentUserId){
+            this.setState({currentUserId: this.props.currentUserId})
         }
     }
 
@@ -59,6 +68,47 @@ class RouteShow extends React.Component {
         return newTime.join('');
     }
 
+    handleInput(type){
+        return (e) => {
+            this.setState({ [type]: e.target.value });
+        };
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+
+        let stateDup = {...this.state}
+
+        delete stateDup.route;
+
+        let formData = new FormData();
+        Object.keys(stateDup).forEach(attribute => {
+            formData.append(`comment[${attribute}]`, stateDup[attribute]);
+        });
+
+        formData.append(`comment[user_id]`, this.props.currentUserId);
+        formData.append(`comment[route_id]`, this.state.route.id)
+
+        this.props.createComment(formData)
+            .then(() => this.props.fetchRoute(this.props.match.params.routeId))
+            .then(route => {
+                this.setState({route: route.route, body: undefined, comment_type: undefined});
+                const commentInput = document.getElementById('comment-input');
+                const radioInputs = document.getElementsByClassName('comment-radio-input');
+                commentInput.value = '';
+                return radioInputs;
+            }).then(radioInputs => {
+                for(let i = 0; i < radioInputs.length; i++){
+                    radioInputs[i].checked = false;
+                }
+            })
+    }
+
+    handleNotLoggedIn(e) {
+        e.preventDefault();
+        this.openModal('login');
+    }
+
     render(){
         if (this.state.route === ""){
             return (
@@ -79,7 +129,8 @@ class RouteShow extends React.Component {
             pathway,
             createdAt,
             photo_urls,
-            mods
+            mods,
+            comments
         } = this.state.route;
 
         const pathwayFill = [<Link key={0} className="show-pathway" to="/">All Areas</Link>];
@@ -100,6 +151,74 @@ class RouteShow extends React.Component {
         const modFill = mods.length > 0 ? <td>{mods[0].first_name} {mods[0].last_name}</td> : <td>No Moderation</td>
         const addPhotosFill = this.props.currentUserId ? <button className="dropdown-button" onClick={() => this.openModal('addRoutePhotos')}>Add Photo</button> : 
             <button className="dropdown-button" onClick={() => this.openModal('login')}>Add Photo</button>;
+        const commentsHeader = comments.length === 1 ? <h2>{comments.length} Comment</h2> : <h2>{comments.length} Comments</h2>
+        let commentsFill = comments.length > 0 ? <div>
+            {
+                comments.map(comment => (
+                    <div className="comment">
+                        <div className="comment-username-container">
+                            <p>{ comment.user_id }</p>
+                        </div>
+                        <div className="comment-body-container">
+                            <p>{ comment.body }</p>
+                        </div>
+                    </div>
+                ))
+            }
+        </div> : null;
+        const addComment = 
+        <form>
+            <textarea
+                id='comment-input'
+                value={this.state.body}
+                onChange={this.handleInput('body')}
+                placeholder=" Write a comment"
+                required
+            />
+            <br />
+            <label>Comment Type:</label>
+                <div>
+                    <input 
+                        type="radio" 
+                        value="ITEM" 
+                        name="comment_type" 
+                        id="ITEM" 
+                        onChange={this.handleInput('comment_type')}
+                        className='comment-radio-input'
+                    />
+                    <label>Lost or Found Item</label>
+                </div>
+
+                <div>
+                    <input 
+                        type="radio" 
+                        value="TEMP" 
+                        name="comment_type" 
+                        id="TEMP" 
+                        onChange={this.handleInput('comment_type')}
+                        className='comment-radio-input'
+                    />
+                    <label>Temporary (Condition Report, Upcoming Event, etc)</label>
+                </div>
+
+                <div>
+                    <input 
+                        type="radio" 
+                        value="BETA" 
+                        name="comment_type" 
+                        id="BETA" 
+                        onChange={this.handleInput('comment_type')}
+                        className='comment-radio-input'
+                    />
+                    <label>Beta for this Route or Personal Opinion</label>
+                </div>
+            <br />
+            {
+            this.state.currentUserId ? 
+                <input type="submit" onClick={this.handleSubmit} value="Post Comment" /> : 
+                <input type="submit" onClick={this.handleNotLoggedIn} value="Post Comment" />
+            }
+        </form>;
         let dropdownCard;
 
         if (this.props.currentUserId === sharer.id){
@@ -126,8 +245,6 @@ class RouteShow extends React.Component {
         }   else {
             pitches = pitches.toString().concat(" pitches");
         }
-
-        // console.log(this.state.route)
 
         const otherRoutes = [];
         this.state.route.siblingRoutes.forEach(route => {
@@ -181,6 +298,9 @@ class RouteShow extends React.Component {
                         <h2>Protection</h2>
                         <p>{ protection }</p>
                         { photosSection }
+                        { commentsHeader }
+                        { addComment }
+                        { commentsFill }
                     </div>
                 </div>
             </div>

@@ -269,6 +269,65 @@ var updateRoute = function updateRoute(route) {
 
 /***/ }),
 
+/***/ "./frontend/actions/route_comment_actions.js":
+/*!***************************************************!*\
+  !*** ./frontend/actions/route_comment_actions.js ***!
+  \***************************************************/
+/*! exports provided: RECEIVE_COMMENT, RECEIVE_COMMENTS, receiveComment, receiveComments, fetchComment, createComment, updateComment */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_COMMENT", function() { return RECEIVE_COMMENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_COMMENTS", function() { return RECEIVE_COMMENTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveComment", function() { return receiveComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveComments", function() { return receiveComments; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchComment", function() { return fetchComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createComment", function() { return createComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateComment", function() { return updateComment; });
+/* harmony import */ var _util_route_comment_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/route_comment_api_util */ "./frontend/util/route_comment_api_util.js");
+
+var RECEIVE_COMMENT = 'RECEIVE_COMMENT';
+var RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
+var receiveComment = function receiveComment(comment) {
+  // debugger;
+  return {
+    type: RECEIVE_COMMENT,
+    comment: comment
+  };
+};
+var receiveComments = function receiveComments(comments) {
+  // debugger;
+  return {
+    type: RECEIVE_COMMENTS,
+    comments: comments
+  };
+};
+var fetchComment = function fetchComment(id) {
+  return function (dispatch) {
+    return _util_route_comment_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchComment"](id).then(function (comment) {
+      return dispatch(receiveComment(comment));
+    });
+  };
+};
+var createComment = function createComment(commentData) {
+  return function (dispatch) {
+    return _util_route_comment_api_util__WEBPACK_IMPORTED_MODULE_0__["createComment"](commentData).then(function (comment) {
+      return dispatch(receiveComment(comment));
+    });
+  };
+};
+var updateComment = function updateComment(comment) {
+  return function (dispatch) {
+    return _util_route_comment_api_util__WEBPACK_IMPORTED_MODULE_0__["updateComment"](comment).then(function (comment) {
+      return dispatch(receiveComment(comment));
+    });
+  };
+}; // export const deleteComment = id => dispatch => APIUtil.deleteComment(id)
+//   .then( comment => (dispatch(receiveComment(comment))) );
+
+/***/ }),
+
 /***/ "./frontend/actions/session_actions.js":
 /*!*********************************************!*\
   !*** ./frontend/actions/session_actions.js ***!
@@ -1795,7 +1854,6 @@ var Modal = function Modal(state) {
     return null;
   }
 
-  console.log(state);
   var component;
 
   switch (modal.modalType) {
@@ -2668,6 +2726,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_icons_fa__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-icons/fa */ "./node_modules/react-icons/fa/index.esm.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -2704,10 +2768,14 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      route: ""
+      route: "",
+      currentUserId: props.currentUserId
     };
     _this.openModal = props.openModal;
     _this.currentUserId = props.currentUserId;
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.handleInput = _this.handleInput.bind(_assertThisInitialized(_this));
+    _this.handleNotLoggedIn = _this.handleNotLoggedIn.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -2729,12 +2797,20 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
 
       var currentRouteId = this.props.match.params.routeId;
       var prevRouteId = prevProps.match.params.routeId;
+      var currentUserId = this.props.currentUserId;
+      var prevUserId = prevProps.currentUserId;
 
       if (currentRouteId !== prevRouteId) {
         this.props.fetchRoute(currentRouteId).then(function (route) {
           _this3.setState({
             route: route.route
           });
+        });
+      }
+
+      if (prevUserId !== currentUserId) {
+        this.setState({
+          currentUserId: this.props.currentUserId
         });
       }
     }
@@ -2759,9 +2835,59 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
       return newTime.join('');
     }
   }, {
+    key: "handleInput",
+    value: function handleInput(type) {
+      var _this4 = this;
+
+      return function (e) {
+        _this4.setState(_defineProperty({}, type, e.target.value));
+      };
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      var _this5 = this;
+
+      e.preventDefault();
+
+      var stateDup = _objectSpread({}, this.state);
+
+      delete stateDup.route;
+      var formData = new FormData();
+      Object.keys(stateDup).forEach(function (attribute) {
+        formData.append("comment[".concat(attribute, "]"), stateDup[attribute]);
+      });
+      formData.append("comment[user_id]", this.props.currentUserId);
+      formData.append("comment[route_id]", this.state.route.id);
+      this.props.createComment(formData).then(function () {
+        return _this5.props.fetchRoute(_this5.props.match.params.routeId);
+      }).then(function (route) {
+        _this5.setState({
+          route: route.route,
+          body: undefined,
+          comment_type: undefined
+        });
+
+        var commentInput = document.getElementById('comment-input');
+        var radioInputs = document.getElementsByClassName('comment-radio-input');
+        commentInput.value = '';
+        return radioInputs;
+      }).then(function (radioInputs) {
+        for (var i = 0; i < radioInputs.length; i++) {
+          radioInputs[i].checked = false;
+        }
+      });
+    }
+  }, {
+    key: "handleNotLoggedIn",
+    value: function handleNotLoggedIn(e) {
+      e.preventDefault();
+      this.openModal('login');
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this6 = this;
 
       if (this.state.route === "") {
         return null;
@@ -2780,7 +2906,8 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
           pathway = _this$state$route.pathway,
           createdAt = _this$state$route.createdAt,
           photo_urls = _this$state$route.photo_urls,
-          mods = _this$state$route.mods;
+          mods = _this$state$route.mods,
+          comments = _this$state$route.comments;
       var pathwayFill = [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         key: 0,
         className: "show-pathway",
@@ -2795,7 +2922,7 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "show-photo",
           onClick: function onClick() {
-            return _this4.openModal('showPhoto', photoUrl);
+            return _this6.openModal('showPhoto', photoUrl);
           }
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: photoUrl
@@ -2805,14 +2932,60 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
       var addPhotosFill = this.props.currentUserId ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "dropdown-button",
         onClick: function onClick() {
-          return _this4.openModal('addRoutePhotos');
+          return _this6.openModal('addRoutePhotos');
         }
       }, "Add Photo") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "dropdown-button",
         onClick: function onClick() {
-          return _this4.openModal('login');
+          return _this6.openModal('login');
         }
       }, "Add Photo");
+      var commentsHeader = comments.length === 1 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, comments.length, " Comment") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, comments.length, " Comments");
+      var commentsFill = comments.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, comments.map(function (comment) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "comment"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "comment-username-container"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, comment.user_id)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "comment-body-container"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, comment.body)));
+      })) : null;
+      var addComment = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        id: "comment-input",
+        value: this.state.body,
+        onChange: this.handleInput('body'),
+        placeholder: " Write a comment",
+        required: true
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Comment Type:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "radio",
+        value: "ITEM",
+        name: "comment_type",
+        id: "ITEM",
+        onChange: this.handleInput('comment_type'),
+        className: "comment-radio-input"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Lost or Found Item")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "radio",
+        value: "TEMP",
+        name: "comment_type",
+        id: "TEMP",
+        onChange: this.handleInput('comment_type'),
+        className: "comment-radio-input"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Temporary (Condition Report, Upcoming Event, etc)")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "radio",
+        value: "BETA",
+        name: "comment_type",
+        id: "BETA",
+        onChange: this.handleInput('comment_type'),
+        className: "comment-radio-input"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Beta for this Route or Personal Opinion")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.state.currentUserId ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "submit",
+        onClick: this.handleSubmit,
+        value: "Post Comment"
+      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "submit",
+        onClick: this.handleNotLoggedIn,
+        value: "Post Comment"
+      }));
       var dropdownCard;
 
       if (this.props.currentUserId === sharer.id) {
@@ -2821,7 +2994,7 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], null, "Edit Route"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "dropdown-button",
           onClick: function onClick() {
-            return _this4.openModal('addRoutePhotos');
+            return _this6.openModal('addRoutePhotos');
           }
         }, "Add Photo"));
       } else {
@@ -2843,12 +3016,11 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
         pitches = "1 pitch";
       } else {
         pitches = pitches.toString().concat(" pitches");
-      } // console.log(this.state.route)
-
+      }
 
       var otherRoutes = [];
       this.state.route.siblingRoutes.forEach(function (route) {
-        if (route.id !== _this4.state.route.id) {
+        if (route.id !== _this6.state.route.id) {
           var link = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
             to: "/routes/".concat(route.id)
           }, route.name, " ", route.difficulty);
@@ -2879,7 +3051,7 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
         className: "slideshow-show"
       }, profilePhoto), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "description-body"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Protection"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, protection), photosSection)));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Protection"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, protection), photosSection, commentsHeader, addComment, commentsFill)));
     }
   }]);
 
@@ -2903,6 +3075,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _route_show__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./route_show */ "./frontend/components/routes/route_show/route_show.jsx");
 /* harmony import */ var _actions_route_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/route_actions */ "./frontend/actions/route_actions.js");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _actions_route_comment_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/route_comment_actions */ "./frontend/actions/route_comment_actions.js");
+
 
 
 
@@ -2921,6 +3095,9 @@ var mdtp = function mdtp(dispatch) {
     },
     fetchRoute: function fetchRoute(routeId) {
       return dispatch(Object(_actions_route_actions__WEBPACK_IMPORTED_MODULE_2__["fetchRoute"])(routeId));
+    },
+    createComment: function createComment(formData) {
+      return dispatch(Object(_actions_route_comment_actions__WEBPACK_IMPORTED_MODULE_4__["createComment"])(formData));
     }
   };
 };
@@ -3929,6 +4106,62 @@ var deleteRoute = function deleteRoute(id) {
   return $.ajax({
     method: "DELETE",
     url: "/api/routes/".concat(id)
+  });
+};
+
+/***/ }),
+
+/***/ "./frontend/util/route_comment_api_util.js":
+/*!*************************************************!*\
+  !*** ./frontend/util/route_comment_api_util.js ***!
+  \*************************************************/
+/*! exports provided: fetchComment, fetchComments, createComment, updateComment, deleteComment */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchComment", function() { return fetchComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchComments", function() { return fetchComments; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createComment", function() { return createComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateComment", function() { return updateComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteComment", function() { return deleteComment; });
+var fetchComment = function fetchComment(id) {
+  return $.ajax({
+    method: 'GET',
+    url: "api/route_comments/".concat(id)
+  });
+};
+var fetchComments = function fetchComments(comments) {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/route_comments',
+    data: {
+      comments: comments
+    }
+  });
+};
+var createComment = function createComment(formData) {
+  return $.ajax({
+    method: "POST",
+    url: "/api/route_comments/",
+    data: formData,
+    processData: false,
+    contentType: false
+  });
+};
+var updateComment = function updateComment(formData) {
+  return $.ajax({
+    method: "PATCH",
+    url: "/api/route_comments/".concat(formData.get('comment[id]')),
+    data: formData,
+    contentType: false,
+    processData: false
+  });
+};
+var deleteComment = function deleteComment(id) {
+  return $.ajax({
+    method: "DELETE",
+    url: "/api/route_comments/".concat(id)
   });
 };
 

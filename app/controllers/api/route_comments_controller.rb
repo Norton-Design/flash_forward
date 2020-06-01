@@ -2,8 +2,10 @@ class Api::RouteCommentsController < ApplicationController
   def create
     @comment = RouteComment.new(comment_params)
 
+    # @comment.
+
     if @comment.save
-      render :show
+      # render :show
     else
       render json: @comment.errors.full_messages, status: 401
     end

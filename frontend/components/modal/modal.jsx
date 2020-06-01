@@ -13,8 +13,6 @@ const Modal = (state) => {
     return null;
   }
 
-  console.log(state)
-
   let component;
   switch (modal.modalType) {
     case 'login':
