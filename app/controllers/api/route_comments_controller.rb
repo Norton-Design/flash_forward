@@ -1,12 +1,19 @@
 class Api::RouteCommentsController < ApplicationController
   def create
-    @comment = RouteComment.new(comment_params)
+    mod_params = {
+      user_id: comment_params[:user_id],
+      route_id: comment_params[:route_id],
+      body: comment_params[:body],
+      comment_type: comment_params[:comment_type],
+    }
 
-    # @comment.
+    if mod_params[:body] == 'null' || mod_params[:body] == 'undefined'
+      mod_params[:body] = undefined
+    end
 
-    if @comment.save
-      # render :show
-    else
+    @comment = RouteComment.new(mod_params)
+
+    if !@comment.save
       render json: @comment.errors.full_messages, status: 401
     end
   end

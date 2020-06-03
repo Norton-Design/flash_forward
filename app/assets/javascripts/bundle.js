@@ -90,15 +90,17 @@
 /*!******************************************!*\
   !*** ./frontend/actions/area_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_AREA, RECEIVE_AREAS, receiveArea, receiveAreas, fetchArea, fetchAreas, createArea, updateArea */
+/*! exports provided: RECEIVE_AREA, RECEIVE_AREAS, RECEIVE_AREA_ERRORS, receiveArea, receiveAreas, receiveErrors, fetchArea, fetchAreas, createArea, updateArea */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_AREA", function() { return RECEIVE_AREA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_AREAS", function() { return RECEIVE_AREAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_AREA_ERRORS", function() { return RECEIVE_AREA_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveArea", function() { return receiveArea; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveAreas", function() { return receiveAreas; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveErrors", function() { return receiveErrors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchArea", function() { return fetchArea; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAreas", function() { return fetchAreas; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createArea", function() { return createArea; });
@@ -107,6 +109,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var RECEIVE_AREA = 'RECEIVE_AREA';
 var RECEIVE_AREAS = 'RECEIVE_AREAS';
+var RECEIVE_AREA_ERRORS = 'RECEIVE_AREA_ERRORS';
 var receiveArea = function receiveArea(area) {
   // debugger;
   return {
@@ -119,6 +122,12 @@ var receiveAreas = function receiveAreas(areas) {
   return {
     type: RECEIVE_AREAS,
     areas: areas
+  };
+};
+var receiveErrors = function receiveErrors(errors) {
+  return {
+    type: RECEIVE_AREA_ERRORS,
+    errors: errors
   };
 };
 var fetchArea = function fetchArea(id) {
@@ -139,15 +148,18 @@ var createArea = function createArea(areaData) {
   return function (dispatch) {
     return _util_area_api_util__WEBPACK_IMPORTED_MODULE_0__["createArea"](areaData).then(function (area) {
       return dispatch(receiveArea(area));
-    });
+    }), function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
+    };
   };
 };
 var updateArea = function updateArea(area) {
   return function (dispatch) {
     return _util_area_api_util__WEBPACK_IMPORTED_MODULE_0__["updateArea"](area).then(function (area) {
       return dispatch(receiveArea(area));
-    }) // .fail(errors => dispatch(receiveErrors(errors.responseJSON)))
-    ;
+    }), function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
+    };
   };
 };
 
@@ -187,7 +199,7 @@ var closeModal = function closeModal() {
 /*!*******************************************!*\
   !*** ./frontend/actions/route_actions.js ***!
   \*******************************************/
-/*! exports provided: RECEIVE_ROUTE, RECEIVE_ROUTES, RECEIVE_ROUTE_FINDER_ROUTES, receiveRoute, receiveRoutes, fetchRoute, fetchRoutes, createRoute, searchRoutes, updateRoute */
+/*! exports provided: RECEIVE_ROUTE, RECEIVE_ROUTES, RECEIVE_ROUTE_FINDER_ROUTES, RECEIVE_ROUTE_ERRORS, receiveRoute, receiveRoutes, receiveErrors, fetchRoute, fetchRoutes, createRoute, searchRoutes, updateRoute */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -195,8 +207,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ROUTE", function() { return RECEIVE_ROUTE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ROUTES", function() { return RECEIVE_ROUTES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ROUTE_FINDER_ROUTES", function() { return RECEIVE_ROUTE_FINDER_ROUTES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ROUTE_ERRORS", function() { return RECEIVE_ROUTE_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveRoute", function() { return receiveRoute; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveRoutes", function() { return receiveRoutes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveErrors", function() { return receiveErrors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchRoute", function() { return fetchRoute; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchRoutes", function() { return fetchRoutes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createRoute", function() { return createRoute; });
@@ -207,15 +221,14 @@ __webpack_require__.r(__webpack_exports__);
 var RECEIVE_ROUTE = 'RECEIVE_ROUTE';
 var RECEIVE_ROUTES = 'RECEIVE_ROUTES';
 var RECEIVE_ROUTE_FINDER_ROUTES = "RECEIVE_ROUTE_FINDER_ROUTES";
+var RECEIVE_ROUTE_ERRORS = 'RECEIVE_ROUTE_ERRORS';
 var receiveRoute = function receiveRoute(route) {
-  // debugger;
   return {
     type: RECEIVE_ROUTE,
     route: route
   };
 };
 var receiveRoutes = function receiveRoutes(routes) {
-  // debugger;
   return {
     type: RECEIVE_ROUTES,
     routes: routes
@@ -230,6 +243,12 @@ var receiveRouteFinderRoutes = function receiveRouteFinderRoutes(payload) {
   };
 };
 
+var receiveErrors = function receiveErrors(errors) {
+  return {
+    type: RECEIVE_ROUTE_ERRORS,
+    errors: errors
+  };
+};
 var fetchRoute = function fetchRoute(id) {
   return function (dispatch) {
     return _util_route_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchRoute"](id).then(function (route) {
@@ -248,6 +267,8 @@ var createRoute = function createRoute(routeData) {
   return function (dispatch) {
     return _util_route_api_util__WEBPACK_IMPORTED_MODULE_0__["createRoute"](routeData).then(function (route) {
       return dispatch(receiveRoute(route));
+    }, function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
@@ -262,8 +283,9 @@ var updateRoute = function updateRoute(route) {
   return function (dispatch) {
     return _util_route_api_util__WEBPACK_IMPORTED_MODULE_0__["updateRoute"](route).then(function (route) {
       return dispatch(receiveRoute(route));
-    }) // .fail(errors => dispatch(receiveErrors(errors.responseJSON)))
-    ;
+    }, function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
+    });
   };
 };
 
@@ -273,22 +295,26 @@ var updateRoute = function updateRoute(route) {
 /*!***************************************************!*\
   !*** ./frontend/actions/route_comment_actions.js ***!
   \***************************************************/
-/*! exports provided: RECEIVE_COMMENT, RECEIVE_COMMENTS, receiveComment, receiveComments, fetchComment, createComment, updateComment */
+/*! exports provided: RECEIVE_COMMENT, RECEIVE_COMMENTS, RECEIVE_ROUTE_COMMENT_ERRORS, receiveComment, receiveComments, receiveErrors, fetchComment, createComment, updateComment, deleteComment */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_COMMENT", function() { return RECEIVE_COMMENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_COMMENTS", function() { return RECEIVE_COMMENTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ROUTE_COMMENT_ERRORS", function() { return RECEIVE_ROUTE_COMMENT_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveComment", function() { return receiveComment; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveComments", function() { return receiveComments; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveErrors", function() { return receiveErrors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchComment", function() { return fetchComment; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createComment", function() { return createComment; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateComment", function() { return updateComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteComment", function() { return deleteComment; });
 /* harmony import */ var _util_route_comment_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/route_comment_api_util */ "./frontend/util/route_comment_api_util.js");
 
 var RECEIVE_COMMENT = 'RECEIVE_COMMENT';
 var RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
+var RECEIVE_ROUTE_COMMENT_ERRORS = 'RECEIVE_ROUTE_COMMENT_ERRORS';
 var receiveComment = function receiveComment(comment) {
   // debugger;
   return {
@@ -303,6 +329,12 @@ var receiveComments = function receiveComments(comments) {
     comments: comments
   };
 };
+var receiveErrors = function receiveErrors(errors) {
+  return {
+    type: RECEIVE_ROUTE_COMMENT_ERRORS,
+    errors: errors
+  };
+};
 var fetchComment = function fetchComment(id) {
   return function (dispatch) {
     return _util_route_comment_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchComment"](id).then(function (comment) {
@@ -314,6 +346,8 @@ var createComment = function createComment(commentData) {
   return function (dispatch) {
     return _util_route_comment_api_util__WEBPACK_IMPORTED_MODULE_0__["createComment"](commentData).then(function (comment) {
       return dispatch(receiveComment(comment));
+    }, function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
@@ -323,8 +357,16 @@ var updateComment = function updateComment(comment) {
       return dispatch(receiveComment(comment));
     });
   };
-}; // export const deleteComment = id => dispatch => APIUtil.deleteComment(id)
-//   .then( comment => (dispatch(receiveComment(comment))) );
+};
+var deleteComment = function deleteComment(id) {
+  return function (dispatch) {
+    return _util_route_comment_api_util__WEBPACK_IMPORTED_MODULE_0__["deleteComment"](id).then(function (comment) {
+      return dispatch(receiveComment(comment));
+    }, function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
+    });
+  };
+};
 
 /***/ }),
 
@@ -373,8 +415,8 @@ var signup = function signup(user) {
   return function (dispatch) {
     return _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__["signup"](user).then(function (user) {
       return dispatch(receiveCurrentUser(user));
-    }, function (error) {
-      return dispatch(receiveErrors(error.responseJSON));
+    }, function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
@@ -382,8 +424,8 @@ var login = function login(user) {
   return function (dispatch) {
     return _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__["login"](user).then(function (user) {
       return dispatch(receiveCurrentUser(user));
-    }, function (error) {
-      return dispatch(receiveErrors(error.responseJSON));
+    }, function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
@@ -3636,6 +3678,36 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
+/***/ "./frontend/reducers/areas_errors_reducer.js":
+/*!***************************************************!*\
+  !*** ./frontend/reducers/areas_errors_reducer.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_area_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/area_actions */ "./frontend/actions/area_actions.js");
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_area_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_AREA_ERRORS"]:
+      return action.errors;
+
+    case _actions_area_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_AREA"]:
+      return [];
+
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
 /***/ "./frontend/reducers/areas_reducer.js":
 /*!********************************************!*\
   !*** ./frontend/reducers/areas_reducer.js ***!
@@ -3705,10 +3777,19 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./session_errors_reducer */ "./frontend/reducers/session_errors_reducer.js");
+/* harmony import */ var _areas_errors_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./areas_errors_reducer */ "./frontend/reducers/areas_errors_reducer.js");
+/* harmony import */ var _routes_errors_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./routes_errors_reducer */ "./frontend/reducers/routes_errors_reducer.js");
+/* harmony import */ var _route_comments_errors_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./route_comments_errors_reducer */ "./frontend/reducers/route_comments_errors_reducer.js");
+
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  sessionErrors: _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+  sessionErrors: _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  areaErrors: _areas_errors_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+  routeErrors: _routes_errors_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
+  routeCommentsErrors: _route_comments_errors_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
 }));
 
 /***/ }),
@@ -3775,6 +3856,39 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./frontend/reducers/route_comments_errors_reducer.js":
+/*!************************************************************!*\
+  !*** ./frontend/reducers/route_comments_errors_reducer.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_route_comment_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/route_comment_actions */ "./frontend/actions/route_comment_actions.js");
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_route_comment_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ROUTE_COMMENT_ERRORS"]:
+      return action.errors;
+
+    case _actions_route_comment_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_COMMENTS"]:
+      return [];
+
+    case _actions_route_comment_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_COMMENT"]:
+      return [];
+
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
 /***/ "./frontend/reducers/route_finder_reducer.js":
 /*!***************************************************!*\
   !*** ./frontend/reducers/route_finder_reducer.js ***!
@@ -3802,6 +3916,36 @@ var routeFinderReducer = function routeFinderReducer() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (routeFinderReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/routes_errors_reducer.js":
+/*!****************************************************!*\
+  !*** ./frontend/reducers/routes_errors_reducer.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_route_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/route_actions */ "./frontend/actions/route_actions.js");
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_route_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ROUTE_ERRORS"]:
+      return action.errors;
+
+    case _actions_route_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ROUTE"]:
+      return [];
+
+    default:
+      return state;
+  }
+});
 
 /***/ }),
 
