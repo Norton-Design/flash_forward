@@ -4,7 +4,9 @@ import { createArea } from '../../../actions/area_actions';
 
 
 const mstp = state => ({
-    errors: state.errors.session
+    errors: state.errors,
+    createdArea: state.entities.areas
+
 });
 
 const mdtp = dispatch => ({

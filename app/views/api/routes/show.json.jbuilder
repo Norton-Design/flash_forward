@@ -29,3 +29,13 @@ end
 json.comments do
     json.array! @route.comments, :id, :user_id, :body, :comment_type
 end
+
+json.commentUsers do
+    @comment_users.each do |user|
+        json.set! user.id do
+            json.extract! user, :id, :first_name, :last_name
+                json.firstName user.first_name
+                json.lastName user.last_name
+        end
+    end
+end

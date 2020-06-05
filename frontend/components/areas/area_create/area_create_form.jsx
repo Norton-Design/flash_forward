@@ -9,19 +9,16 @@ class AreaCreateForm extends React.Component {
             getting_there: "",
             lat: "",
             lng: "",
-            parent_id: parseInt(props.match.params.areaId)
+            parent_id: parseInt(props.match.params.areaId),
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFileSubmit = this.handleFileSubmit.bind(this);
+        this.handleErrors = this.handleErrors.bind(this);
     }
 
     handleInput(type){
-        // if (type === "lat" || type === "lng"){
-        //     return (e) => {
-        //         this.setState({ [type]: parseFloat(e.target.value) });
-        //     };
-        // }
+
         return (e) => {
             this.setState({ [type]: e.target.value });
         };
@@ -29,8 +26,6 @@ class AreaCreateForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.state.lat = parseFloat(this.state.lat)
-        this.state.lng = parseFloat(this.state.lng)
 
         let area = this.state.parent_id
         let formData = new FormData();
@@ -39,7 +34,7 @@ class AreaCreateForm extends React.Component {
         });
 
         this.props.createArea(formData)
-            .then(() => this.props.history.push(`/areas/${area}`));
+            // setTimeout(() => this.props.history.push(`/areas/${area}`), 500)
     }
 
     handleFileSubmit(e) {
@@ -56,10 +51,30 @@ class AreaCreateForm extends React.Component {
         }
     }
 
-    render(){
-        // console.log(this.state);
+    handleErrors(){
+        const { errors } = this.props;
+        if (errors.areaErrors.length >= 1){
+            const collection = []
+            errors.areaErrors.map(err => {
+            collection.push(<li className="error-message" key={err}> {err}. </li>)
+            })
+    
+            return (
+                <ul className="error-container">
+                    { collection }
+                </ul>
+            )
+        } else {
+            return (
+                <></>
+            )
+        }
+    }
 
+    render(){
         return(
+            <>
+            {/* { this.handleErrors() } */}
             <div className="create-form">
                 <h1>New Area</h1>
                 <hr />
@@ -120,6 +135,7 @@ class AreaCreateForm extends React.Component {
                     <input type="submit" onClick={this.handleSubmit} value="Save Area" />
                 </form>
             </div>
+            </>
         )
     }
 }

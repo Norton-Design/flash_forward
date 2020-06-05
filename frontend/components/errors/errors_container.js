@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Errors from './errors';
 
 const mstp = state => {
-
     return {
     errors: state.errors
     }

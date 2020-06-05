@@ -5,7 +5,7 @@ class RouteCreateForm extends React.Component {
         super(props);
         this.state = {
             name: "",
-            route_type: "",
+            route_type: "Boulder",
             difficulty: "",
             pitches: 1,
             elevation: "",
@@ -97,7 +97,6 @@ class RouteCreateForm extends React.Component {
 
         this.props.createRoute(formData)
             .then(() => this.props.history.push(`/areas/${area}`));
-                        // .then((returnVal) => console.log(returnVal));
     }
 
     handleFileSubmit(e) {

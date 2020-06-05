@@ -35,14 +35,14 @@ export const fetchRoutes = () => dispatch => APIUtil.fetchRoutes()
     .then( routes => (dispatch(receiveRoutes(routes))) );
 
 export const createRoute = routeData => dispatch => (APIUtil.createRoute(routeData)
-    .then( route => dispatch(receiveRoute(route)
-    ), errors => dispatch(receiveErrors(errors.responseJSON)) 
+    .then( route => dispatch(receiveRoute(route))
+    , errors => dispatch(receiveErrors(errors.responseJSON)) 
 ));
 
 export const searchRoutes = searchParams => dispatch => (APIUtil.searchRoutes(searchParams)
     .then( routes => dispatch(receiveRouteFinderRoutes(routes))) );
 
 export const updateRoute = route => dispatch => (APIUtil.updateRoute(route)
-    .then(route => dispatch(receiveRoute(route)
-    ), errors => dispatch(receiveErrors(errors.responseJSON))
+    .then(route => dispatch(receiveRoute(route))
+    , errors => dispatch(receiveErrors(errors.responseJSON))
 ));

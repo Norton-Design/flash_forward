@@ -148,18 +148,18 @@ var createArea = function createArea(areaData) {
   return function (dispatch) {
     return _util_area_api_util__WEBPACK_IMPORTED_MODULE_0__["createArea"](areaData).then(function (area) {
       return dispatch(receiveArea(area));
-    }), function (errors) {
+    }, function (errors) {
       return dispatch(receiveErrors(errors.responseJSON));
-    };
+    });
   };
 };
 var updateArea = function updateArea(area) {
   return function (dispatch) {
     return _util_area_api_util__WEBPACK_IMPORTED_MODULE_0__["updateArea"](area).then(function (area) {
       return dispatch(receiveArea(area));
-    }), function (errors) {
+    }, function (errors) {
       return dispatch(receiveErrors(errors.responseJSON));
-    };
+    });
   };
 };
 
@@ -592,6 +592,7 @@ var AreaCreateForm = /*#__PURE__*/function (_React$Component) {
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.handleFileSubmit = _this.handleFileSubmit.bind(_assertThisInitialized(_this));
+    _this.handleErrors = _this.handleErrors.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -600,11 +601,6 @@ var AreaCreateForm = /*#__PURE__*/function (_React$Component) {
     value: function handleInput(type) {
       var _this2 = this;
 
-      // if (type === "lat" || type === "lng"){
-      //     return (e) => {
-      //         this.setState({ [type]: parseFloat(e.target.value) });
-      //     };
-      // }
       return function (e) {
         _this2.setState(_defineProperty({}, type, e.target.value));
       };
@@ -615,16 +611,12 @@ var AreaCreateForm = /*#__PURE__*/function (_React$Component) {
       var _this3 = this;
 
       e.preventDefault();
-      this.state.lat = parseFloat(this.state.lat);
-      this.state.lng = parseFloat(this.state.lng);
       var area = this.state.parent_id;
       var formData = new FormData();
       Object.keys(this.state).forEach(function (attribute) {
         formData.append("area[".concat(attribute, "]"), _this3.state[attribute]);
       });
-      this.props.createArea(formData).then(function () {
-        return _this3.props.history.push("/areas/".concat(area));
-      });
+      this.props.createArea(formData); // setTimeout(() => this.props.history.push(`/areas/${area}`), 500)
     }
   }, {
     key: "handleFileSubmit",
@@ -651,10 +643,29 @@ var AreaCreateForm = /*#__PURE__*/function (_React$Component) {
       }
     }
   }, {
+    key: "handleErrors",
+    value: function handleErrors() {
+      var errors = this.props.errors;
+
+      if (errors.areaErrors.length >= 1) {
+        var collection = [];
+        errors.areaErrors.map(function (err) {
+          collection.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+            className: "error-message",
+            key: err
+          }, " ", err, ". "));
+        });
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "error-container"
+        }, collection);
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      // console.log(this.state);
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "create-form"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "New Area"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Area Name:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
@@ -687,7 +698,7 @@ var AreaCreateForm = /*#__PURE__*/function (_React$Component) {
         type: "submit",
         onClick: this.handleSubmit,
         value: "Save Area"
-      })));
+      }))));
     }
   }]);
 
@@ -716,7 +727,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var mstp = function mstp(state) {
   return {
-    errors: state.errors.session
+    errors: state.errors,
+    createdArea: state.entities.areas
   };
 };
 
@@ -1222,6 +1234,7 @@ var Directory = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      debugger;
       this.props.fetchAreas().then(function (areas) {
         _this2.setState({
           areas: areas.areas
@@ -1233,9 +1246,9 @@ var Directory = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       if (this.state.areas === '') {
         return null;
-      } // console.log(this.state);
+      }
 
-
+      debugger;
       var areas = Object.values(this.state.areas);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_main_main_banner_container__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
         id: "header-border"
@@ -1476,6 +1489,28 @@ var Errors = function Errors(props) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
       className: "error-container"
     }, collection);
+  } else if (errors.areaErrors.length >= 1) {
+    var _collection = [];
+    errors.areaErrors.map(function (err) {
+      _collection.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "error-message",
+        key: err
+      }, " ", err, ". "));
+    });
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      className: "error-container"
+    }, _collection);
+  } else if (errors.routeErrors.length >= 1) {
+    var _collection2 = [];
+    errors.routeErrors.map(function (err) {
+      _collection2.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "error-message",
+        key: err
+      }, " ", err, ". "));
+    });
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      className: "error-container"
+    }, _collection2);
   } else {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
   }
@@ -2141,7 +2176,7 @@ var RouteCreateForm = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       name: "",
-      route_type: "",
+      route_type: "Boulder",
       difficulty: "",
       pitches: 1,
       elevation: "",
@@ -2248,7 +2283,7 @@ var RouteCreateForm = /*#__PURE__*/function (_React$Component) {
       });
       this.props.createRoute(formData).then(function () {
         return _this3.props.history.push("/areas/".concat(area));
-      }); // .then((returnVal) => console.log(returnVal));
+      });
     }
   }, {
     key: "handleFileSubmit",
@@ -3688,6 +3723,8 @@ document.addEventListener('DOMContentLoaded', function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_area_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/area_actions */ "./frontend/actions/area_actions.js");
+/* harmony import */ var _actions_route_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/route_actions */ "./frontend/actions/route_actions.js");
+
 
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
@@ -3699,6 +3736,9 @@ __webpack_require__.r(__webpack_exports__);
       return action.errors;
 
     case _actions_area_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_AREA"]:
+    case _actions_area_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_AREAS"]:
+    case _actions_route_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_ROUTE"]:
+    case _actions_route_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_ROUTE_FINDER_ROUTES"]:
       return [];
 
     default:
@@ -3929,6 +3969,8 @@ var routeFinderReducer = function routeFinderReducer() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_route_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/route_actions */ "./frontend/actions/route_actions.js");
+/* harmony import */ var _actions_area_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/area_actions */ "./frontend/actions/area_actions.js");
+
 
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
@@ -3939,6 +3981,9 @@ __webpack_require__.r(__webpack_exports__);
     case _actions_route_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ROUTE_ERRORS"]:
       return action.errors;
 
+    case _actions_area_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_AREA_ERRORS"]:
+    case _actions_area_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_AREA"]:
+    case _actions_area_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_AREAS"]:
     case _actions_route_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ROUTE"]:
       return [];
 
@@ -3989,6 +4034,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_route_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/route_actions */ "./frontend/actions/route_actions.js");
+/* harmony import */ var _actions_area_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/area_actions */ "./frontend/actions/area_actions.js");
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
@@ -4000,6 +4049,10 @@ __webpack_require__.r(__webpack_exports__);
       return action.errors;
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
+    case _actions_route_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_ROUTE"]:
+    case _actions_area_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_AREA"]:
+    case _actions_area_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_AREAS"]:
+    case _actions_route_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_ROUTE_FINDER_ROUTES"]:
       return [];
 
     default:

@@ -1,24 +1,21 @@
 class Api::AreasController < ApplicationController
 
     def index
-        # adjust to get root areas and their first children
         @areas = Area.all
         @root_areas = Area.includes(:child_areas).where(parent_id: nil)
         render :index
     end
 
     def show
-        # debugger
+
         @area = Area.includes(:child_areas, :routes, :parent_area, :sibling_areas).with_attached_photos.find(params[:id])
         @parent_area = @area.parent_area
         @pathway = pathway(@area.parent_id)
-        # debugger
+
         if @parent_area.nil?
             @parent_area = Area.new(name: "")
         end
 
-        # refactor to grab backward path
-        # debugger
         render :show
     end
 
@@ -29,13 +26,18 @@ class Api::AreasController < ApplicationController
             description: area_params[:description],
             getting_there: area_params[:getting_there],
             lat: area_params[:lat],
-            lng: area_params[:lng],
-            photos: [area_params[:photo]]
+            lng: area_params[:lng]
         }
 
+        if area_params[:photo] != nil
+            mod_params[:photos] = [area_params[:photo]]
+        end
+
         @area = Area.new(mod_params)
+        @parent_area = Area.find(area_params[:parent_id])
+
         if @area.save
-            # redirect?
+            render :show
         else
             render json: @area.errors.full_messages, status: 401
         end

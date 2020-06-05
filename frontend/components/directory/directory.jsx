@@ -12,6 +12,7 @@ class Directory extends React.Component {
     }
 
     componentDidMount(){
+        debugger
         this.props.fetchAreas().then(areas => {
             this.setState({areas: areas.areas})
         })
@@ -22,7 +23,8 @@ class Directory extends React.Component {
             return null;
         }
 
-        // console.log(this.state);
+        debugger
+
         let areas = Object.values(this.state.areas)
 
         return (

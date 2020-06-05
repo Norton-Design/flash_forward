@@ -1,5 +1,5 @@
 class Api::RoutesController < ApplicationController
-    before_action :ensure_logged_in, only: [:create]
+    # before_action :ensure_logged_in, only: [:create]
 
     def create
         mod_params = {
@@ -11,15 +11,25 @@ class Api::RoutesController < ApplicationController
             description: route_params[:description],
             protection: route_params[:protection],
             area_id: route_params[:area_id],
-            photos: [route_params[:photo]]
         }
 
+        # if current_user.nil?
+        #     render json: ['Must be logged in to create a route'], status: 401
+        # end
+
+        if route_params[:photo]
+            mod_params[:photos] = [route_params[:photo]]
+        end
+
         @route = Route.new(mod_params)
-        @route.shared_by = current_user.id
-        path = pathway(@route.area_id)
+        if !current_user.nil?
+            @route.shared_by = current_user.id
+        end
+        @pathway = pathway(@route.area_id)
+        @comment_users = []
 
         if @route.save
-            path.each do |area|
+            @pathway.each do |area|
                 area.update({route_count: area.route_count + 1})
                 render :show
             end
@@ -27,12 +37,6 @@ class Api::RoutesController < ApplicationController
             render json: @route.errors.full_messages, status: 401
         end
     end
-
-    # def index
-    # end
-
-    # def destroy
-    # end
 
     def update
         mod_params = {
@@ -49,7 +53,6 @@ class Api::RoutesController < ApplicationController
 
         if @route.update(mod_params)
             if route_params[:photo]
-                # debugger
                 @route.photos.attach(route_params[:photo])
             end
             render :show
@@ -59,9 +62,11 @@ class Api::RoutesController < ApplicationController
     end
 
     def show
-        # joins the tables to avoid additional querying (I don't think this is joining...)
         @route = Route.includes(:sharer, :area, :sibling_routes, :route_moderators, :comments).with_attached_photos.find(params[:id])
         @pathway = pathway(@route.area_id)
+
+        comment_users_ids = @route.comments.map { |comment| comment.user_id }
+        @comment_users = User.find(comment_users_ids)
 
         render :show
     end
@@ -108,7 +113,7 @@ class Api::RoutesController < ApplicationController
         params.require(:route).permit(
             :id,
             :name,
-            :routeType,
+            :route_type,
             :difficulty,
             :pitches,
             :elevation,
