@@ -111,14 +111,12 @@ var RECEIVE_AREA = 'RECEIVE_AREA';
 var RECEIVE_AREAS = 'RECEIVE_AREAS';
 var RECEIVE_AREA_ERRORS = 'RECEIVE_AREA_ERRORS';
 var receiveArea = function receiveArea(area) {
-  // debugger;
   return {
     type: RECEIVE_AREA,
     area: area
   };
 };
 var receiveAreas = function receiveAreas(areas) {
-  // debugger;
   return {
     type: RECEIVE_AREAS,
     areas: areas
@@ -316,14 +314,12 @@ var RECEIVE_COMMENT = 'RECEIVE_COMMENT';
 var RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
 var RECEIVE_ROUTE_COMMENT_ERRORS = 'RECEIVE_ROUTE_COMMENT_ERRORS';
 var receiveComment = function receiveComment(comment) {
-  // debugger;
   return {
     type: RECEIVE_COMMENT,
     comment: comment
   };
 };
 var receiveComments = function receiveComments(comments) {
-  // debugger;
   return {
     type: RECEIVE_COMMENTS,
     comments: comments
@@ -394,7 +390,6 @@ var RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 var LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
 var RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
 var receiveCurrentUser = function receiveCurrentUser(currentUser) {
-  // debugger
   return {
     type: RECEIVE_CURRENT_USER,
     currentUser: currentUser
@@ -1234,7 +1229,7 @@ var Directory = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      debugger;
+      // debugger
       this.props.fetchAreas().then(function (areas) {
         _this2.setState({
           areas: areas.areas
@@ -1246,9 +1241,9 @@ var Directory = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       if (this.state.areas === '') {
         return null;
-      }
+      } // debugger
 
-      debugger;
+
       var areas = Object.values(this.state.areas);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_main_main_banner_container__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
         id: "header-border"
@@ -2984,7 +2979,8 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
           createdAt = _this$state$route.createdAt,
           photo_urls = _this$state$route.photo_urls,
           mods = _this$state$route.mods,
-          comments = _this$state$route.comments;
+          comments = _this$state$route.comments,
+          commentUsers = _this$state$route.commentUsers;
       var pathwayFill = [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         key: 0,
         className: "show-pathway",
@@ -3018,36 +3014,50 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
         }
       }, "Add Photo");
       var commentsHeader = comments.length === 1 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, comments.length, " Comment") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, comments.length, " Comments");
-      var commentsFill = comments.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, comments.map(function (comment) {
+      var commentsFill = comments.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "show-page-comments"
+      }, comments.map(function (comment) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "comment"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "comment-username-container"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, comment.user_id)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, commentUsers[comment.user_id].firstName + ' ' + commentUsers[comment.user_id].lastName)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "comment-body-container"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, comment.body)));
       })) : null;
-      var addComment = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+      var addComment = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "add-comment"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "add-comment-spacer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        "class": "fas fa-user-circle"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         id: "comment-input",
         value: this.state.body,
         onChange: this.handleInput('body'),
-        placeholder: " Write a comment",
+        placeholder: "Write a comment",
         required: true
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Comment Type:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Comment Type:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "comment-type"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "radio",
         value: "ITEM",
         name: "comment_type",
         id: "ITEM",
         onChange: this.handleInput('comment_type'),
         className: "comment-radio-input"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Lost or Found Item")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Lost or Found Item")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "comment-type"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "radio",
         value: "TEMP",
         name: "comment_type",
         id: "TEMP",
         onChange: this.handleInput('comment_type'),
         className: "comment-radio-input"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Temporary (Condition Report, Upcoming Event, etc)")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Temporary (Condition Report, Upcoming Event, etc)")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "comment-type"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "radio",
         value: "BETA",
         name: "comment_type",
@@ -3062,7 +3072,7 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
         type: "submit",
         onClick: this.handleNotLoggedIn,
         value: "Post Comment"
-      }));
+      })));
       var dropdownCard;
 
       if (this.props.currentUserId === sharer.id) {
@@ -4386,7 +4396,6 @@ var signup = function signup(user) {
   });
 };
 var login = function login(user) {
-  // debugger;
   return $.ajax({
     method: 'POST',
     url: '/api/session',

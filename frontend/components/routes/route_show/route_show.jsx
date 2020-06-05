@@ -130,7 +130,8 @@ class RouteShow extends React.Component {
             createdAt,
             photo_urls,
             mods,
-            comments
+            comments,
+            commentUsers
         } = this.state.route;
 
         const pathwayFill = [<Link key={0} className="show-pathway" to="/">All Areas</Link>];
@@ -152,12 +153,12 @@ class RouteShow extends React.Component {
         const addPhotosFill = this.props.currentUserId ? <button className="dropdown-button" onClick={() => this.openModal('addRoutePhotos')}>Add Photo</button> : 
             <button className="dropdown-button" onClick={() => this.openModal('login')}>Add Photo</button>;
         const commentsHeader = comments.length === 1 ? <h2>{comments.length} Comment</h2> : <h2>{comments.length} Comments</h2>
-        let commentsFill = comments.length > 0 ? <div>
+        let commentsFill = comments.length > 0 ? <div className="show-page-comments">
             {
                 comments.map(comment => (
                     <div className="comment">
                         <div className="comment-username-container">
-                            <p>{ comment.user_id }</p>
+                            <p>{ commentUsers[comment.user_id].firstName + ' ' + commentUsers[comment.user_id].lastName }</p>
                         </div>
                         <div className="comment-body-container">
                             <p>{ comment.body }</p>
@@ -166,18 +167,19 @@ class RouteShow extends React.Component {
                 ))
             }
         </div> : null;
-        const addComment = 
+        const addComment = <div className='add-comment'>
+            <div className='add-comment-spacer'><i class="fas fa-user-circle"></i></div>
         <form>
             <textarea
                 id='comment-input'
                 value={this.state.body}
                 onChange={this.handleInput('body')}
-                placeholder=" Write a comment"
+                placeholder="Write a comment"
                 required
             />
             <br />
             <label>Comment Type:</label>
-                <div>
+                <div className='comment-type'>
                     <input 
                         type="radio" 
                         value="ITEM" 
@@ -189,7 +191,7 @@ class RouteShow extends React.Component {
                     <label>Lost or Found Item</label>
                 </div>
 
-                <div>
+                <div className='comment-type'>
                     <input 
                         type="radio" 
                         value="TEMP" 
@@ -201,7 +203,7 @@ class RouteShow extends React.Component {
                     <label>Temporary (Condition Report, Upcoming Event, etc)</label>
                 </div>
 
-                <div>
+                <div className='comment-type'>
                     <input 
                         type="radio" 
                         value="BETA" 
@@ -218,7 +220,8 @@ class RouteShow extends React.Component {
                 <input type="submit" onClick={this.handleSubmit} value="Post Comment" /> : 
                 <input type="submit" onClick={this.handleNotLoggedIn} value="Post Comment" />
             }
-        </form>;
+        </form>
+        </div>
         let dropdownCard;
 
         if (this.props.currentUserId === sharer.id){

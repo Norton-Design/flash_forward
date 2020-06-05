@@ -5,14 +5,12 @@ export const RECEIVE_AREAS = 'RECEIVE_AREAS';
 export const RECEIVE_AREA_ERRORS = 'RECEIVE_AREA_ERRORS'
 
 export const receiveArea = area => {
-    // debugger;
     return {
     type: RECEIVE_AREA,
     area
 }};
 
 export const receiveAreas = areas => {
-    // debugger;
     return {
     type: RECEIVE_AREAS,
     areas

@@ -5,14 +5,12 @@ export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
 export const RECEIVE_ROUTE_COMMENT_ERRORS = 'RECEIVE_ROUTE_COMMENT_ERRORS';
 
 export const receiveComment = comment => {
-  // debugger;
   return {
   type: RECEIVE_COMMENT,
   comment
 }};
 
 export const receiveComments = comments => {
-  // debugger;
   return {
   type: RECEIVE_COMMENTS,
   comments
