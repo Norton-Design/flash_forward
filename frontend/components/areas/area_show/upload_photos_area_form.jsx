@@ -39,9 +39,17 @@ class UploadPhotosAreaForm extends React.Component {
   render () {
     // console.log(this.state)
     return (
-      <div>
-        <h1>Add Photo</h1>
+      <div className='add-photos'>
+        <h1>Share a Photo</h1>
         <form>
+          <div>
+            <h2>Guidelines</h2>
+            <ul>
+              <li>Photo should be least 600 x 600 pixels.</li>
+              <li>Photo should be in JPG or PNG format.</li>
+              <li>Avoid duplicating existing photos and too many "butt shots".</li>
+            </ul>
+          </div>
           <input
             type="file"
             onChange={this.handleFileSubmit}

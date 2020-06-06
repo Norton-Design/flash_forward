@@ -285,3 +285,39 @@
     margin-left: .5rem;
     color: #888888;
 }
+
+.add-photos {
+    h1 {
+        font-size: 36px;
+        font-family: 'Roboto Condensed';
+    }
+
+    h2 {
+        font-size: 24px;
+        font-family: 'Roboto Condensed';
+    }
+
+    ul {
+        list-style-position: inside;
+        list-style-type: disc;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 350px;
+        background-color: #f2f2f2;
+        margin: 1rem;
+        padding: 1rem 0;
+
+        #file-upload-button {
+            border: 1px solid black;
+            border-radius: 0em;
+        }
+
+        li {
+            max-width: 300px;
+        }
+    }
+}

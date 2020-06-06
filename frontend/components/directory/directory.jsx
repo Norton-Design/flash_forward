@@ -18,6 +18,14 @@ class Directory extends React.Component {
         })
     }
 
+    componentDidUpdate(prevProps){
+        const currentUserId = this.props.currentUserId;
+        const prevUserId = prevProps.currentUserId;
+        if (prevUserId !== currentUserId){
+            this.setState({currentUserId: this.props.currentUserId})
+        }
+    }
+
     render(){
         if (this.state.areas === ''){
             return null;
