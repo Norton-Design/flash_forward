@@ -43,14 +43,13 @@ class Slideshow extends React.Component {
 
     return (
       <div className="main-slideshow">
+        <div className="slideshow-dots">
+          <span id="dot-0" onClick={() => this.selectPhoto(0)} className="checked-dot"></span>
+          <span id="dot-1" onClick={() => this.selectPhoto(1)}></span>
+          <span id="dot-2" onClick={() => this.selectPhoto(2)}></span>
+          <span id="dot-3" onClick={() => this.selectPhoto(3)}></span>
+        </div>
         <img src={photoUrls[this.state.currentPhoto]} alt="photo" />
-        <ul className="slideshow-dots">
-          <li id="dot-0" onClick={() => this.selectPhoto(0)} className="checked-dot"></li>
-          <li id="dot-1" onClick={() => this.selectPhoto(1)}></li>
-          <li id="dot-2" onClick={() => this.selectPhoto(2)}></li>
-          <li id="dot-3" onClick={() => this.selectPhoto(3)}></li>
-          {/* <li id="dot-4" onClick={() => this.selectPhoto(4)}></li> */}
-        </ul>
       </div>
     );
   }

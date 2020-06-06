@@ -21,6 +21,7 @@ button {
 
 button:hover {
     background: #254c70;
+    border-color: #254c70;
     cursor: pointer;
 }
 
@@ -34,5 +35,44 @@ a:hover {
     img {
         width: 100%;
         overflow: hidden;
+        position: relative;
+        top: -30px;
+    }
+
+    .slideshow-dots {
+        justify-content: center;
+        position: relative;
+        top: 290px;
+        display: flex;
+        z-index: 1;
+        color: transparent;
+        list-style-position: none;
+
+        div {
+            display: flex;
+            flex-direction: row;
+        }
+        
+        span {
+            background: hsla(0,0%,80%,.75);
+            width: 12px;
+            height: 12px;
+            border-radius: 100%;
+            border: 1px solid black;
+            box-sizing: border-box;
+
+            &:hover {
+                cursor: pointer;
+              }
+        }
+
+        span + span {
+            margin-left: 8px;
+          }        
+
+        .checked-dot {
+            background: black;
+            border: 1px solid white;
+        }
     }
 }
