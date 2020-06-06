@@ -7,13 +7,15 @@ class RouteShow extends React.Component {
         super(props);
         this.state = {
             route: "",
-            currentUserId: props.currentUserId
+            currentUserId: props.currentUserId,
+            commentErrors: props.commentErrors
         }
         this.openModal = props.openModal;
         this.currentUserId = props.currentUserId;
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInput = this.handleInput.bind(this);
         this.handleNotLoggedIn = this.handleNotLoggedIn.bind(this);
+        this.handleCommentErrors = this.handleCommentErrors.bind(this);
     }
 
     componentDidMount(){
@@ -107,6 +109,22 @@ class RouteShow extends React.Component {
     handleNotLoggedIn(e) {
         e.preventDefault();
         this.openModal('login');
+    }
+
+    handleCommentErrors() {
+        if (this.props.commentErrors.length >= 1){
+            const collection = []
+            this.props.commentErrors.map(err => {
+            collection.push(<li className="error-message" key={err}> {err}. </li>)
+            })
+    
+            return (
+                <ul className="error-container">
+                    { collection }
+                </ul>
+            )
+        }
+        return null;
     }
 
     render(){
@@ -302,6 +320,7 @@ class RouteShow extends React.Component {
                         <p>{ protection }</p>
                         { photosSection }
                         { commentsHeader }
+                        { this.handleCommentErrors() }
                         { addComment }
                         { commentsFill }
                     </div>

@@ -6,6 +6,7 @@ import { createComment } from '../../../actions/route_comment_actions';
 
 const mstp = (state) => ({
     currentUserId: state.session.currentUserId,
+    commentErrors: state.errors.routeCommentsErrors
 });
 
 const mdtp = dispatch => ({

@@ -2841,13 +2841,15 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       route: "",
-      currentUserId: props.currentUserId
+      currentUserId: props.currentUserId,
+      commentErrors: props.commentErrors
     };
     _this.openModal = props.openModal;
     _this.currentUserId = props.currentUserId;
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.handleInput = _this.handleInput.bind(_assertThisInitialized(_this));
     _this.handleNotLoggedIn = _this.handleNotLoggedIn.bind(_assertThisInitialized(_this));
+    _this.handleCommentErrors = _this.handleCommentErrors.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -2955,6 +2957,24 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
     value: function handleNotLoggedIn(e) {
       e.preventDefault();
       this.openModal('login');
+    }
+  }, {
+    key: "handleCommentErrors",
+    value: function handleCommentErrors() {
+      if (this.props.commentErrors.length >= 1) {
+        var collection = [];
+        this.props.commentErrors.map(function (err) {
+          collection.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+            className: "error-message",
+            key: err
+          }, " ", err, ". "));
+        });
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "error-container"
+        }, collection);
+      }
+
+      return null;
     }
   }, {
     key: "render",
@@ -3138,7 +3158,7 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
         className: "slideshow-show"
       }, profilePhoto), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "description-body"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Protection"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, protection), photosSection, commentsHeader, addComment, commentsFill)));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Protection"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, protection), photosSection, commentsHeader, this.handleCommentErrors(), addComment, commentsFill)));
     }
   }]);
 
@@ -3171,7 +3191,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var mstp = function mstp(state) {
   return {
-    currentUserId: state.session.currentUserId
+    currentUserId: state.session.currentUserId,
+    commentErrors: state.errors.routeCommentsErrors
   };
 };
 
