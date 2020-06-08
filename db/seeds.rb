@@ -72,12 +72,12 @@ i = 0
 end
 
 states.each do |state|
-    new_state = Area.create!(lat: lats.sample, lng: lngs.sample, name: state, description: description_blocks.sample)
+    new_state = Area.create!(lat: lats.sample, lng: lngs.sample, name: state, description: description_blocks.sample, shared_by_id: mods.sample.id, elevation: rand(100..5000))
     areaCollection << new_state
 end
 
 area_names.each do |area_name|
-    new_area = Area.new(lat: lats.sample, lng: lngs.sample, name: area_name.titleize, description: description_blocks.sample, parent_id: areaCollection.sample.id, getting_there: getting_there_blocks.sample)
+    new_area = Area.new(lat: lats.sample, lng: lngs.sample, name: area_name.titleize, description: description_blocks.sample, parent_id: areaCollection.sample.id, getting_there: getting_there_blocks.sample, shared_by_id: mods.sample.id, elevation: rand(100..5000))
     new_area.save!
     areaCollection << new_area
 end
@@ -139,36 +139,73 @@ def create_comments(route, users)
     end 
 end
 
-def attach_seed_photos(obj)
-    photo_urls = [
-        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock1.jpg', 'rock1.jpg'],
-        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock2.jpg', 'rock2.jpg'],
-        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock3.jpg', 'rock3.jpg'],
-        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock4.jpg', 'rock4.jpg'],
-        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock5.jpg', 'rock5.jpg'],
-        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock6.jpg', 'rock6.jpg'],
-        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock7.jpg', 'rock7.jpg'],
-        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock8.jpg', 'rock8.jpg'],
-        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock9.jpg', 'rock9.jpg'],
-        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock10.jpg', 'rock10.jpg'],
-        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock11.jpg', 'rock11.jpg'],
-        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock12.jpg', 'rock12.jpg'],
-        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock13.jpg', 'rock13.jpg'],
-        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock14.jpg', 'rock14.jpg'],
-        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock15.jpg', 'rock15.jpg'],
-        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock16.jpg', 'rock16.jpg'],
-        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock17.jpg', 'rock17.jpg']
-    ]
-    i = 0
+if Rails.env.production?
+    def attach_seed_photos(obj)
+        photo_urls = [
+            ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock1.jpg', 'rock1.jpg'],
+            ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock2.jpg', 'rock2.jpg'],
+            ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock3.jpg', 'rock3.jpg'],
+            ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock4.jpg', 'rock4.jpg'],
+            ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock5.jpg', 'rock5.jpg'],
+            ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock6.jpg', 'rock6.jpg'],
+            ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock7.jpg', 'rock7.jpg'],
+            ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock8.jpg', 'rock8.jpg'],
+            ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock9.jpg', 'rock9.jpg'],
+            ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock10.jpg', 'rock10.jpg'],
+            ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock11.jpg', 'rock11.jpg'],
+            ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock12.jpg', 'rock12.jpg'],
+            ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock13.jpg', 'rock13.jpg'],
+            ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock14.jpg', 'rock14.jpg'],
+            ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock15.jpg', 'rock15.jpg'],
+            ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock16.jpg', 'rock16.jpg'],
+            ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock17.jpg', 'rock17.jpg']
+        ]
+        i = 0
 
-    [3,4,5,6].sample.times do
-        sub_arr = photo_urls.sample
-        url = sub_arr[0]
-        file = open(url)
-        photo_urls.delete(url)
+        [3,4,5,6].sample.times do
+            sub_arr = photo_urls.sample
+            url = sub_arr[0]
+            file = open(url)
+            photo_urls.delete(sub_arr)
 
-        obj.photos.attach(io: file, filename: sub_arr[1])
-        i += 1
+            obj.photos.attach(io: file, filename: sub_arr[1])
+            i += 1
+        end
+    end
+end
+
+if Rails.env.development?
+    def attach_seed_photos(obj)
+        photo_urls = [
+            ['https://utilflashforwardbucket.s3.amazonaws.com/seeds/rock1.jpg', 'rock1.jpg'],
+            ['https://utilflashforwardbucket.s3.amazonaws.com/seeds/rock2.jpg', 'rock2.jpg'],
+            ['https://utilflashforwardbucket.s3.amazonaws.com/seeds/rock3.jpg', 'rock3.jpg'],
+            ['https://utilflashforwardbucket.s3.amazonaws.com/seeds/rock4.jpg', 'rock4.jpg'],
+            ['https://utilflashforwardbucket.s3.amazonaws.com/seeds/rock5.jpg', 'rock5.jpg'],
+            ['https://utilflashforwardbucket.s3.amazonaws.com/seeds/rock6.jpg', 'rock6.jpg'],
+            ['https://utilflashforwardbucket.s3.amazonaws.com/seeds/rock7.jpg', 'rock7.jpg'],
+            ['https://utilflashforwardbucket.s3.amazonaws.com/seeds/rock8.jpg', 'rock8.jpg'],
+            ['https://utilflashforwardbucket.s3.amazonaws.com/seeds/rock9.jpg', 'rock9.jpg'],
+            ['https://utilflashforwardbucket.s3.amazonaws.com/seeds/rock10.jpg', 'rock10.jpg'],
+            ['https://utilflashforwardbucket.s3.amazonaws.com/seeds/rock11.jpg', 'rock11.jpg'],
+            ['https://utilflashforwardbucket.s3.amazonaws.com/seeds/rock12.jpg', 'rock12.jpg'],
+            ['https://utilflashforwardbucket.s3.amazonaws.com/seeds/rock13.jpg', 'rock13.jpg'],
+            ['https://utilflashforwardbucket.s3.amazonaws.com/seeds/rock14.jpg', 'rock14.jpg'],
+            ['https://utilflashforwardbucket.s3.amazonaws.com/seeds/rock15.jpg', 'rock15.jpg'],
+            ['https://utilflashforwardbucket.s3.amazonaws.com/seeds/rock16.jpg', 'rock16.jpg'],
+            ['https://utilflashforwardbucket.s3.amazonaws.com/seeds/rock17.jpg', 'rock17.jpg']
+        ]
+        i = 0
+
+        [3,4,5,6].sample.times do
+            sub_arr = photo_urls.sample
+            url = sub_arr[0]
+            file = open(url)
+            photo_urls.delete(sub_arr)
+
+            obj.photos.attach(io: file, filename: sub_arr[1])
+            i += 1
+        end
     end
 end
 
@@ -200,6 +237,13 @@ areas.each do |area|
     edit_area.update({route_count: new_route_count})
     attach_seed_photos(area)
 end
+
+areas.each do |area|
+    mod = AreaModerator.new(area_id: area.id, mod_id: mods.sample.id)
+    mod.save!
+end
+
+
 
 
 

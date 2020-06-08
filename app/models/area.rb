@@ -1,20 +1,10 @@
-# create_table "areas", force: :cascade do |t|
-#     t.string "name", null: false
-#     t.integer "parent_id"
-#     t.datetime "created_at", null: false
-#     t.datetime "updated_at", null: false
-#     t.string "description", null: false
-#     t.float "lat", null: false
-#     t.float "lng", null: false
-#     t.string "getting_there"
-#     t.index ["parent_id"], name: "index_areas_on_parent_id"
-# end
-
 class Area < ApplicationRecord
     validates :name, presence: true
     validates :description, presence: true
     validates :lat, presence: true
     validates :lng, presence: true
+    validates :elevation, presence:true
+    validates :shared_by_id, presence:true
 
     has_many :routes,
     foreign_key: :area_id,
@@ -36,6 +26,18 @@ class Area < ApplicationRecord
     has_many :sibling_areas,
     through: :parent_area,
     source: :child_areas
+
+    belongs_to :sharer,
+    foreign_key: :shared_by_id,
+    class_name: :User
+
+    has_many :area_moderators,
+    foreign_key: :area_id,
+    class_name: :AreaModerator
+
+    has_many :mods,
+    through: :area_moderators,
+    source: :mod
 
     has_many_attached :photos
 end

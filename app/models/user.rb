@@ -59,7 +59,7 @@ class User < ApplicationRecord
 
     has_many :moderated_routes,
     through: :route_moderators,
-    source: :mod
+    source: :route
 
     has_many :shared_routes,
     foreign_key: :shared_by,
@@ -68,4 +68,16 @@ class User < ApplicationRecord
     has_many :comments,
     foreign_key: :user_id,
     class_name: :RouteComment
+
+    has_one :sharer,
+    foreign_key: :shared_by_id,
+    class_name: :Area
+
+    has_many :area_moderators,
+    foreign_key: :mod_id,
+    class_name: :AreaModerators
+
+    has_many :moderated_areas,
+    through: :area_moderators,
+    source: :area
 end

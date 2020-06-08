@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_31_165445) do
+ActiveRecord::Schema.define(version: 2020_06_08_214431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(version: 2020_05_31_165445) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "area_moderators", force: :cascade do |t|
+    t.bigint "area_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["area_id"], name: "index_area_moderators_on_area_id"
+    t.index ["user_id"], name: "index_area_moderators_on_user_id"
+  end
+
   create_table "areas", force: :cascade do |t|
     t.string "name", null: false
     t.integer "parent_id"
@@ -46,7 +55,10 @@ ActiveRecord::Schema.define(version: 2020_05_31_165445) do
     t.float "lng", null: false
     t.string "getting_there"
     t.integer "route_count", default: 0
+    t.bigint "shared_by_id", null: false
+    t.integer "elevation", null: false
     t.index ["parent_id"], name: "index_areas_on_parent_id"
+    t.index ["shared_by_id"], name: "index_areas_on_shared_by_id"
   end
 
   create_table "route_comments", force: :cascade do |t|
@@ -102,6 +114,9 @@ ActiveRecord::Schema.define(version: 2020_05_31_165445) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "area_moderators", "areas"
+  add_foreign_key "area_moderators", "users"
+  add_foreign_key "areas", "users", column: "shared_by_id"
   add_foreign_key "route_comments", "routes"
   add_foreign_key "route_comments", "users"
 end
