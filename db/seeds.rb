@@ -224,16 +224,16 @@ def count_routes(area)
 end
 
 areas.each do |area|
+    mod = AreaModerator.new(area_id: area.id, user_id: mods.sample.id)
+    mod.save!
+end
+
+areas.each do |area|
     new_route_count = count_routes(area)
     edit_area = Area.find(area.id)
 
     edit_area.update({route_count: new_route_count})
     attach_seed_photos(area)
-end
-
-areas.each do |area|
-    mod = AreaModerator.new(area_id: area.id, user_id: mods.sample.id)
-    mod.save!
 end
 
 Route.all.each do |route|

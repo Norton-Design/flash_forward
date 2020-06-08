@@ -1,9 +1,9 @@
 class AreaModerator < ApplicationRecord
   validates :area_id, presence: true
-  validates :mod_id, presence: true
+  validates :user_id, presence: true
 
   belongs_to :mod,
-  foreign_key: :mod_id,
+  foreign_key: :user_id,
   class_name: :User
 
   belongs_to :area,
