@@ -10,6 +10,7 @@
 require 'open-uri'
 
 RouteComment.destroy_all
+AreaModerator.destroy_all
 RouteModerator.destroy_all
 Route.destroy_all
 Area.destroy_all
@@ -209,14 +210,6 @@ if Rails.env.development?
     end
 end
 
-Route.all.each do |route|
-    mod = RouteModerator.new(route_id: route.id, mod_id: mods.sample.id)
-    mod.save!
-
-    create_comments(route, users)
-    attach_seed_photos(route)
-end
-
 areas = Area.all
   
 def count_routes(area)
@@ -239,8 +232,16 @@ areas.each do |area|
 end
 
 areas.each do |area|
-    mod = AreaModerator.new(area_id: area.id, mod_id: mods.sample.id)
+    mod = AreaModerator.new(area_id: area.id, user_id: mods.sample.id)
     mod.save!
+end
+
+Route.all.each do |route|
+    mod = RouteModerator.new(route_id: route.id, mod_id: mods.sample.id)
+    mod.save!
+
+    create_comments(route, users)
+    attach_seed_photos(route)
 end
 
 
