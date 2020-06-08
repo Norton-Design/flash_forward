@@ -42,7 +42,6 @@ mixed_grades = ["M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10", "M1
 aid_grades = ['A1', 'A2', 'A3', 'A4', 'A5', 'C1', 'C2', 'C3', 'C4', 'C5']
 protection_grades = ["G", "PG", "PG13", "R", "X"]
 climbing_types = ["Boulder", "Aid", "Ice/Mixed", "Trad", "Sport"]
-comment_types = ['BETA', 'TEMP', 'ITEM']
 
 areaCollection = []
 
@@ -129,6 +128,7 @@ def create_comments(route)
         "In erat nibh, lacinia ac scelerisque et, volutpat a enim. Donec tristique tellus sed efficitur vehicula. Quisque odio erat, lobortis eu volutpat id, ultricies at massa. Praesent aliquam malesuada nibh eget accumsan. Vestibulum elementum justo lorem, sit amet lacinia justo hendrerit ac.",
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec viverra, justo vitae feugiat faucibus, nibh nisl tempus enim, et congue elit dolor ac massa."
     ]
+    comment_types = ['BETA', 'TEMP', 'ITEM']
 
     [3,4,5,6].sample.times do 
         comment = RouteComment.new(body: comment_bodies.sample, comment_type: comment_types.sample)
