@@ -9,6 +9,7 @@
 # DEVELOPMENT SEEDING
 require 'open-uri'
 
+RouteComment.destroy_all
 RouteModerator.destroy_all
 Route.destroy_all
 Area.destroy_all
