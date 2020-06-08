@@ -141,23 +141,23 @@ end
 
 def attach_seed_photos(obj)
     photo_urls = [
-        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock1.jpg',
-        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock2.jpg',
-        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock3.jpg',
-        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock4.jpg',
-        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock5.jpg',
-        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock6.jpg',
-        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock7.jpg',
-        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock8.jpg',
-        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock9.jpg',
-        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock10.jpg',
-        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock11.jpg',
-        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock12.jpg',
-        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock13.jpg',
-        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock14.jpg',
-        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock15.jpg',
-        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock16.jpg',
-        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock17.jpg'
+        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock1.jpg', 'rock1.jpg'],
+        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock2.jpg', 'rock2.jpg'],
+        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock3.jpg', 'rock3.jpg'],
+        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock4.jpg', 'rock4.jpg'],
+        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock5.jpg', 'rock5.jpg'],
+        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock6.jpg', 'rock6.jpg'],
+        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock7.jpg', 'rock7.jpg'],
+        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock8.jpg', 'rock8.jpg'],
+        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock9.jpg', 'rock9.jpg'],
+        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock10.jpg', 'rock10.jpg'],
+        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock11.jpg', 'rock11.jpg'],
+        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock12.jpg', 'rock12.jpg'],
+        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock13.jpg', 'rock13.jpg'],
+        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock14.jpg', 'rock14.jpg'],
+        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock15.jpg', 'rock15.jpg'],
+        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock16.jpg', 'rock16.jpg'],
+        ['https://flash-forward-pro.s3.amazonaws.com/seeds/rock17.jpg', 'rock17.jpg']
     ]
     i = 0
 
