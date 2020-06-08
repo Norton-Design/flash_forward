@@ -167,7 +167,7 @@ def attach_seed_photos(obj)
         photo_urls.delete(url)
 
         obj.photos.attach(io: file, filename: `page_photo#{i}.jpg`)
-        i++
+        i += 1
     end
 end
 
