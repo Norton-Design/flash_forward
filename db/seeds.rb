@@ -7,6 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # DEVELOPMENT SEEDING
+require 'open-uri'
+
 RouteModerator.destroy_all
 Route.destroy_all
 Area.destroy_all
@@ -31,8 +33,15 @@ getting_there_blocks = [
     "Ornare suspendisse sed nisi lacus sed viverra tellus in. Ultrices eros in cursus turpis massa. Pretium fusce id velit ut tortor pretium. Venenatis tellus in metus vulputate eu scelerisque felis. Vel risus commodo viverra maecenas accumsan. Diam vel quam elementum pulvinar etiam non quam lacus suspendisse. Rhoncus mattis rhoncus urna neque viverra justo nec ultrices. Odio facilisis mauris sit amet massa vitae tortor condimentum lacinia. Ornare lectus sit amet est placerat in egestas. Libero id faucibus nisl tincidunt. Felis donec et odio pellentesque diam volutpat commodo. Placerat duis ultricies lacus sed turpis. Arcu vitae elementum curabitur vitae nunc sed. Massa enim nec dui nunc mattis enim ut tellus. Bibendum arcu vitae elementum curabitur vitae. Odio morbi quis commodo odio aenean sed. Sed faucibus turpis in eu mi. Nulla pharetra diam sit amet nisl suscipit adipiscing bibendum est. Neque egestas congue quisque egestas diam in."
 ]
 
-states = ['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming']
+comment_bodies = [
+    "Sed semper nisi ac orci fringilla faucibus. Vestibulum sed nisi lacinia enim bibendum elementum et sed diam. Pellentesque non condimentum dolor. Nam est metus, pulvinar a nunc non, accumsan porttitor velit. Duis aliquet orci nisl, et congue odio sagittis ac. Sed et feugiat elit. Quisque suscipit aliquam neque, non molestie erat convallis ac. Vestibulum fermentum eros nec lacus convallis, quis sodales diam pulvinar. Nullam in pulvinar lectus. Sed eleifend urna sed nibh dapibus consequat.",
+    "Integer in accumsan sapien. Suspendisse auctor ex ac metus hendrerit, sit amet rutrum nisl posuere. Fusce a leo leo. Praesent sagittis vel diam eu pellentesque. Praesent varius lorem augue, a hendrerit massa ullamcorper id. Integer quis bibendum quam. Fusce eget erat quis arcu mattis mattis",
+    "Nunc placerat turpis in ultrices tristique. Nunc nunc orci, porta id tempor sit amet, pellentesque ut mauris. Donec tincidunt nibh vitae elit rhoncus, eget consectetur lorem luctus. Suspendisse potenti. In feugiat arcu volutpat mattis dignissim. Morbi ut erat et sapien ultrices iaculis. Suspendisse potenti. Suspendisse gravida odio vel ex sollicitudin, vel fermentum nisl mattis. Aenean mi massa, rhoncus in maximus eget, iaculis at sapien. Cras a mauris risus.",
+    "In erat nibh, lacinia ac scelerisque et, volutpat a enim. Donec tristique tellus sed efficitur vehicula. Quisque odio erat, lobortis eu volutpat id, ultricies at massa. Praesent aliquam malesuada nibh eget accumsan. Vestibulum elementum justo lorem, sit amet lacinia justo hendrerit ac.",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec viverra, justo vitae feugiat faucibus, nibh nisl tempus enim, et congue elit dolor ac massa."
+]
 
+states = ['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming']
 route_names = ["Farewell to Arms", "Full Moon, Good Drugs", "Apes of Wrath", "Climb and Punishment", "Astro Dog", "Boogie til you Shit", "Finger of Fate", "Epinephrine", "Jumar of Flesh", "Pervertical Sanctuary", "The Zen and Art of Masturbation", "Ten Sleep", "The Dentist's Chair", "Summer of our Discount Tent", "Buster Cattlefield", "Bitch Muscle", "Billie Bear Cranks the Rad", "Blotter is my Spotter", "Dead Children's Glee Club", "Spotted Owl Sandwich", "Goats in the Machine", "Rookie Hook", "Crash Position", "The Professor Falls", "Armed dangerous and off my medication", "Wild Woman", "Full Monty", "Lick Tickel and a Spank", "Celibacy", "Science Friction", "The hardest climb in the world", 'Float Like a Butterfly, Land Like a Tomato', "You have been nothing but trouble", "Passport To Insanity", "Tomb of the Unknown", "Cophrolagia", "Drop, Fly, or Die", "Spanky's Quest", "Big Wall Greg's Chicken Shack", "To Bolt or Not to Be", "Fact or Friction", "All Chalk, No Action", "Night of the Climbing Dead", "Geologic time includes now", "Hardcore Thrash", "Crossing the Delaware With No Pants On", "The Official Route of the 1984 Olympics", "The Hardest 5.8 in the Rockies", "Offwidth Your Head", "Jesus Built My Tricam", "Cary Granite", "Cunning Stunt", "Belly Full of Bad Berries", "That 10d", "Dangerous Lesion", "Bottle in Front of Me", "Caught Inside on a Big Set", "Figures on a Landscape", "Boogers on a Lampshade", "Room to Shroom", "She Lives", "Bowels of the Owls", "Filibuster", "Smoke and Mirrors", "Pan Handling", "Unimpeachable Groping", "Magical Chrome Plated Semi-Automatic Syringe", "Butter my Butt and Call it a Biscuit", "The Boy Scout Leader Likes Me", "Senior citizens in outer space", "Lets get drunk and think about it", "I'm Pro Choss and I Bolt", "Thugged out Since Cub Scouts", "Ick! Theology! (I'd rather study cod.)", "Booby Trap", "Unsuspecting Remora", "Full Metal Jackfish", "Getting Lucky in Kentucky", "Tufa King Pumped", "Steep Climb Named Desire", "Beyond a Shadow of a Route", "The Boltzmann Constant", "Big G", "The Uncertainty Principle", "the Becky Route", "Doug Reed Route", "Hot Venom Injection Arete", "The Compactor on the Trash Can", "Tough Schist", "The Young and the Rackless", "The Vulgar Goatman", "Speed of Life", "The Jane Fonda Workout for Pregnant Women", "Hexentric", "They Died Laughing", "A Dare By The Sea", "No Mistake, Big Pancake", "Cranking Skills or Hospital Bills", "Finger Locks or Cedar Box", "Lactic Acid Bath", "Premarital bliss", "Freak Gasoline Fight Accident", "When in Doubt, Run it Out", "Make that move or six-foot groove", "Chocolate Doobie", "Casual Route", "Persistent Vegetative State", "Edge of Time", "Airation", "More Hustle Than Muscle", "Heart of Darkness, and Bearded cabbage", "Fote Hog", "A Bolt, A Bashie & A Bold Mantle", "Darshan - AKA Rip-off", "Jesus H Christ On a Bicycle", "The Sword of Damocles", "Static Cling", "Astrologger", "Malt Therapy", "Reelin' in the Fears", "Footsy Quence", "Slip o' Fools", "Way Radical", "Black Flies Consume Jim Dunn", "Stretched on Your Grave"]
 boulder_grades = ["VB", "V0", "V1", "V2", "V3", "V4", "V5", "V6", "V7", "V8", "V9", "V10"]
 yds_grades = ["5.5", "5.6", "5.7", "5.8", "5.9", "5.10a", "5.10b", "5.10c", "5.10d", "5.11a", "5.11b", "5.11c", "5.11d", "5.12a", "5.12b", "5.12c", "5.12d", "5.13a", "5.13b", "5.13c", "5.13d", "5.14a", "5.14b", "5.14c", "5.14d", "5.15a", "5.15b", "5.15c", "5.15d"]
@@ -40,6 +49,7 @@ mixed_grades = ["M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10", "M1
 aid_grades = ['A1', 'A2', 'A3', 'A4', 'A5', 'C1', 'C2', 'C3', 'C4', 'C5']
 protection_grades = ["G", "PG", "PG13", "R", "X"]
 climbing_types = ["Boulder", "Aid", "Ice/Mixed", "Trad", "Sport"]
+comment_types = ['BETA', 'TEMP', 'ITEM']
 
 areaCollection = []
 
@@ -52,6 +62,7 @@ lngs = [-86.250275, -90.590836, -119.735558, -88.015831, -122.313057, -76.566666
 demo_user = User.create!(email: "DemoUser@FlashForward.com", password: "testing", first_name: "Demo User", last_name: "Demo User")
 
 mods = []
+users = []
 i = 0
 
 255.times do
@@ -65,6 +76,7 @@ i = 0
     i += 1
 
     mods << user if i % 10 == 0
+    users << user
 end
 
 states.each do |state|
@@ -116,11 +128,56 @@ route_names.each do |name|
     )
 end
 
+def create_comments(route)
+    [3,4,5,6].sample.times do 
+        comment = RouteComment.new(body: comment_bodies.sample, comment_type: comment_types.sample)
+        comment.user_id = users.sample.id
+        comment.route_id = route.id
+
+        comment.save!
+    end 
+end
+
+def attach_seed_photos(obj)
+    photo_urls = [
+        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock1.jpg',
+        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock2.jpg',
+        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock3.jpg',
+        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock4.jpg',
+        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock5.jpg',
+        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock6.jpg',
+        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock7.jpg',
+        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock8.jpg',
+        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock9.jpg',
+        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock10.jpg',
+        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock11.jpg',
+        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock12.jpg',
+        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock13.jpg',
+        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock14.jpg',
+        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock15.jpg',
+        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock16.jpg',
+        'https://flash-forward-pro.s3.amazonaws.com/seeds/rock17.jpg'
+    ]
+    i = 0
+
+    [3,4,5,6].sample.times do
+        url = photo_urls.sample
+        file = open(url)
+        photo_urls.delete(url)
+
+        obj.photos.attach(io: file, filename: `page_photo#{i}.jpg`)
+        i++
+    end
+end
+
 Route.all.each do |route|
     mod = RouteModerator.new(route_id: route.id, mod_id: mods.sample.id)
     mod.save!
+
+    create_comments(route)
+    attach_seed_photos(route)
 end
-  
+
 areas = Area.all
   
 def count_routes(area)
@@ -139,55 +196,8 @@ areas.each do |area|
     edit_area = Area.find(area.id)
 
     edit_area.update({route_count: new_route_count})
+    attach_seed_photos(area)
 end
 
 
-
-
-
-
-
-# Areas
-# new_york = Area.create!(lat: 41.968, lng: -74.443, name: "New York", description: "Rock Climbing in New York State consists of three main regions: the world-famous Gunks, properly called the Shawangunks; the Adirondacks, a vast state park with dozens of crags scattered across an area the size of Rhode Island; and Moss Island, a small crag near Little Falls. Several other areas exist, e.g. bouldering in Central Park, the Timp in Harriman Park, as well as many places of questionable access and/or worth.")
-# west_virginia = Area.create!(lat: 38.069, lng: -81.081, name: "West Virginia", description: "West Virginia is full of great climbing destinations, from local crags to Seneca Rocks to the The New River Gorge with 3000+ routes. Excellent sport climbing, bouldering, single and multi-pitch trad climbing can be found in The Mountain State.")
-# vermont = Area.create!(lat: 44.247, lng: -72.578, name: "Vermont", description: "For those who fall in love with Vermont, it's more than just local climbing. Vermont has long granite slabs, overhanging sport routes, beautiful schist and granite boulders, lakeside limestone, adventurous trad lines, and of course, world-class ice climbing. All in a setting that people drive hundreds of miles just to gawk at and with many cliffs that you will never see another person at. It's our hidden gem of New England and it's hiding in plain sight. Vermont is no longer just a central location to the neighboring rock of the Adirondacks and the White Mountains, it stands proud with its own 5-star lines as good as any in the Northeast.")
-# kentucky = Area.create!(lat: 37.579, lng: -85.078, name: "Kentucky", description: "From a climbing standpoint, you can define the Bluegrass state with that one word. From Morehead, through the Red River Gorge and the Rockcastle River watershed on down into Tennessee via the Big South Fork (of the Cumberland River) out to the coalfields of Western Kentucky, the dominant exposed rock is sandstone. By far, the best quality rock overall is in the Red River Gorge. That's not to say that the rest of the state is choss, just that the greatest concentration of quality developed climbing happens to be there. ")
-
-# a1 = Area.new(lat: 44.742, lng: -72.048, name: "Lake Willoughby", getting_there: "Route 5A about 15 miles North of Lyndonville, VT. Park below the routes and hike in (30-60 minutes).", description: "We're claiming it: This is the largest concentration of hard ice routes in the continental United States. Several committing multipitch grade IV WI5s or harder can be found towering above the lake waiting to test you. Willoughby is also home to the East Coast's first bonafide WI6 ice climb: Call of the Wild II WI6 which was first freed by Jim Shimberg in March of 1996. In summary, you can't throw an ice axe around here without finding WI5. Enjoy.")
-
-# a2 = Area.new(lat: 38.072, lng: -81.081, name: "The New River Gorge", getting_there: "Located in and around Fayetteville, WV.", description: "The greater New River Gorge region is one of the East's largest, most diverse, and highest quality climbing areas. Between the three major river gorges- the New, the Gauley/Summersville, and the Meadow- there are over 3,000 established routes on 60+ miles of cliffline, as well as hundreds of established boulder problems. While the moderates at some crags (Bubba City, Summersville) can be extremely crowded on weekends, it is still possible to find solitude and even first ascents, whether you wish to climb sport, trad, or boulder.")
-# a3 = Area.new(lat: 38.834, lng: -79.366, name: "Seneca Rocks", getting_there: "Seneca Rocks is located at the intersection of Route 33 and 55, east of Elkins, WV.", description: "Located in the Monongahela National Forest, Seneca Rocks is best known for multi-pitch trad climbs and stiff old-school ratings. The rock is formed from white Tuscarora quartzite, which feels much like sandstone. First recorded ascent was in 1939, where the climbing party discovered an inscription on the summit with a date of 1908. In the 1940s the 10th Mountain Division training trained at Seneca Rocks in preparation for deployment in WWII to Italy. Many of the iron pitons they trained with can still be found throughout the established climbs at Seneca Rocks. More history can be found on the Wikipedia article for Seneca. ")
-# a4 = Area.new(lat: 38.236, lng: -80.855, name: "Summersville Area Rock", getting_there: "See individual crags for directions; all are roughly a half hour north of the NRG on Highway 19.", description: "About a half hour north of the New River Gorge is the Gauley River drainage. The main northern shore of Lake Summersville is home to a host of high quality single-pitch sport routes. Ratings range from 5.easy (slabs left of Orange Oswald) to 5.14+ (in the Coliseum). There are plenty of as-of-yet unsent projects, and lots of new development potential, too. Water levels in the lake vary seasonally, which in turn affects the accessibility of certain routes. During warm months, the reservoir can be a great relief from oppressive summer heat. During colder seasons, the drained lakebed opens up as a treeless landscape that soaks up all the sunlight, making it a great cold-weather destination. ")
-
-# a5 = Area.new(lat: 41.744, lng: -74.197, name: "The Gunks", getting_there: "The out-of-state climber may want to fly into Newark Liberty International Airport (EWR), La Guardia Airport (LGA), or Stewart International Airport (SWF), rent a car, and drive to New Paltz.", description: 'The Gunks (short for Shawangunks) is one of the premier climbing areas in the country. Located near New Paltz, NY, the Gunks is about 85 miles from the NYC metropolitan area, making it a popular weekend destination. The rock is quartz conglomerate, solid rock with horizontal rather than vertical cracks. Climbing at the Gunks is characterized by roofs, jugs, traverses, big air, and sometimes "sporty" pro. The Gunks is famous for great one-to-three-pitch climbs of all levels of difficulty. You\'ll find some of the best easy and moderate trad climbs in the country at the Gunks. There are a few bolted climbs at the Gunks, but no sport climbs.')
-# a6 = Area.new(lat: 43.938, lng: -74.378, name: "Adirondacks", getting_there: "Traveling from the east, there are several ways, all of which offer similar travel time, that get you there. The Charlotte, VT Ferry, The Burlington, VT Ferry, and the Grand Isle, VT Ferry all drop you off along the eastern precipice of the Adirondacks. Once across Lake Champlain, find your way to Route 73, the central corridor through the Park proper.", description: 'The Dacks. An untamed tract of public and private land spanning a topography larger than Vermont. The Park is preserved by legislation from 1885 declaring that the lands of the preserve "be forever kept as wild forest lands." That statement by the Forest Preserve was the formal beginning of what has now become a 6,000,000 acre wilderness--the largest state park in the lower 48. ')
-# a7 = Area.new(lat: 37.784, lng: -83.682, name: "Red River Gorge", getting_there: "From Lexington, Kentucky take I-64 east about 15 miles to the exit for the Bert T. Combs Mountain Parkway, just past the second Winchester exit. Follow the parkway for 33 miles to the KY 11 exit (exit 33). Miguel's Pizza, the unofficial headquarters for climbing at the Red, is about two miles south on KY 11. Continue south for crags in the southern region, or north on KY 11 for northern region crags.", description: "With its central location in Kentucky and its huge volume of routes, the Red River Gorge is one of the most popular climbing meccas east of the Mississippi. Spread out through a wide expanse of national forest land and privately-owned acreage, the Red's sandstone cliffs offer a lifetime of climbing opportunities at all levels.")
-
-# a1.parent_id = vermont.id
-# a2.parent_id = west_virginia.id
-# a3.parent_id = west_virginia.id
-# a4.parent_id = west_virginia.id
-# a5.parent_id = new_york.id
-# a6.parent_id = new_york.id
-# a7.parent_id = kentucky.id
-
-# a1.save!
-# a2.save!
-# a3.save!
-# a4.save!
-# a5.save!
-# a6.save!
-# a7.save!
-
-# # Routes
-# r1 = Route.new(pitches: 1, difficulty: "V3", route_type: "Boulder", name: "Cat Rock", elevation: 15, protection: "Has a rough landing.", description: "Cat Rock is located immediately north of the Wollman Skating Rink at the very south end of Central Park, just a short walk from Rat Rock.  Follow paths east from Rat Rock, walking under or over Center Drive.  Cat Rock is the obvious south-facing rock wall.")
-# r2 = Route.new(pitches: 1, difficulty: "V0", route_type: "Boulder", name: "The Arete", elevation: 25, protection: "Despite being modest in height, it can feel intimidating, especially near the top.  However, good holds are to be found for the exit moves.", description: "Up the left side of the arete to the top.  (If you start on the right side, make an initial hard move to gain the left side of the arete.)")
-
-# r1.area_id = new_york.id
-# r2.area_id = new_york.id
-# r1.shared_by = u1.id
-# r2.shared_by = u1.id
-
-# r1.save!
-# r2.save!
 
