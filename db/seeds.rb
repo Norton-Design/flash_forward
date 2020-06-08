@@ -162,11 +162,12 @@ def attach_seed_photos(obj)
     i = 0
 
     [3,4,5,6].sample.times do
-        url = photo_urls.sample
+        sub_arr = photo_urls.sample
+        url = sub_arr[0]
         file = open(url)
         photo_urls.delete(url)
 
-        obj.photos.attach(io: file, filename: `page_photo#{i}.jpg`)
+        obj.photos.attach(io: file, filename: sub_arr[1])
         i += 1
     end
 end
