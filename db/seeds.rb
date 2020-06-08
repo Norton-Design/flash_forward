@@ -120,7 +120,7 @@ route_names.each do |name|
     )
 end
 
-def create_comments(route)
+def create_comments(route, users)
     comment_bodies = [
         "Sed semper nisi ac orci fringilla faucibus. Vestibulum sed nisi lacinia enim bibendum elementum et sed diam. Pellentesque non condimentum dolor. Nam est metus, pulvinar a nunc non, accumsan porttitor velit. Duis aliquet orci nisl, et congue odio sagittis ac. Sed et feugiat elit. Quisque suscipit aliquam neque, non molestie erat convallis ac. Vestibulum fermentum eros nec lacus convallis, quis sodales diam pulvinar. Nullam in pulvinar lectus. Sed eleifend urna sed nibh dapibus consequat.",
         "Integer in accumsan sapien. Suspendisse auctor ex ac metus hendrerit, sit amet rutrum nisl posuere. Fusce a leo leo. Praesent sagittis vel diam eu pellentesque. Praesent varius lorem augue, a hendrerit massa ullamcorper id. Integer quis bibendum quam. Fusce eget erat quis arcu mattis mattis",
@@ -175,7 +175,7 @@ Route.all.each do |route|
     mod = RouteModerator.new(route_id: route.id, mod_id: mods.sample.id)
     mod.save!
 
-    create_comments(route)
+    create_comments(route, users)
     attach_seed_photos(route)
 end
 
