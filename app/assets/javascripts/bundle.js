@@ -3461,7 +3461,11 @@ var LoginForm = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "handleSubmit",
-    value: function handleSubmit() {
+    value: function handleSubmit(e) {
+      if (e) {
+        e.preventDefault();
+      }
+
       this.props.login(this.state);
       setTimeout(this.closeModal, 350);
     }

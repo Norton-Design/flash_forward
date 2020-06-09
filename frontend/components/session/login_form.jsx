@@ -20,7 +20,10 @@ class LoginForm extends React.Component{
         }
     }
 
-    handleSubmit(){
+    handleSubmit(e){
+        if (e){
+            e.preventDefault()
+        }
         this.props.login(this.state);
         setTimeout(this.closeModal, 350);
     }
