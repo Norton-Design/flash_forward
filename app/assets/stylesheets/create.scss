@@ -12,6 +12,10 @@
     align-items: flex-start;
     justify-content: flex-start;
     box-sizing: border-box;
+
+    h2 {
+        font-size: 1.6rem;
+    }
 }
 
 .create-form h1 {
@@ -37,6 +41,7 @@
 
 .create-form textarea{
     width: 100%;
+    height: 6rem;
     margin: 4px 0 28px 0;
     line-height: 1.25;
     font-size: 18px;
@@ -78,9 +83,39 @@
     width: 140px;
     height: 40px;
     border-style: solid;
+    margin-bottom: 2rem;
 }
 
 .create-form div {
     display: flex;
     align-items: baseline;
+}
+
+.create-add-photo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    align-items: center;
+    width: 350px;
+    background-color: #f2f2f2;
+    margin: 1rem 0;
+    padding: 1rem;
+
+    h3 {
+        font-size: 1.2rem;
+        margin-bottom: .2rem;
+    }
+    
+    li {
+        margin: .2rem 0;
+    }
+
+    ul {
+        list-style-position: outside;
+        margin-left: 1.2rem;
+    }
+    
+    input {
+        margin-top: .2rem;
+    }
 }

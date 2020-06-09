@@ -200,11 +200,20 @@ class RouteCreateForm extends React.Component {
                         />
                     <br />
 
-                    <input
-                        type="file"
-                        onChange={this.handleFileSubmit}
-                        accept=".jpg,.png"
-                    />
+                    <h2>Share a Photo</h2>
+                    <div className='create-add-photo'>
+                        <h3>Guidelines</h3>
+                        <ul>
+                            <li>Photo should be least 600 x 600 pixels.</li>
+                            <li>Photo should be in JPG or PNG format.</li>
+                            <li>Avoid duplicating existing photos and too many "butt shots".</li>
+                        </ul>
+                        <input
+                            type="file"
+                            onChange={this.handleFileSubmit}
+                            accept=".jpg,.png"
+                        />
+                    </div>
 
                     <input type="submit" onClick={this.handleSubmit} value="Save Route" />
                 </form>
