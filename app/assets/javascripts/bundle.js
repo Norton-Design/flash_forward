@@ -841,12 +841,13 @@ var AreaShow = /*#__PURE__*/function (_React$Component) {
           lat = _this$state$area.lat,
           lng = _this$state$area.lng,
           gettingThere = _this$state$area.gettingThere,
-          parentName = _this$state$area.parentName,
+          mods = _this$state$area.mods,
           routes = _this$state$area.routes,
           childAreas = _this$state$area.childAreas,
           pathway = _this$state$area.pathway,
           createdAt = _this$state$area.createdAt,
-          photo_urls = _this$state$area.photo_urls;
+          photo_urls = _this$state$area.photo_urls,
+          elevation = _this$state$area.elevation;
       var gettingThereDiv;
       var sidebarFill;
       var pathwayFill = [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
@@ -856,6 +857,7 @@ var AreaShow = /*#__PURE__*/function (_React$Component) {
       var profilePhoto = photo_urls.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: photo_urls[0]
       }) : null;
+      var modFill = mods.length > 0 ? "".concat(mods[0].first_name, " ").concat(mods[0].last_name) : 'No Moderation';
       var photosSection = photo_urls.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Photos"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "show-photos-container"
       }, photo_urls.map(function (photoUrl) {
@@ -946,13 +948,13 @@ var AreaShow = /*#__PURE__*/function (_React$Component) {
         className: "description-details"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
         className: "description-details-left"
-      }, "Elevation:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Placeholder", " ft")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+      }, "Elevation:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, elevation, " ft")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
         className: "description-details-left"
       }, "GPS:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, lat, ", ", lng, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "https://www.google.com/maps/search/?api=1&query=".concat(lat, ",").concat(lng)
       }, "Google Map"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
         className: "description-details-left"
-      }, "Admins:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Placeholder"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Admins:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, modFill))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "slideshow-show"
       }, profilePhoto), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "description-body"

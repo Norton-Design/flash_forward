@@ -6,7 +6,7 @@
 # end
 
 # @parent_area needs to stay because of the nil potential
-json.extract! @area, :id, :name, :description, :lat, :lng
+json.extract! @area, :id, :name, :description, :lat, :lng, :elevation
     json.parentId @area.parent_id 
     json.gettingThere @area.getting_there
     json.parentName @parent_area.name
@@ -23,4 +23,8 @@ json.extract! @area, :id, :name, :description, :lat, :lng
 
     json.pathway do
         json.array! @pathway, :id, :name
+    end
+
+    json.mods do
+        json.array! @area.mods, :id, :first_name, :last_name
     end

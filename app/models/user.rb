@@ -75,7 +75,7 @@ class User < ApplicationRecord
 
     has_many :area_moderators,
     foreign_key: :user_id,
-    class_name: :AreaModerators
+    class_name: :AreaModerator
 
     has_many :moderated_areas,
     through: :area_moderators,

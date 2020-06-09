@@ -41,18 +41,20 @@ class AreaShow extends React.Component {
             lat, 
             lng, 
             gettingThere, 
-            parentName, 
+            mods, 
             routes, 
             childAreas, 
             pathway,
             createdAt,
-            photo_urls
+            photo_urls,
+            elevation
         } = this.state.area;
         let gettingThereDiv;
         let sidebarFill;
 
         const pathwayFill = [<Link className="show-pathway" to="/">All Areas</Link>];
-        const profilePhoto = photo_urls.length > 0 ? <img src={photo_urls[0]}></img> : null
+        const profilePhoto = photo_urls.length > 0 ? <img src={photo_urls[0]}></img> : null;
+        const modFill = mods.length > 0 ? `${mods[0].first_name} ${mods[0].last_name}` : 'No Moderation';
         const photosSection = photo_urls.length > 0 ? 
         <>
             <h2>Photos</h2>
@@ -152,7 +154,7 @@ class AreaShow extends React.Component {
                         <tbody>
                             <tr>
                                 <td className="description-details-left">Elevation:</td>
-                                <td>{ "Placeholder" } ft</td>
+                                <td>{ elevation } ft</td>
                             </tr>
                             <tr>
                                 <td className="description-details-left">GPS:</td>
@@ -160,7 +162,7 @@ class AreaShow extends React.Component {
                             </tr>
                             <tr>
                                 <td className="description-details-left">Admins:</td>
-                                <td>Placeholder</td>
+                                <td>{ modFill }</td>
                             </tr>
                         </tbody>
                     </table>
