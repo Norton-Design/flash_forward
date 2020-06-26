@@ -4,7 +4,7 @@
 
 [Live Demo](https://flash-forward-app.herokuapp.com/#/)
 
-Flash Forward is a [Mountain Project](https://www.mountainproject.com/) clone that allows users to browse and find rock climbing areas and routes across the US. Currently, only new routes and areas can be added, but the site will eventually support user commenting, photo sharing, and a route searcher. This project utilizes PostgreSQL and Rails for backend support and React/Redux for frontend support.
+Flash Forward is a [Mountain Project](https://www.mountainproject.com/) clone that allows users to browse and find rock climbing areas and routes across the US. New routes and areas can be added, and user commenting, photo sharing, and a route searcher are all supported. This project utilizes PostgreSQL and Rails for backend support and React/Redux for frontend support.
 
 ## Technologies 
 
@@ -28,7 +28,7 @@ Modal dropdown forms allow users to interact with the frontend User Auth, which 
 
 ### Areas
 
-Area show pages display vital stats about areas, like descriptions, directions, GPS location, and others. It is from this page that users can add other sub-areas or routes, but not both (areas can be only have routes or sub-areas, not both), and are routed to creation forms for that process. Sidebar contains links to sub-areas or routes, depending on what said area has.
+Area show pages display vital stats about areas, like descriptions, directions, GPS location, and others. It is from this page that users can add other sub-areas or routes, but not both (areas can be only have routes or sub-areas, not both), and are routed to creation forms for that process. Sidebar contains links to sub-areas or routes, depending on what said area has and users may add photos to areas.
 
 Setting the ancestor pathway links was the most difficulty part of this page and required recursion to grab ancestor data to pass to this component:
 
@@ -47,7 +47,9 @@ Setting the ancestor pathway links was the most difficulty part of this page and
 
 Route show page has the routes vitals, route type, elevation, pitch length, the original poster and the post date, as well as the description of the route, and the required protection equipment needed to make climbing the route safe. A sidebar links users to sibling routes within the route's parent area.
 
-Within the new route form, I enjoyed creating components that were added or changed depending of the component state (although it could use refactoring to a be a switch statement):
+Users can share photos and comments on Routes to encourage community engagement.
+
+Within the new route form, I enjoyed creating components that were added or changed depending of the component state (although it could use refactoring to be a switch statement):
 
 ![Screenshot_2020-04-17 FlashForward(2)](https://user-images.githubusercontent.com/56661062/79588469-f95e0580-80a1-11ea-8fe4-6f1383b94492.png)
 
@@ -118,9 +120,6 @@ Within the new route form, I enjoyed creating components that were added or chan
 
 ## Future Features
 
-- Users will be able to add photos to routes and areas
-- Users will be able to add comments to routes and area
-- Route finder
 - Add a user dashboard
 - Users will be able to add routes to a to-do list (projects)
 - Users will be able to rate routes 
